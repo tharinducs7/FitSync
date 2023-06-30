@@ -1,0 +1,245 @@
+{
+  {
+    "workouts": [
+      {
+        "workout_key": "running",
+        "workout_name": "Running",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 9.6,
+              "max": 12.8
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 11.2,
+              "max": 14.9
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 12.8,
+              "max": 17.1
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "cycling",
+        "workout_name": "Cycling",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 6.7,
+              "max": 8.9
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 7.8,
+              "max": 10.4
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 8.9,
+              "max": 11.8
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "swimming",
+        "workout_name": "Swimming",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 8.5,
+              "max": 11.3
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 9.9,
+              "max": 13.2
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 11.3,
+              "max": 15.1
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "jumping_jacks",
+        "workout_name": "Jumping Jacks",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 8.1,
+              "max": 10.7
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 9.4,
+              "max": 12.5
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 10.7,
+              "max": 14.2
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "weightlifting",
+        "workout_name": "Weightlifting",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 4.9,
+              "max": 6.5
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 5.7,
+              "max": 7.6
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 6.5,
+              "max": 8.7
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "elliptical",
+        "workout_name": "Elliptical",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 7.4,
+              "max": 9.9
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 8.6,
+              "max": 11.5
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 9.9,
+              "max": 13.2
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "walking",
+        "workout_name": "Walking",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 3.7,
+              "max": 4.9
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 4.3,
+              "max": 5.7
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 4.9,
+              "max": 6.5
+            }
+          }
+        ]
+      },
+      {
+        "workout_key": "yoga",
+        "workout_name": "Yoga",
+        "weight_category": [
+          {
+            "weight_range_key": "under_70_kg",
+            "weight_range": "Under 70 kg",
+            "calories_burned_per_minute": {
+              "min": 2.4,
+              "max": 3.2
+            }
+          },
+          {
+            "weight_range_key": "70_90_kg",
+            "weight_range": "70-90 kg",
+            "calories_burned_per_minute": {
+              "min": 2.8,
+              "max": 3.7
+            }
+          },
+          {
+            "weight_range_key": "over_90_kg",
+            "weight_range": "Over 90 kg",
+            "calories_burned_per_minute": {
+              "min": 3.2,
+              "max": 4.3
+            }
+          }
+        ]
+      }
+    ]
+  }
