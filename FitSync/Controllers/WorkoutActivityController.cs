@@ -95,10 +95,7 @@ namespace FitSync.Controllers
 
                 // Update the properties of the workout activity with the values from the updatedWorkoutActivity
                 workoutActivity.WorkoutType = updatedWorkoutActivity.WorkoutType;
-                workoutActivity.UserWeight = updatedWorkoutActivity.UserWeight;
                 workoutActivity.DurationInMinutes = updatedWorkoutActivity.DurationInMinutes;
-                workoutActivity.CaloriesBurnedPerMinute = updatedWorkoutActivity.CaloriesBurnedPerMinute;
-                workoutActivity.DateTime = updatedWorkoutActivity.DateTime;
 
                 return RedirectToAction("Index");
             }

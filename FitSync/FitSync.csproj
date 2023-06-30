@@ -454,6 +454,8 @@
     <Content Include="Utils\workoutTypes.json" />
     <Content Include="Views\WorkoutActivity\Index.cshtml" />
     <Content Include="Views\WorkoutActivity\Create.cshtml" />
+    <Content Include="Views\WorkoutActivity\Edit.cshtml" />
+    <Content Include="Views\WorkoutActivity\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

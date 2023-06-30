@@ -1,9 +1,10 @@
 ﻿@model FitSync.Models.WorkoutActivity
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container-fluid">
     <div class="page-titles">
         <ol class="breadcrumb">
@@ -37,9 +38,8 @@
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Workout Type</label>
                                     <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType">
-                                        <option value="">Select Workout Type</option>
-                                        <option value="cycling">Cycling</option>
-                                        <option value="yoga">Yoga</option>
+                                        <option value="cycling" @(Model.WorkoutType == "cycling" ? "selected" : "")>Cycling</option>
+                                        <option value="yoga" @(Model.WorkoutType == "yoga" ? "selected" : "")>Yoga</option>
                                         <!-- Add more options for different workout types -->
                                     </select>
                                 </div>
@@ -58,7 +58,7 @@
                                         <button type="submit" class="btn btn-rounded btn-primary">
                                             <span class="btn-icon-left text-primary">
                                                 <i class="fa fa-save"></i>
-                                            </span>Save
+                                            </span>Update
                                         </button>
                                     </div>
                                 </div>
@@ -73,5 +73,6 @@
 </div>
 
 @section Scripts {
+    
     @Scripts.Render("~/bundles/jqueryval")
 }
