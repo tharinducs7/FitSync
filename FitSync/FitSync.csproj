@@ -144,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ajax\food-menu-list.html" />
+    <Content Include="Assets\bmi\1.png" />
+    <Content Include="Assets\bmi\2.png" />
+    <Content Include="Assets\bmi\3.png" />
+    <Content Include="Assets\bmi\4.png" />
+    <Content Include="Assets\bmi\5.png" />
+    <Content Include="Assets\bmi\6.png" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\icons\avasta\css\style.css" />
     <Content Include="Assets\icons\avasta\fonts\avasta.svg" />
