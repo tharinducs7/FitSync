@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitSync.Models
 {
@@ -6,8 +7,13 @@ namespace FitSync.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+
+        [Required(ErrorMessage = "Please select a workout type.")]
         public string WorkoutType { get; set; }
+
         public double UserWeight { get; set; }
+
+        [Required(ErrorMessage = "Please enter the duration in minutes.")]
         public int DurationInMinutes { get; set; }
         public double CaloriesBurnedPerMinute { get; set; }
         public DateTime DateTime { get; set; }

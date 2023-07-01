@@ -36,12 +36,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Workout Type</label>
-                                    <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType">
-                                        <option value="">Select Workout Type</option>
-                                        <option value="cycling">Cycling</option>
-                                        <option value="yoga">Yoga</option>
-                                        <!-- Add more options for different workout types -->
+                                    <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType" required>
+                                        @foreach (var workoutType in ViewBag.WorkoutTypes)
+                                        {
+                                            <option value="@workoutType.WorkoutKey">@workoutType.WorkoutName</option>
+                                        }
                                     </select>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.WorkoutType, "", new { @class = "text-danger" })</small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Duration In Minutes</label>

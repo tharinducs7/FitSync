@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace FitSync.Controllers
 {
@@ -34,6 +35,16 @@ namespace FitSync.Controllers
         // GET: WorkoutActivity/Create
         public ActionResult Create()
         {
+            // Read the workoutTypes.json file
+            string jsonFilePath = HttpContext.Server.MapPath("~/Utils/workoutTypes.json");
+            string jsonData = System.IO.File.ReadAllText(jsonFilePath);
+
+            // Deserialize the JSON data into a list of WorkoutType objects
+            List<WorkoutType> workoutTypes = JsonConvert.DeserializeObject<List<WorkoutType>>(jsonData);
+
+            // Pass the workoutTypes to the create view
+            ViewBag.WorkoutTypes = workoutTypes;
+
             return View();
         }
 
