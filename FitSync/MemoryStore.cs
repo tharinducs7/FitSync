@@ -1,6 +1,9 @@
 ﻿using FitSync.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace FitSync
 {
@@ -9,6 +12,8 @@ namespace FitSync
         private static List<WorkoutActivity> workoutActivities = new List<WorkoutActivity>();
         private static List<User> users = new List<User>();
         private static List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
+        private static List<CheatMealType> cheatMealTypes = LoadCheatMealTypes();
+
         // Get all workout activities
         public static List<WorkoutActivity> GetWorkoutActivities()
         {
@@ -51,9 +56,29 @@ namespace FitSync
             cheatMealLogs.Add(meal);
         }
 
+        // List cheatMeal Logs
         public static List<CheatMealLog> GetCheatMealLogs()
         {
             return cheatMealLogs;
+        }
+
+        // Get all cheat meal types
+        public static List<CheatMealType> GetAllCheatMealTypes()
+        {
+            return cheatMealTypes;
+        }
+
+        // Get cheat meal type by name
+        public static CheatMealType GetCheatMealTypeByName(string name)
+        {
+            return cheatMealTypes.FirstOrDefault(meal => meal.Meal.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static List<CheatMealType> LoadCheatMealTypes()
+        {
+            string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utils", "cheatMealTypes.json");
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            return JsonConvert.DeserializeObject<List<CheatMealType>>(jsonContent);
         }
     }
 }

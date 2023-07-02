@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FitSync.Models;
+using Newtonsoft.Json;
 
 namespace FitSync.Controllers
 {
@@ -25,6 +26,9 @@ namespace FitSync.Controllers
         // GET: CheatMealLog/Create
         public ActionResult Create()
         {
+            // Pass the CheatMealTypes to the create view
+            ViewBag.CheatMealTypes = MemoryStore.GetAllCheatMealTypes();
+
             return View();
         }
 
@@ -35,8 +39,11 @@ namespace FitSync.Controllers
             try
             {
                 // TODO: Add insert logic here
+                CheatMealType mealType = MemoryStore.GetCheatMealTypeByName(cheatMeal.Meal);
+
                 cheatMeal.Id = GetNextId();
                 cheatMeal.UserId = 1;
+                cheatMeal.Calories = mealType.Calories;
 
                 MemoryStore.AddCheatMeal(cheatMeal);
 

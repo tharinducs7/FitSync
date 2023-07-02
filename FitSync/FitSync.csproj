@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="MemoryStore.cs" />
     <Compile Include="Models\CheatMealLog.cs" />
+    <Compile Include="Models\CheatMealType.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />
     <Compile Include="Models\WorkutType.cs" />
@@ -463,6 +464,7 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\CheatMealLog\Create.cshtml" />
     <Content Include="Views\CheatMealLog\Index.cshtml" />
+    <None Include="Utils\cheatMealTypes.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

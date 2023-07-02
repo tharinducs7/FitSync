@@ -9,8 +9,10 @@ namespace FitSync.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string Name { get; set; }
+        public string Meal { get; set; }
         public string Note { get; set; }
         public double Calories { get; set; }
+        public double Qty { get; set; }
+        public DateTime RecordDate { get; set; }
     }
 }
