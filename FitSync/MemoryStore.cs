@@ -8,6 +8,7 @@ namespace FitSync
     {
         private static List<WorkoutActivity> workoutActivities = new List<WorkoutActivity>();
         private static List<User> users = new List<User>();
+        private static List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
         // Get all workout activities
         public static List<WorkoutActivity> GetWorkoutActivities()
         {
@@ -36,6 +37,23 @@ namespace FitSync
         public static User GetUserById(int id)
         {
             return users.FirstOrDefault(user => user.Id == id);
+        }
+
+        // Get all cheatMealLogsByUserId
+        public static IEnumerable<CheatMealLog> GetCheatMealsByUserId(int id)
+        {
+            return cheatMealLogs.Where(meal => meal.UserId == id).ToList();
+        }
+
+        // Add a new cheatMeal
+        public static void AddCheatMeal(CheatMealLog meal)
+        {
+            cheatMealLogs.Add(meal);
+        }
+
+        public static List<CheatMealLog> GetCheatMealLogs()
+        {
+            return cheatMealLogs;
         }
     }
 }

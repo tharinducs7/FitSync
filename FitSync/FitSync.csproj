@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CheatMealLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WorkoutActivityController.cs" />
@@ -137,6 +138,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MemoryStore.cs" />
+    <Compile Include="Models\CheatMealLog.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />
     <Compile Include="Models\WorkutType.cs" />
@@ -459,6 +461,8 @@
     <Content Include="Views\WorkoutActivity\Edit.cshtml" />
     <Content Include="Views\WorkoutActivity\Delete.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\CheatMealLog\Create.cshtml" />
+    <Content Include="Views\CheatMealLog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
