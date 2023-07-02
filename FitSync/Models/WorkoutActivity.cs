@@ -16,6 +16,7 @@ namespace FitSync.Models
         [Required(ErrorMessage = "Please enter the duration in minutes.")]
         public int DurationInMinutes { get; set; }
         public double CaloriesBurnedPerMinute { get; set; }
+        public double DistanceInKm { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

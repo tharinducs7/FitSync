@@ -21,7 +21,7 @@ namespace FitSync.Controllers
                 {
                     Id = 1,
                     UserId = 1,
-                    WorkoutType = "Cardio",
+                    WorkoutType = "Cycling",
                     UserWeight = 70,
                     DurationInMinutes = 45,
                     CaloriesBurnedPerMinute = 10,
@@ -64,7 +64,7 @@ namespace FitSync.Controllers
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
 
-            var workoutActivities = GetWorkoutActivities();
+            var workoutActivities = MemoryStore.GetWorkoutActivities();
 
             var weeklyReport = new List<WeeklyWorkoutReportData>();
 

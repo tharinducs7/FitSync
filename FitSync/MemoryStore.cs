@@ -13,7 +13,7 @@ namespace FitSync
         private static List<User> users = new List<User>();
         private static List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
         private static List<CheatMealType> cheatMealTypes = LoadCheatMealTypes();
-
+        private static List<WorkoutType> workoutTypes = LoadWorkoutTypes();
         // Get all workout activities
         public static List<WorkoutActivity> GetWorkoutActivities()
         {
@@ -24,6 +24,12 @@ namespace FitSync
         public static void AddWorkoutActivity(WorkoutActivity workoutActivity)
         {
             workoutActivities.Add(workoutActivity);
+        }
+
+        // Get all GetWorkoutActivityById
+        public static WorkoutActivity GetWorkoutActivityById(int id)
+        {
+            return workoutActivities.FirstOrDefault(w => w.Id == id);
         }
 
         // Get all users
@@ -74,11 +80,30 @@ namespace FitSync
             return cheatMealTypes.FirstOrDefault(meal => meal.Meal.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
+        // Get all workout types
+        public static List<WorkoutType> GetAllWorkoutTypes()
+        {
+            return workoutTypes;
+        }
+
+        // Get workout type by name
+        public static WorkoutType GetWorkoutTypeByName(string name)
+        {
+            return workoutTypes.FirstOrDefault(workout => workout.WorkoutName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
         private static List<CheatMealType> LoadCheatMealTypes()
         {
             string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utils", "cheatMealTypes.json");
             string jsonContent = File.ReadAllText(jsonFilePath);
             return JsonConvert.DeserializeObject<List<CheatMealType>>(jsonContent);
+        }
+
+        private static List<WorkoutType> LoadWorkoutTypes()
+        {
+            string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utils", "workoutTypes.json");
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            return JsonConvert.DeserializeObject<List<WorkoutType>>(jsonContent);
         }
     }
 }

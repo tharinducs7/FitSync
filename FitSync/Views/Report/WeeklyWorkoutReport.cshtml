@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FitSync.Models.WeeklyWorkoutReportData>
+
+@{
+    ViewBag.Title = "WeeklyWorkoutReport";
+}
+
+<h2>WeeklyWorkoutReport</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Workout Type</th>
+            <th>User Weight</th>
+            <th>Duration (minutes)</th>
+            <th>Calories Burned</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dailyReport in Model)
+        {
+            <tr>
+                <td>@dailyReport.Date.ToShortDateString()</td>
+                <td>
+                    @if (dailyReport.Workouts.Any())
+                    {
+                        foreach (var workout in dailyReport.Workouts)
+                        {
+                            <div>@workout.WorkoutType</div>
+                        }
+                    }
+                    else
+                    {
+                        <div>No workouts</div>
+                    }
+                </td>
+                <td>@dailyReport.Workouts.FirstOrDefault()?.UserWeight</td>
+                <td>@dailyReport.Workouts.Sum(w => w.DurationInMinutes)</td>
+                <td>@dailyReport.Workouts.Sum(w => w.DurationInMinutes * w.CaloriesBurnedPerMinute)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -183,6 +183,11 @@
     <Content Include="Assets\icons\themify-icons\css\themify-icons.css" />
     <Content Include="Assets\icons\themify-icons\fonts\themify9f249f24.svg" />
     <Content Include="Assets\icons\workouts\cycling.svg" />
+    <Content Include="Assets\icons\workouts\elliptical.svg" />
+    <Content Include="Assets\icons\workouts\running.svg" />
+    <Content Include="Assets\icons\workouts\swimming.svg" />
+    <Content Include="Assets\icons\workouts\walking.svg" />
+    <Content Include="Assets\icons\workouts\weightlifting.svg" />
     <Content Include="Assets\icons\workouts\yoga.svg" />
     <Content Include="Assets\images\1.jpg" />
     <Content Include="Assets\images\avatar\1.jpg" />
@@ -477,10 +482,10 @@
     <None Include="Utils\cheatMealTypes.json" />
     <Content Include="Views\CheatMealLog\Edit.cshtml" />
     <Content Include="Views\CheatMealLog\Delete.cshtml" />
+    <Content Include="Views\Report\WeeklyWorkoutReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

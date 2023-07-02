@@ -22,7 +22,7 @@ namespace FitSync.Controllers
         public ActionResult Details(int id)
         {
             // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
 
             if (workoutActivity == null)
             {
@@ -35,15 +35,9 @@ namespace FitSync.Controllers
         // GET: WorkoutActivity/Create
         public ActionResult Create()
         {
-            // Read the workoutTypes.json file
-            string jsonFilePath = HttpContext.Server.MapPath("~/Utils/workoutTypes.json");
-            string jsonData = System.IO.File.ReadAllText(jsonFilePath);
-
-            // Deserialize the JSON data into a list of WorkoutType objects
-            List<WorkoutType> workoutTypes = JsonConvert.DeserializeObject<List<WorkoutType>>(jsonData);
 
             // Pass the workoutTypes to the create view
-            ViewBag.WorkoutTypes = workoutTypes;
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
 
             return View();
         }
@@ -58,12 +52,32 @@ namespace FitSync.Controllers
                 string formattedDate = today.ToString("yyyy-MM-dd");
 
                 DateTime dateTime = DateTime.Parse(formattedDate);
+
+                WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(workoutActivity.WorkoutType);
+                User user = MemoryStore.GetUserById(1);
                 // Assign a new unique ID to the workout activity
+
+                string weightRange = "under_70_kg";
+
+                if(user != null && user.Weight < 70)
+                {
+                    weightRange = "under_70_kg";
+                } else if(user.Weight > 70 || user.Weight < 90)
+                {
+                    weightRange = "70_90_kg";
+                } else
+                {
+                    weightRange = "over_90_kg";
+                }
+
+                WeightCategory weightCategory = workoutType.WeightCategories.FirstOrDefault(wc => wc.WeightRangeKey == weightRange);
+                double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
+
                 workoutActivity.Id = GetNextId();
-                workoutActivity.UserWeight = 60;
+                workoutActivity.UserWeight = user != null ? user.Weight: 70;
                 workoutActivity.UserId = 1;
-                workoutActivity.CaloriesBurnedPerMinute = 2;
-                workoutActivity.DateTime = dateTime;
+                workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
+                workoutActivity.WorkoutType = workoutType.WorkoutName;
 
                 // Add the workout activity to memory storage
                 MemoryStore.AddWorkoutActivity(workoutActivity);
@@ -80,7 +94,7 @@ namespace FitSync.Controllers
         public ActionResult Edit(int id)
         {
             // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
 
             if (workoutActivity == null)
             {
@@ -97,7 +111,7 @@ namespace FitSync.Controllers
             try
             {
                 // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
 
                 if (workoutActivity == null)
                 {
@@ -120,7 +134,7 @@ namespace FitSync.Controllers
         public ActionResult Delete(int id)
         {
             // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
 
             if (workoutActivity == null)
             {
@@ -137,7 +151,7 @@ namespace FitSync.Controllers
             try
             {
                 // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
 
                 if (workoutActivity == null)
                 {
