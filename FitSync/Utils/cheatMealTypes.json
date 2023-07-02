@@ -20,24 +20,14 @@
     "Calories": 500
   },
   {
-    "Meal": "Chocolate Chip Cookie",
+    "Meal": "Cookie",
     "Quantity": "1 cookie",
     "Calories": 200
-  },
-  {
-    "Meal": "Nachos with Cheese",
-    "Quantity": "1 portion",
-    "Calories": 450
   },
   {
     "Meal": "French Fries",
     "Quantity": "1 serving",
     "Calories": 350
-  },
-  {
-    "Meal": "Pasta Alfredo",
-    "Quantity": "1 plate",
-    "Calories": 700
   },
   {
     "Meal": "Milkshake",

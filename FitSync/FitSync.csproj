@@ -132,6 +132,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CheatMealLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WorkoutActivityController.cs" />
     <Compile Include="Global.asax.cs">
@@ -141,6 +142,7 @@
     <Compile Include="Models\CheatMealLog.cs" />
     <Compile Include="Models\CheatMealType.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\WeeklyWorkoutReportData.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />
     <Compile Include="Models\WorkutType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,6 +155,14 @@
     <Content Include="Assets\bmi\4.png" />
     <Content Include="Assets\bmi\5.png" />
     <Content Include="Assets\bmi\6.png" />
+    <Content Include="Assets\cheatMeals\Cheeseburger.svg" />
+    <Content Include="Assets\cheatMeals\Cookie.svg" />
+    <Content Include="Assets\cheatMeals\Donut.svg" />
+    <Content Include="Assets\cheatMeals\French Fries.svg" />
+    <Content Include="Assets\cheatMeals\Fried Chicken.svg" />
+    <Content Include="Assets\cheatMeals\Ice Cream Sundae.svg" />
+    <Content Include="Assets\cheatMeals\Milkshake.svg" />
+    <Content Include="Assets\cheatMeals\Pizza.svg" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\icons\avasta\css\style.css" />
     <Content Include="Assets\icons\avasta\fonts\avasta.svg" />
@@ -465,9 +475,12 @@
     <Content Include="Views\CheatMealLog\Create.cshtml" />
     <Content Include="Views\CheatMealLog\Index.cshtml" />
     <None Include="Utils\cheatMealTypes.json" />
+    <Content Include="Views\CheatMealLog\Edit.cshtml" />
+    <Content Include="Views\CheatMealLog\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

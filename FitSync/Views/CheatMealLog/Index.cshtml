@@ -4,46 +4,148 @@
     ViewBag.Title = "Index";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<h2>Index</h2>
-@if (Model != null && Model.Any())
-{
-    
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Meal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RecordDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calories)
-            </th>
-            <th></th>
-        </tr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-9 col-xxl-8">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="mr-auto pr-3 mb-sm-0 mb-3">
+                                <h4 class="text-black fs-20">Cheat Meals</h4>
+                                <p class="fs-13 mb-0 text-black">We don't recommond cheat meals btw</p>
+                            </div>
+                            <a href="/CheatMealLog/Create" class="btn btn-rounded btn-success btn-xs">
+                                <span class="btn-icon-left text-info">
+                                    <i class="fa fa-plus color-info"></i>
+                                </span>Add
+                            </a>
+                        </div>
+                        <div class="card-body loadmore-content pb-4 dz-scroll height750" id="DietMenusContent">
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                            <div class="media mb-3 pb-3 d-md-flex d-block menu-list">
+                                <img class="rounded mr-3 mb-md-0 mb-3" src="~/Assets/cheatMeals/@(item.Meal).svg" alt="" width="130">
+                                <div class="media-body col-lg-6 pl-0">
+                                    <h6 class="fs-16 font-w600"><a href="ecom-product-detail.html" class="text-black">@item.Meal</a></h6>
+                                    <p class="fs-14 mb-md-0 mb-3">@item.Note</p>
+                                </div>
+                                <ul class="m-md-auto mt-2 pr-4">
+                                    <li class="mb-2 text-nowrap"><i class="las la-clock scale5 mr-3"></i><span class="fs-14 text-black text-nowrap font-w500">@item.RecordDate.ToString("dd/MMM/yyyy")</span></li>
+                                    <li class="mb-2 text-nowrap"><i class="las la-prescription-bottle scale5 mr-3"></i><span class="text-nowrap fs-14 text-black font-w500">@item.Qty</span></li>
+                                    <li class="text-nowrap">
+                                        <i class="fa fa-star-o mr-3 scale5 text-warning" aria-hidden="true"></i><span class="text-nowrap fs-14 text-black font-w500">
+                                            @{
+                                                double totalCalories = item.Qty * item.Calories;
+                                            } @totalCalories
+                                        </span>
+                                    </li>
+                                </ul>
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-xs btn-warning m-1"><i class="fa fa-pencil"></i></a> 
+                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-xs btn-info m-1"><i class="fa fa-info-circle"></i></a> 
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-xs btn-danger m-1"><i class="fa fa-trash"></i></a>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Meal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RecordDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Calories)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
-}
+                            </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-xxl-4">
+            <div class="row">
+                <div class="col-xl-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="mr-auto pr-3">
+                                <h4 class="text-black fs-20">Current Diet Menu</h4>
+                                <p class="fs-13 mb-0">Lorem ipsum dolor sit ame</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block border-0 pb-4">
+                            <div class="mr-auto pr-3">
+                                <h4 class="text-black fs-20">Trending Ingridients</h4>
+                                <p class="fs-13 mb-0">Lorem ipsum dolor sit amet, consectetur</p>
+                            </div>
+                        </div>
+                        <div class="card-body loadmore-content dz-scroll pb-0 pt-0 height320" id="TrendingIngridientsContent">
+                            <div class="media border-bottom py-3">
+                                <a href="ecom-product-detail.html"><img src="images/menus/9.png" alt="" class="rounded mr-3" width="50"></a>
+                                <div class="pr-3 mr-auto media-body">
+                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Strawberry Fruit</a></h6>
+                                    <span class="fs-12">Vitamin A, B, C</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="d-block">
+                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
+                                        </svg>
+                                    </span>
+                                    <span class="d-block fs-16 text-black font-w600">#1</span>
+                                </div>
+                            </div>
+                            <div class="media border-bottom py-3">
+                                <a href="ecom-product-detail.html"><img src="images/menus/10.png" alt="" class="rounded mr-3" width="50"></a>
+                                <div class="pr-3 mr-auto media-body">
+                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Bananas Fruit</a></h6>
+                                    <span class="fs-12">Vitamin A, B, C</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="d-block">
+                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
+                                        </svg>
+                                    </span>
+                                    <span class="d-block fs-16 text-black font-w600">#2</span>
+                                </div>
+                            </div>
+                            <div class="media border-bottom py-3">
+                                <a href="ecom-product-detail.html"><img src="images/menus/11.png" alt="" class="rounded mr-3" width="50"></a>
+                                <div class="pr-3 mr-auto media-body">
+                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Orange Fruit</a></h6>
+                                    <span class="fs-12">Vitamin A, B, C</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="d-block">
+                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 9.00006L18 6.10352e-05H9L0 6.10352e-05L9 9.00006Z" fill="#C51E1E" />
+                                        </svg>
+                                    </span>
+                                    <span class="d-block fs-16 text-black font-w600">#3</span>
+                                </div>
+                            </div>
+                            <div class="media border-bottom py-3">
+                                <a href="ecom-product-detail.html"><img src="images/menus/12.png" alt="" class="rounded mr-3" width="50"></a>
+                                <div class="pr-3 mr-auto media-body">
+                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Grapes Fruit</a></h6>
+                                    <span class="fs-12">Vitamin A, B, C</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="d-block">
+                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
+                                        </svg>
+                                    </span>
+                                    <span class="d-block fs-16 text-black font-w600">#4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center border-0 pt-3 pb-4">
+                            <a class="text-primary dz-load-more" id="TrendingIngridients" rel="ajax/trending-ingridients.html" href="javascript:void(0);">View more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
