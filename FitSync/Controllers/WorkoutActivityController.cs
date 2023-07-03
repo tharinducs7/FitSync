@@ -101,6 +101,8 @@ namespace FitSync.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+
             return View(workoutActivity);
         }
 
@@ -121,6 +123,7 @@ namespace FitSync.Controllers
                 // Update the properties of the workout activity with the values from the updatedWorkoutActivity
                 workoutActivity.WorkoutType = updatedWorkoutActivity.WorkoutType;
                 workoutActivity.DurationInMinutes = updatedWorkoutActivity.DurationInMinutes;
+                workoutActivity.DistanceInKm = updatedWorkoutActivity.DistanceInKm;
 
                 return RedirectToAction("Index");
             }

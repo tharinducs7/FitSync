@@ -141,11 +141,13 @@
     <Compile Include="MemoryStore.cs" />
     <Compile Include="Models\CheatMealLog.cs" />
     <Compile Include="Models\CheatMealType.cs" />
+    <Compile Include="Models\DailyGoalReport.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WeeklyWorkoutReportData.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />
     <Compile Include="Models\WorkutType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DashboardDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ajax\food-menu-list.html" />

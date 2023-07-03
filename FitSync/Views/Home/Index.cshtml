@@ -17,8 +17,14 @@
                         </small>
                         <span class="circle bg-primary"></span>
                     </div>
-                    <h2 class="fs-24 text-black font-w600 mb-0">42%</h2>
-                    <span class="fs-14">Weekly Progress</span>
+                    <div class="media-body text-black">
+                        <p class="mb-1">Daily Exersise Goal</p>
+                        <h3 class="text-black">@ViewBag.DailyGoals.DailyExerciseGoal Min</h3>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-animated bg-primary" style="width:@(ViewBag.DailyGoals.DailyExerciseCompletionPercentage)%"></div>
+                        </div>
+                        <small>@(ViewBag.DailyGoals.DailyExerciseCompletionPercentage)% Completed</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,8 +47,14 @@
                         </small>
                         <span class="circle bg-danger"></span>
                     </div>
-                    <h2 class="fs-24 text-black font-w600 mb-0">67cal</h2>
-                    <span class="fs-14">Calories Burn</span>
+                    <div class="media-body text-black">
+                        <p class="mb-1">Daily Calorie Burn Goal</p>
+                        <h3 class="text-black">@ViewBag.DailyGoals.DailyCalorieGoal Cal</h3>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-animated bg-primary" style="width:@(ViewBag.DailyGoals.DailyCalorieCompletionPercentage)%"></div>
+                        </div>
+                        <small>@(ViewBag.DailyGoals.DailyCalorieCompletionPercentage)% Completed</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,8 +77,17 @@
                         </small>
                         <span class="circle bg-warning"></span>
                     </div>
-                    <h2 class="fs-24 text-black font-w600 mb-0">5 Left</h2>
-                    <span class="fs-14">Diet Programs</span>
+                    <div class="media-body text-black">
+                        <p class="mb-1">BMR</p>
+                        <h3 class="text-black">@ViewBag.BMR Cal</h3>
+                        @*<div class="progress mb-2">
+                                <div class="progress-bar progress-animated bg-primary" style="width:@(ViewBag.DailyGoals.DailyCalorieCompletionPercentage)%"></div>
+                            </div>*@
+                        <small>
+                            BMR is the amount of calories your body needs to maintain basic bodily functions at rest.
+                        </small>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -89,8 +110,18 @@
                         </small>
                         <span class="circle bg-info"></span>
                     </div>
-                    <h2 class="fs-24 text-black font-w600 mb-0">8 Hours</h2>
-                    <span class="fs-14">Sleeping Potency</span>
+                    <div class="media-body text-black">
+                        <p class="mb-1">BMI</p>
+                        <h3 class="text-black">@ViewBag.BMI</h3>
+                        @*<div class="progress mb-2">
+                                <div class="progress-bar progress-animated bg-primary" style="width:@(ViewBag.DailyGoals.DailyCalorieCompletionPercentage)%"></div>
+                            </div>*@
+                        <small>
+                            BMI is a measure of body fat based on height and weight.
+                        </small>
+                    </div>
+
+
                 </div>
             </div>
         </div>

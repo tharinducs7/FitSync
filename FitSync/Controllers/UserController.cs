@@ -49,6 +49,7 @@ namespace FitSync.Controllers
                 // TODO: Add insert logic here
                 // Hard code the user ID untill DB connection implemented 
                 user.Id = 1;
+                user.ActivityFactor = 1.2;
                 // Add the user to memory storage
                 MemoryStore.AddUser(user);
 
@@ -84,6 +85,7 @@ namespace FitSync.Controllers
                 user.DailyExerciseGoal = updatedUser.DailyExerciseGoal;
                 user.BloodType = updatedUser.BloodType;
                 user.DateOfBirth = updatedUser.DateOfBirth;
+                user.ActivityFactor = updatedUser.ActivityFactor;
 
                 return RedirectToAction("Index", "Home");
             }

@@ -46,7 +46,7 @@
                                     <div class="form-group col-md-12">
                                         <label class="col-form-label-sm">Date of Birth</label>
                                         <div class="input-group input-group-sm">
-                                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", type = "date", @Value = "1994-01-27" } })
+                                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", type = "date", @Max = DateTime.Today.AddYears(-16).ToString("yyyy-MM-dd") } })
                                         </div>
                                         <small class="d-block">  @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })  </small>
                                     </div>
@@ -105,6 +105,22 @@
                                             @Html.EditorFor(model => model.BloodType, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter blood type", @Value = "O+" } })
                                         </div>
                                         <small class="d-block">   @Html.ValidationMessageFor(model => model.BloodType, "", new { @class = "text-danger" }) </small>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="col-form-label-sm">Gender</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="radio-inline col-form-label-sm mr-5 ml-3">
+                                                @Html.RadioButtonFor(model => model.Gender, "Male", new { @class = "form-check-input" })
+                                                Male
+                                            </div>
+                                            <br />
+                                            <div class="radio-inline col-form-label-sm">
+                                                @Html.RadioButtonFor(model => model.Gender, "Female", new { @class = "form-check-input" })
+                                                Female
+                                            </div>
+                                        </div>
+                                        <small class="d-block">@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })</small>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
