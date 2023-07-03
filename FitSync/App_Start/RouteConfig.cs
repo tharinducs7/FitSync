@@ -12,7 +12,7 @@ namespace FitSync
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional }
             );
         }
     }

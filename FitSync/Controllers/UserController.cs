@@ -23,7 +23,7 @@ namespace FitSync.Controllers
         }
 
         // GET: User/Create
-        public ActionResult Create()
+        public ActionResult Register()
         {
             User user = MemoryStore.GetUserById(1);
 
@@ -42,7 +42,7 @@ namespace FitSync.Controllers
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Register(User user)
         {
             try
             {
@@ -63,7 +63,8 @@ namespace FitSync.Controllers
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            User user = MemoryStore.GetUserById(id);
+            return View(user);
         }
 
         // POST: User/Edit/5
@@ -73,8 +74,18 @@ namespace FitSync.Controllers
             try
             {
                 // TODO: Add update logic here
+                User user = MemoryStore.GetUserById(id);
 
-                return RedirectToAction("Index");
+                user.Name = updatedUser.Name;
+                user.Height = updatedUser.Height;
+                user.Weight = updatedUser.Weight;
+                user.Telephone = updatedUser.Telephone;
+                user.DailyCalorieGoal = updatedUser.DailyCalorieGoal;
+                user.DailyExerciseGoal = updatedUser.DailyExerciseGoal;
+                user.BloodType = updatedUser.BloodType;
+                user.DateOfBirth = updatedUser.DateOfBirth;
+
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

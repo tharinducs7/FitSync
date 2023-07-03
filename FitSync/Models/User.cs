@@ -12,6 +12,7 @@ namespace FitSync.Models
         public double Weight { get; set; }
         public double Height { get; set; }
         public string BloodType { get; set; }
-
+        public double DailyCalorieGoal { get; set; }
+        public double DailyExerciseGoal { get; set; }
     }
 }

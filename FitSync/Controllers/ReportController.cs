@@ -53,12 +53,6 @@ namespace FitSync.Controllers
             return workoutActivities;
         }
 
-        // GET: Report
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult WeeklyWorkoutReport()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
@@ -84,5 +78,33 @@ namespace FitSync.Controllers
 
             return View(weeklyReport);
         }
+
+        [HttpPost]
+        public ActionResult WeeklyWorkoutReport(DateTime date, string workoutType)
+        {
+            var startDate = date.AddDays(-(int)date.DayOfWeek); // Start from Sunday
+            var endDate = startDate.AddDays(6); // End on Saturday
+
+            var workoutActivities = MemoryStore.GetWorkoutActivities();
+
+            var weeklyReport = new List<WeeklyWorkoutReportData>();
+
+            // Generate weekly report
+            for (DateTime currentDate = startDate; currentDate <= endDate; currentDate = currentDate.AddDays(1))
+            {
+                var dailyReport = new WeeklyWorkoutReportData
+                {
+                    Date = currentDate,
+                    Workouts = (workoutType == "all")
+                      ? workoutActivities.Where(w => w.DateTime.Date == currentDate.Date).ToList()
+                      : workoutActivities.Where(w => w.DateTime.Date == currentDate.Date && w.WorkoutType == workoutType).ToList()
+                };
+
+                weeklyReport.Add(dailyReport);
+            }
+
+            return View(weeklyReport);
+        }
+
     }
 }

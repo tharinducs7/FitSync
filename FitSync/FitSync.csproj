@@ -214,8 +214,10 @@
     <Content Include="Assets\images\dots.png" />
     <Content Include="Assets\images\dots.svg" />
     <Content Include="Assets\images\favicon.png" />
+    <Content Include="Assets\images\fitsync.png" />
     <Content Include="Assets\images\logo-text.png" />
     <Content Include="Assets\images\logo.png" />
+    <Content Include="Assets\images\logofit.png" />
     <Content Include="Assets\images\map.png" />
     <Content Include="Assets\images\menus\1.png" />
     <Content Include="Assets\images\menus\10.png" />
@@ -476,13 +478,14 @@
     <Content Include="Views\WorkoutActivity\Create.cshtml" />
     <Content Include="Views\WorkoutActivity\Edit.cshtml" />
     <Content Include="Views\WorkoutActivity\Delete.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\CheatMealLog\Create.cshtml" />
     <Content Include="Views\CheatMealLog\Index.cshtml" />
     <None Include="Utils\cheatMealTypes.json" />
     <Content Include="Views\CheatMealLog\Edit.cshtml" />
     <Content Include="Views\CheatMealLog\Delete.cshtml" />
     <Content Include="Views\Report\WeeklyWorkoutReport.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
