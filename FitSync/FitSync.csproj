@@ -143,6 +143,7 @@
     <Compile Include="Models\CheatMealType.cs" />
     <Compile Include="Models\DailyGoalReport.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\WeeklyCheatMealReportData.cs" />
     <Compile Include="Models\WeeklyWorkoutReportData.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />
     <Compile Include="Models\WorkutType.cs" />
@@ -489,6 +490,8 @@
     <Content Include="Views\CheatMealLog\Delete.cshtml" />
     <Content Include="Views\Report\WeeklyWorkoutReport.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Report\WeeklyCheatMealReport.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

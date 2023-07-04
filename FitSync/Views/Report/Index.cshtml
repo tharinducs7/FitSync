@@ -1,0 +1,332 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-8 col-xxl-8">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="d-flex align-items-center">
+                                <span class="p-3 mr-3 rounded bg-warning">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip1)">
+                                            <path d="M0.988957 17.0741C0.328275 17.2007 -0.104585 17.8386 0.0219823 18.4993C0.133362 19.0815 0.644694 19.4865 1.21678 19.4865C1.29272 19.4865 1.37119 19.4789 1.44713 19.4637L6.4592 18.5018C6.74524 18.4461 7.00091 18.2917 7.18316 18.0639L9.33481 15.3503L8.61593 14.9832C8.08435 14.7149 7.71475 14.2289 7.58818 13.6391L5.55804 16.1983L0.988957 17.0741Z" fill="white" />
+                                            <path d="M18.84 6.49306C20.3135 6.49306 21.508 5.29854 21.508 3.82502C21.508 2.3515 20.3135 1.15698 18.84 1.15698C17.3665 1.15698 16.1719 2.3515 16.1719 3.82502C16.1719 5.29854 17.3665 6.49306 18.84 6.49306Z" fill="white" />
+                                            <path d="M13.0179 3.15677C12.7369 2.86819 12.4762 2.75428 12.1902 2.75428C12.0864 2.75428 11.9826 2.76947 11.8712 2.79479L7.29203 3.88073C6.6592 4.03008 6.26937 4.66545 6.41872 5.29576C6.54782 5.83746 7.02877 6.20198 7.56289 6.20198C7.65404 6.20198 7.74514 6.19185 7.8363 6.16907L11.7371 5.24513C11.9902 5.52611 13.2584 6.90063 13.4888 7.14364C11.8763 8.87002 10.2639 10.5939 8.65137 12.3202C8.62605 12.3481 8.60329 12.3759 8.58049 12.4038C8.10966 13.0037 8.25397 13.9454 8.96275 14.3023L13.9064 16.826L11.3397 20.985C10.9878 21.5571 11.165 22.3064 11.7371 22.6608C11.9371 22.7848 12.1573 22.843 12.375 22.843C12.7825 22.843 13.1824 22.638 13.4128 22.2659L16.6732 16.983C16.8529 16.6919 16.901 16.34 16.8074 16.0135C16.7137 15.6844 16.4884 15.411 16.1821 15.2566L12.8331 13.553L16.3543 9.78636L19.0122 12.0393C19.2324 12.2266 19.5032 12.3177 19.7716 12.3177C20.0601 12.3177 20.3487 12.2114 20.574 12.0038L23.6243 9.16112C24.1002 8.71814 24.128 7.97392 23.685 7.49803C23.4521 7.24996 23.1383 7.12339 22.8244 7.12339C22.5383 7.12339 22.2497 7.22717 22.0245 7.43727L19.7412 9.56107C19.7386 9.56361 14.0178 4.18196 13.0179 3.15677Z" fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip1">
+                                                <rect width="24" height="24" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <div class="mr-auto pr-3">
+                                    <h4 class="text-black fs-20">Weekly Distance Overview </h4>
+                                    <p class="fs-13 mb-0 text-black">Overview for the current week</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div id="distanceChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="d-flex align-items-center">
+                                <span class="p-3 mr-3 rounded bg-info">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.8586 5.22599L5.87121 10.5543C5.50758 11.0846 5.64394 11.8068 6.17172 12.1679L11.1945 15.6098V18.9558C11.1945 19.5921 11.6995 20.125 12.3359 20.1376C12.9874 20.1477 13.5177 19.625 13.5177 18.976V15.0013C13.5177 14.6174 13.3283 14.2588 13.0126 14.0442L9.79041 11.8346L12.5025 8.95836L13.8914 12.1225C14.0758 12.5442 14.4949 12.817 14.9546 12.817H19.1844C19.8207 12.817 20.3536 12.3119 20.3662 11.6755C20.3763 11.024 19.8536 10.4937 19.2046 10.4937H15.7172C15.2576 9.44824 14.7677 8.41288 14.3409 7.35228C14.1237 6.81693 14.0025 6.5846 13.6036 6.21592C13.5227 6.14016 12.9596 5.62501 12.4571 5.16541C11.995 4.74619 11.2828 4.77397 10.8586 5.22599Z" fill="white" />
+                                        <path d="M15.6162 5.80681C17.0861 5.80681 18.2778 4.61517 18.2778 3.1452C18.2778 1.67523 17.0861 0.483582 15.6162 0.483582C14.1462 0.483582 12.9545 1.67523 12.9545 3.1452C12.9545 4.61517 14.1462 5.80681 15.6162 5.80681Z" fill="white" />
+                                        <path d="M4.89899 23.5164C7.60463 23.5164 9.79798 21.3231 9.79798 18.6174C9.79798 15.9118 7.60463 13.7184 4.89899 13.7184C2.19335 13.7184 0 15.9118 0 18.6174C0 21.3231 2.19335 23.5164 4.89899 23.5164Z" fill="white" />
+                                        <path d="M19.101 23.5164C21.8066 23.5164 24 21.3231 24 18.6174C24 15.9118 21.8066 13.7184 19.101 13.7184C16.3954 13.7184 14.202 15.9118 14.202 18.6174C14.202 21.3231 16.3954 23.5164 19.101 23.5164Z" fill="white" />
+                                    </svg>
+                                </span>
+                                <div class="mr-auto pr-3">
+                                    <h4 class="text-black fs-20">WOrkout Duration Overview</h4>
+                                    <p class="fs-13 mb-0 text-black">Overview of how many minutes you have workout for this week</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div id="durationChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="d-flex align-items-center">
+                                <span class="p-3 mr-3 rounded bg-secondary">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip2)">
+                                            <path d="M11.9997 5.9999C13.6565 5.9999 14.9997 4.65677 14.9997 2.99995C14.9997 1.34312 13.6565 0 11.9997 0C10.3429 0 8.99977 1.34312 8.99977 2.99995C8.99977 4.65677 10.3429 5.9999 11.9997 5.9999Z" fill="white" />
+                                            <path d="M17.8305 21.8297L14.136 23.2153L15.9733 23.9042C16.7639 24.1978 17.6171 23.791 17.9046 23.0261C18.0576 22.618 18.0124 22.1905 17.8305 21.8297Z" fill="white" />
+                                            <path d="M5.02674 16.5949C4.2526 16.3078 3.38687 16.6974 3.0954 17.473C2.80464 18.2486 3.19796 19.1128 3.97351 19.4043L5.59177 20.0111L9.86409 18.4088L5.02674 16.5949Z" fill="white" />
+                                            <path d="M20.9045 17.473C20.613 16.6974 19.7473 16.3078 18.9732 16.5949L6.97342 21.0948C6.19778 21.3863 5.8045 22.2505 6.09527 23.0262C6.38275 23.7908 7.23569 24.198 8.02661 23.9043L20.0264 19.4044C20.802 19.1129 21.1953 18.2487 20.9045 17.473Z" fill="white" />
+                                            <path d="M22.4997 11.9998H18.9271L16.3417 6.82899C16.073 6.29213 15.5264 5.98627 14.9631 5.99991L11.9997 5.9999L9.0366 5.99991C8.4734 5.98627 7.92754 6.29217 7.65825 6.82899L5.07286 11.9998H1.50019C0.671868 11.9998 0.000244141 12.6714 0.000244141 13.4997C0.000244141 14.328 0.671868 14.9997 1.50019 14.9997H6.00009C6.56845 14.9997 7.08773 14.6789 7.34184 14.1706L8.99999 10.8543V16.483L11.9998 17.6079L14.9999 16.4827V10.8543L16.658 14.1706C16.9122 14.6789 17.4315 14.9997 17.9998 14.9997H22.4997C23.328 14.9997 23.9996 14.328 23.9996 13.4997C23.9996 12.6714 23.3281 11.9998 22.4997 11.9998Z" fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip2">
+                                                <rect width="24" height="24" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <div class="mr-auto pr-3">
+                                    <h4 class="text-black fs-20">Weekly Overview for Calorie Burnout</h4>
+                                    <p class="fs-13 mb-0 text-black">How many calories burned during the week</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div id="calorieChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-xxl-4">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header flex-wrap border-0 pb-0">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <h4 class="text-black fs-20 mb-3">Workout Report</h4>
+                            <small>Click on generate button to see the report</small>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="@Url.Action("WeeklyWorkoutReport")">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-form-label-sm"><b> Date </b></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="date" name="date" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                        </div>
+
+                                        <label class="col-form-label-sm"><b> Workout Type </b></label>
+                                        <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType" required>
+                                            <option value="All">All</option>
+                                            @foreach (var workoutType in ViewBag.WorkoutTypes)
+                                            {
+                                                <option value="@workoutType.WorkoutName">@workoutType.WorkoutName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group input-group-sm">
+                                            <button type="submit" class="btn btn-primary btn-md mb-2">Generate Weekly Workout Report<i class="las la-angle-right ml-3 scale5"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header flex-wrap border-0 pb-0">
+                            <i class="fa-sharp fa-solid fa-pizza-slice"></i>
+                            <h4 class="text-black fs-20 mb-3">Cheat Meal Report</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="@Url.Action("WeeklyCheatMealReport")">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-form-label-sm"><b> Date </b></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="selectedDate" name="selectedDate" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                        </div>
+                                        <label class="col-form-label-sm"><b> Workout Type </b></label>
+                                        <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType" required>
+                                            <option value="All">All</option>
+                                            @foreach (var workoutType in ViewBag.WorkoutTypes)
+                                            {
+                                                <option value="@workoutType.WorkoutName">@workoutType.WorkoutName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="input-group input-group-sm">
+                                            <button type="submit" class="btn btn-primary btn-md mb-2">Generate Weekly Workout Report<i class="las la-angle-right ml-3 scale5"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script>
+    const chartData = @Html.Raw(Json.Encode(ViewBag.ChartData));
+
+    const distanceChartOptions = {
+        series: [
+            {
+                name: 'Distance in KM',
+                data: chartData.map(item => item.distance)
+            }
+        ],
+        chart: {
+            type: 'bar',
+            height: 200
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: chartData.map(item => item.date),
+            labels: {
+                rotate: -45
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'KM'
+            }
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'center',
+            offsetY: -20
+        },
+        colors: ['#33BDFF']
+        };
+
+        const distanceChart = new ApexCharts(document.querySelector("#distanceChart"), distanceChartOptions);
+        distanceChart.render();
+
+        const durationChartOptions = {
+            series: [
+                {
+                    name: 'Duration In Minutes',
+                    data: chartData.map(item => item.duration)
+                }
+            ],
+            chart: {
+                type: 'line',
+                height: 200
+            },
+            annotations: {
+                yaxis: [
+                    {
+                        y: 60,
+                        borderColor: '#00E396',
+                        label: {
+                            borderColor: '#00E396',
+                            style: {
+                                color: '#fff',
+                                background: '#00E396',
+                            },
+                            text: 'Daily Target',
+                        }
+                    },
+                ]
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: chartData.map(item => item.date),
+                labels: {
+                    rotate: -45
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Duration in Minutes'
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'center',
+                offsetY: -20
+            },
+            colors: ['#33FFDB']
+        };
+
+        const durationChart = new ApexCharts(document.querySelector("#durationChart"), durationChartOptions);
+        durationChart.render();
+
+        const calorieChartOptions = {
+            series: [
+                {
+                    name: 'Calories',
+                    data: chartData.map(item => item.calories)
+                }
+            ],
+            chart: {
+                type: 'bar',
+                height: 200
+            },
+            annotations: {
+                xaxis: [
+                    {
+                        x: 400,
+                        borderColor: '#00E396',
+                        label: {
+                            borderColor: '#00E396',
+                            style: {
+                                color: '#fff',
+                                background: '#00E396',
+                            },
+                            text: 'Daily Target',
+                        }
+                    },
+                ]
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    columnWidth: '55%',
+                    borderRadius: 5
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: chartData.map(item => item.date),
+                labels: {
+                    rotate: -45
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Calories'
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'center',
+                offsetY: -20
+            },
+            colors: ['#FFB433']
+        };
+
+
+        const calorieChart = new ApexCharts(document.querySelector("#calorieChart"), calorieChartOptions);
+        calorieChart.render();
+    </script>
+}

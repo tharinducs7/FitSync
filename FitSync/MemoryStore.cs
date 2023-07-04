@@ -68,6 +68,12 @@ namespace FitSync
             return cheatMealLogs;
         }
 
+        // Get cheatmeal by Id
+        public static CheatMealLog GetCheatMealLogById(int id)
+        {
+            return cheatMealLogs.FirstOrDefault(cheatmeal => cheatmeal.Id == id);
+        }
+
         // Get all cheat meal types
         public static List<CheatMealType> GetAllCheatMealTypes()
         {
@@ -106,15 +112,16 @@ namespace FitSync
             return JsonConvert.DeserializeObject<List<WorkoutType>>(jsonContent);
         }
 
+        /*
+         This will generate some random data, since this is on MVP
+         */
         public static List<WorkoutActivity> GenerateJulyWorkoutActivities()
         {
             List<WorkoutActivity> julyWorkoutActivities = new List<WorkoutActivity>();
 
             Random random = new Random();
 
-           
-
-            for (int day = 1; day <= 31; day++)
+            for (int i = 1; i <= 31; i++)
             {
                 int duration = random.Next(30, 90);
                 int distance = random.Next(1, 10);
@@ -123,7 +130,7 @@ namespace FitSync
 
                 AddWorkoutActivity(new WorkoutActivity
                 {
-                    Id = day,
+                    Id = i,
                     UserId = 1,
                     WorkoutType = "Running",
                     DurationInMinutes = duration,
@@ -134,6 +141,36 @@ namespace FitSync
             }
 
             return julyWorkoutActivities;
+        }
+
+        /*
+ This will generate some random data, since this is on MVP
+ */
+        public static List<CheatMealLog> GenerateDummyCheatMealLogs()
+        {
+            List<CheatMealLog> dummyCheatMealLogs = new List<CheatMealLog>();
+
+            Random random = new Random();
+
+            for (int i = 1; i <= 31; i++)
+            {
+                int qty = random.Next(1, 10);
+                int calories = random.Next(10, 50);
+                int dates = random.Next(1, 31);
+
+                AddCheatMeal(new CheatMealLog
+                {
+                    Id = i,
+                    UserId = 1,
+                    Meal = "Pizza",
+                    Note = "dummy",
+                    Calories = calories,
+                    Qty = qty,
+                    RecordDate = new DateTime(2023, 7, dates)
+                });
+            }
+
+            return dummyCheatMealLogs;
         }
     }
 }

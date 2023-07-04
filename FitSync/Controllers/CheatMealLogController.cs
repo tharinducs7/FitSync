@@ -58,16 +58,24 @@ namespace FitSync.Controllers
         // GET: CheatMealLog/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
+            ViewBag.CheatMealTypes = MemoryStore.GetAllCheatMealTypes();
+            return View(cheatMeal);
         }
 
         // POST: CheatMealLog/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, CheatMealLog updatedCheatMeal)
         {
             try
             {
-                // TODO: Add update logic here
+                CheatMealType mealType = MemoryStore.GetCheatMealTypeByName(updatedCheatMeal.Meal);
+                CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
+
+                cheatMeal.Meal = mealType.Meal;
+                cheatMeal.Calories = mealType.Calories;
+                cheatMeal.Qty = updatedCheatMeal.Qty;
+                cheatMeal.RecordDate = updatedCheatMeal.RecordDate;
 
                 return RedirectToAction("Index");
             }
@@ -80,16 +88,25 @@ namespace FitSync.Controllers
         // GET: CheatMealLog/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
+            return View(cheatMeal);
         }
 
         // POST: CheatMealLog/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, CheatMealLog meal)
         {
             try
             {
-                // TODO: Add delete logic here
+                CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
+
+                if (cheatMeal == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Remove the workout activity from memory storage
+                MemoryStore.GetCheatMealLogs().Remove(cheatMeal);
 
                 return RedirectToAction("Index");
             }

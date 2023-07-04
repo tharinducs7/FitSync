@@ -10,7 +10,10 @@ namespace FitSync.Controllers
         {
             User user = MemoryStore.GetUserById(1);
             DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
+           
+            // Generate Dummy Values
             MemoryStore.GenerateJulyWorkoutActivities();
+            MemoryStore.GenerateDummyCheatMealLogs();
 
             double bmi = user.CalculateBMI();
             double bmr = user.CalculateBMR();
