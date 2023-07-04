@@ -9,55 +9,11 @@ namespace FitSync.Controllers
 {
     public class ReportController : Controller
     {
-        private List<WorkoutActivity> GetWorkoutActivities()
-        {
-            // This is a sample data retrieval method.
-            // You may replace it with your own logic to fetch workout activities from a database or any other data source.
-            // For demonstration purposes, a static list is used here.
-
-            var workoutActivities = new List<WorkoutActivity>
-            {
-                new WorkoutActivity
-                {
-                    Id = 1,
-                    UserId = 1,
-                    WorkoutType = "Cycling",
-                    UserWeight = 70,
-                    DurationInMinutes = 45,
-                    CaloriesBurnedPerMinute = 10,
-                    DateTime = new DateTime(2023, 7, 1)
-                },
-                new WorkoutActivity
-                {
-                    Id = 2,
-                    UserId = 1,
-                    WorkoutType = "Weightlifting",
-                    UserWeight = 70,
-                    DurationInMinutes = 60,
-                    CaloriesBurnedPerMinute = 8,
-                    DateTime = new DateTime(2023, 7, 2)
-                },
-                new WorkoutActivity
-                {
-                    Id = 3,
-                    UserId = 1,
-                    WorkoutType = "Yoga",
-                    UserWeight = 70,
-                    DurationInMinutes = 30,
-                    CaloriesBurnedPerMinute = 5,
-                    DateTime = new DateTime(2023, 7, 3)
-                }
-                // Add more workout activities as needed
-            };
-
-            return workoutActivities;
-        }
-
         public ActionResult WeeklyWorkoutReport()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
-
+            User user = MemoryStore.GetUserById(1);
             var workoutActivities = MemoryStore.GetWorkoutActivities();
 
             var weeklyReport = new List<WeeklyWorkoutReportData>();
@@ -76,6 +32,31 @@ namespace FitSync.Controllers
                 weeklyReport.Add(dailyReport);
             }
 
+           
+            var chartData = new List<object>();
+
+            foreach (var dailyReport in weeklyReport)
+            {
+               var date = dailyReport.Date.ToShortDateString();
+               var distanceSum = dailyReport.Workouts.Sum(w => w.DistanceInKm);
+               var durationSum = dailyReport.Workouts.Sum(w => w.DurationInMinutes);
+               var caloriesSum = dailyReport.Workouts.Sum(w => w.DurationInMinutes * w.CaloriesBurnedPerMinute);
+
+                chartData.Add(new
+                {
+                    date = date,
+                    distance = distanceSum,
+                    duration = durationSum,
+                    calories = caloriesSum
+                });
+            }
+
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.ChartData = chartData;
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+            ViewBag.WorkoutType = "All";
+            ViewBag.User = user;
             return View(weeklyReport);
         }
 
@@ -84,7 +65,7 @@ namespace FitSync.Controllers
         {
             var startDate = date.AddDays(-(int)date.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
-
+            User user = MemoryStore.GetUserById(1);
             var workoutActivities = MemoryStore.GetWorkoutActivities();
 
             var weeklyReport = new List<WeeklyWorkoutReportData>();
@@ -95,7 +76,7 @@ namespace FitSync.Controllers
                 var dailyReport = new WeeklyWorkoutReportData
                 {
                     Date = currentDate,
-                    Workouts = (workoutType == "all")
+                    Workouts = (workoutType == "All")
                       ? workoutActivities.Where(w => w.DateTime.Date == currentDate.Date).ToList()
                       : workoutActivities.Where(w => w.DateTime.Date == currentDate.Date && w.WorkoutType == workoutType).ToList()
                 };
@@ -103,6 +84,30 @@ namespace FitSync.Controllers
                 weeklyReport.Add(dailyReport);
             }
 
+            var chartData = new List<object>();
+
+            foreach (var dailyReport in weeklyReport)
+            {
+                var selectedDate = dailyReport.Date.ToShortDateString();
+                var distanceSum = dailyReport.Workouts.Sum(w => w.DistanceInKm);
+                var durationSum = dailyReport.Workouts.Sum(w => w.DurationInMinutes);
+                var caloriesSum = dailyReport.Workouts.Sum(w => w.DurationInMinutes * w.CaloriesBurnedPerMinute);
+
+                chartData.Add(new
+                {
+                    date = selectedDate,
+                    distance = distanceSum,
+                    duration = durationSum,
+                    calories = caloriesSum
+                });
+            }
+
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.ChartData = chartData;
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+            ViewBag.WorkoutType = workoutType;
+            ViewBag.User = user;
             return View(weeklyReport);
         }
 

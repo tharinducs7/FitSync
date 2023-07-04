@@ -59,7 +59,37 @@ namespace FitSync.Models
                 return bmr = 0;
             }
 
-            return bmr;
+            return Math.Round(bmr, 2);
+        }
+        public double TargetWeight()
+        {
+            double bmi = CalculateBMI();
+            double targetWeight = (23 / bmi) * Weight;
+            return Math.Round(targetWeight, 2);
+        }
+        public double TargetBMR()
+        {
+            double targetBmr;
+            int age = CalculateAge();
+            double targetWeight = TargetWeight();
+
+            if (age >= 18)
+            {
+                if (Gender == "Male")
+                {
+                    targetBmr = (66 + (6.23 * targetWeight) + (12.7 * Height) - (6.8 * age)) * ActivityFactor;
+                }
+                else
+                {
+                    targetBmr = (655 + (4.35 * targetWeight) + (4.7 * Height) - (4.7 * age)) * ActivityFactor;
+                }
+            }
+            else
+            {
+                return targetBmr = 0;
+            }
+
+            return Math.Round(targetBmr, 2);
         }
 
 

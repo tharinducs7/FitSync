@@ -184,6 +184,7 @@
     <Content Include="Assets\icons\simple-line-icons\fonts\Simple-Line-Icons4c824c82.svg" />
     <Content Include="Assets\icons\themify-icons\css\themify-icons.css" />
     <Content Include="Assets\icons\themify-icons\fonts\themify9f249f24.svg" />
+    <Content Include="Assets\icons\workouts\all.svg" />
     <Content Include="Assets\icons\workouts\cycling.svg" />
     <Content Include="Assets\icons\workouts\elliptical.svg" />
     <Content Include="Assets\icons\workouts\running.svg" />

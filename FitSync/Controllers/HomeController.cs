@@ -10,6 +10,7 @@ namespace FitSync.Controllers
         {
             User user = MemoryStore.GetUserById(1);
             DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
+            MemoryStore.GenerateJulyWorkoutActivities();
 
             double bmi = user.CalculateBMI();
             double bmr = user.CalculateBMR();
@@ -46,7 +47,9 @@ namespace FitSync.Controllers
             ViewBag.BMIdescription = description;
             ViewBag.DailyGoals = dailyGoal;
             ViewBag.BMR = bmr;
-            
+            ViewBag.TargetWeight = user.TargetWeight();
+            ViewBag.TargetBMR = user.TargetBMR();
+
             return View();
         }
 

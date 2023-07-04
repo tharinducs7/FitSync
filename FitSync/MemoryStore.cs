@@ -105,5 +105,35 @@ namespace FitSync
             string jsonContent = File.ReadAllText(jsonFilePath);
             return JsonConvert.DeserializeObject<List<WorkoutType>>(jsonContent);
         }
+
+        public static List<WorkoutActivity> GenerateJulyWorkoutActivities()
+        {
+            List<WorkoutActivity> julyWorkoutActivities = new List<WorkoutActivity>();
+
+            Random random = new Random();
+
+           
+
+            for (int day = 1; day <= 31; day++)
+            {
+                int duration = random.Next(30, 90);
+                int distance = random.Next(1, 10);
+                int calories = random.Next(10, 50);
+                int dates = random.Next(1, 31);
+
+                AddWorkoutActivity(new WorkoutActivity
+                {
+                    Id = day,
+                    UserId = 1,
+                    WorkoutType = "Running",
+                    DurationInMinutes = duration,
+                    CaloriesBurnedPerMinute = calories,
+                    DistanceInKm = distance,
+                    DateTime = new DateTime(2023, 7, dates)
+                });
+            }
+
+            return julyWorkoutActivities;
+        }
     }
 }

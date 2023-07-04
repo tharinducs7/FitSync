@@ -18,7 +18,7 @@ namespace FitSync
                         "~/Assets/vendor/peity/jquery.peity.min.js",
                         "~/Assets/vendor/apexchart/apexchart.js",
                         "~/Assets/js/dashboard/dashboard-1.js",
-                        "~/Assets/js/dashboard/workout-statistic.js"));
+                        "~/Assets/js/dashboard/distance-map.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

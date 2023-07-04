@@ -74,7 +74,6 @@ namespace FitSync.Controllers
                 double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
                 workoutActivity.Id = GetNextId();
-                workoutActivity.UserWeight = user != null ? user.Weight: 70;
                 workoutActivity.UserId = 1;
                 workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 workoutActivity.WorkoutType = workoutType.WorkoutName;

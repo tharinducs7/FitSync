@@ -12,11 +12,11 @@
 				  series: [
 					{
 						name: 'Running',
-						data: [50, 18, 70, 40, 90, 70, 20, 75, 80, 25, 70, 45],
+						data: [50],
 					}, 
 					{
 					  name: 'Cycling',
-					  data: [80, 40, 55, 20, 45, 30, 80, 90, 85, 90, 30, 85]
+					  data: [80]
 					}, 
 					
 				],
@@ -69,7 +69,7 @@
 			},
 			xaxis: {
 				
-			  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			  categories: ['Jan'],
 			  labels: {
 			   style: {
 				  colors: '#787878',
