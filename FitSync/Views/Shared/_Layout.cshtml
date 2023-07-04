@@ -6,6 +6,7 @@
     <title>@ViewBag.Title -FitSync</title>
     @Styles.Render("~/Assets/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -55,12 +56,12 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-                                Dashboard
+                                
                             </div>
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <div class="input-group search-area d-lg-inline-flex d-none mr-5">
                                     <input type="text" class="form-control" placeholder="Search here">
                                     <div class="input-group-append">
@@ -69,7 +70,7 @@
                                         </span>
                                     </div>
                                 </div>
-                            </li>
+                            </li>*@
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <img src="~/Assets/images/profile/17.jpg" width="20" alt="" />
@@ -107,24 +108,23 @@
                     </li>
                     <li>
                         <a class="ai-icon" href="/WorkoutActivity/Index" aria-expanded="false">
-                            <i class="flaticon-381-networking"></i>
+                            <i class="fa-solid fa-dumbbell"></i>
                             <span class="nav-text">Workout Activity</span>
                         </a>
                     </li>
                     <li>
                         <a class="ai-icon" href="/CheatMealLog/Index" aria-expanded="false">
-                            <i class="flaticon-381-networking"></i>
+                            <i class="fa-sharp fa-solid fa-pizza-slice"></i>
                             <span class="nav-text">Cheat Meal Logs</span>
                         </a>
                     </li>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-network"></i>
+                            <i class="fa-solid fa-file"></i>
                             <span class="nav-text">FitSync Reports</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/Report/WeeklyWorkoutReport">Weekly Workout Report</a></li>
-                            <li><a href="/Report/Index">Weekly 2</a></li>
                         </ul>
                     </li>
                 </ul>
