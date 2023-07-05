@@ -120,6 +120,7 @@ namespace FitSync
             List<WorkoutActivity> julyWorkoutActivities = new List<WorkoutActivity>();
 
             Random random = new Random();
+            string[] workoutTypes = { "Running", "Cycling", "Walking", "Swimming" };
 
             for (int i = 1; i <= 31; i++)
             {
@@ -127,12 +128,13 @@ namespace FitSync
                 int distance = random.Next(1, 10);
                 int calories = random.Next(10, 50);
                 int dates = random.Next(1, 31);
+                string workoutType = workoutTypes[random.Next(workoutTypes.Length)];
 
                 AddWorkoutActivity(new WorkoutActivity
                 {
                     Id = i,
                     UserId = 1,
-                    WorkoutType = "Running",
+                    WorkoutType = workoutType,
                     DurationInMinutes = duration,
                     CaloriesBurnedPerMinute = calories,
                     DistanceInKm = distance,
@@ -143,26 +145,28 @@ namespace FitSync
             return julyWorkoutActivities;
         }
 
-        /*
- This will generate some random data, since this is on MVP
- */
+          /*
+         This will generate some random data, since this is on MVP
+         */
         public static List<CheatMealLog> GenerateDummyCheatMealLogs()
         {
             List<CheatMealLog> dummyCheatMealLogs = new List<CheatMealLog>();
 
             Random random = new Random();
+            string[] mealTypes = { "Cheeseburger", "Pizza", "Fried Chicken", "French Fries" };
 
+            
             for (int i = 1; i <= 31; i++)
             {
                 int qty = random.Next(1, 10);
-                int calories = random.Next(10, 50);
+                int calories = random.Next(200, 600);
                 int dates = random.Next(1, 31);
-
+                string meal = mealTypes[random.Next(mealTypes.Length)];
                 AddCheatMeal(new CheatMealLog
                 {
                     Id = i,
                     UserId = 1,
-                    Meal = "Pizza",
+                    Meal = meal,
                     Note = "dummy",
                     Calories = calories,
                     Qty = qty,
@@ -173,47 +177,6 @@ namespace FitSync
             return dummyCheatMealLogs;
         }
 
-
-        public static double CalculateAverageCaloriesBurnedPerDay()
-        {
-            List<WorkoutActivity> activities = GetWorkoutActivities();
-
-            if (activities == null || activities.Count == 0)
-                return 0.0;
-
-            DateTime currentDate = DateTime.Now.Date;
-            double totalCaloriesBurned = 0.0;
-
-            foreach (var activity in activities)
-            {
-                if (activity.DateTime.Date <= currentDate)
-                {
-                    double caloriesBurned = activity.DurationInMinutes * activity.CaloriesBurnedPerMinute;
-                    totalCaloriesBurned += caloriesBurned;
-                }
-            }
-
-            int totalDays = Math.Abs((currentDate - activities.First().DateTime.Date).Days) + 1;
-            double averageCaloriesBurnedPerDay = totalCaloriesBurned / totalDays;
-
-            return Math.Round(averageCaloriesBurnedPerDay, 2);
-        }
-
-        public static double CalculateActivityFactor()
-        {
-            double averageCaloriesBurnedPerDay = CalculateAverageCaloriesBurnedPerDay();
-
-            if (averageCaloriesBurnedPerDay < 2000)
-                return 1.2;
-            else if (averageCaloriesBurnedPerDay >= 2000 && averageCaloriesBurnedPerDay < 2500)
-                return 1.375;
-            else if (averageCaloriesBurnedPerDay >= 2500 && averageCaloriesBurnedPerDay < 3000)
-                return 1.55;
-            else if (averageCaloriesBurnedPerDay >= 3000 && averageCaloriesBurnedPerDay < 3500)
-                return 1.725;
-            else
-                return 1.9;
-        }
     }
 }
 

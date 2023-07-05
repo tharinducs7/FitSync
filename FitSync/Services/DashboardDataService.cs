@@ -62,10 +62,5 @@ namespace FitSync.Services
 
             return todaysCheatMeals;
         }
-
-
-
-
-
     }
 }

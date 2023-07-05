@@ -1,4 +1,5 @@
 ﻿using FitSync.Models;
+using FitSync.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace FitSync.Controllers
             User user = MemoryStore.GetUserById(1);
 
             double bmr = user.CalculateBMR();
-            double activityFactor = MemoryStore.CalculateActivityFactor();
-            double avgCaloriesBurnPerDay = MemoryStore.CalculateAverageCaloriesBurnedPerDay();
+            double activityFactor = CalculationService.CalculateActivityFactor();
+            double avgCaloriesBurnPerDay = CalculationService.CalculateAverageCaloriesBurnedPerDay();
 
             double tdee = bmr * activityFactor;
             double calorieDeficitPerDay = tdee * 0.2;

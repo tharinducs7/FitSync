@@ -141,20 +141,12 @@
                                     <div class="form-group col-md-12">
                                         <label class="col-form-label-sm"><b> Date </b></label>
                                         <div class="input-group input-group-sm">
-                                            <input type="selectedDate" name="selectedDate" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                            <input type="date" name="selectedDate" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                                         </div>
-                                        <label class="col-form-label-sm"><b> Workout Type </b></label>
-                                        <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType" required>
-                                            <option value="All">All</option>
-                                            @foreach (var workoutType in ViewBag.WorkoutTypes)
-                                            {
-                                                <option value="@workoutType.WorkoutName">@workoutType.WorkoutName</option>
-                                            }
-                                        </select>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <div class="input-group input-group-sm">
-                                            <button type="submit" class="btn btn-primary btn-md mb-2">Generate Weekly Workout Report<i class="las la-angle-right ml-3 scale5"></i></button>
+                                            <button type="submit" class="btn btn-info btn-md mb-2">Generate Weekly Workout Report<i class="las la-angle-right ml-3 scale5"></i></button>
                                         </div>
                                     </div>
                                 </div>

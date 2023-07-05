@@ -184,50 +184,54 @@
                     {
                         foreach (var item in todaysWorkoutActivities)
                         {
-                            <div class="d-flex px-3 pt-3 list-row flex-wrap align-items-center mb-2">
-                                <div class="list-icon mr-3 mb-3">
-                                    <p class="fs-24 text-black mb-0 mt-2">@item.DateTime.Day</p>
-                                    <span class="fs-14 text-black">@item.DateTime.ToString("ddd")</span>
-                                </div>
-                                <div class="info mb-3">
-                                    <h4 class="fs-20 "> @item.WorkoutType</h4>
-                                    <span class="text-primary font-w600">@item.DurationInMinutes Min</span>
-                                    @if (item.DistanceInKm > 0)
-                                    {
-                                        <span class="pl-3 pr-3"> @item.DistanceInKm Km</span>
-                                    }
-                                </div>
-                                <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
-                                    <img src="~/Assets/icons/workouts/@(item.WorkoutType).svg" alt="SVG" />
-                                    <span class="text-secondary ml-2">
-                                        <i class="fa fa-fire"></i>
-                                        @{
-                                            double totalCalories = item.DurationInMinutes * item.CaloriesBurnedPerMinute;
-                                        } @totalCalories
-                                    </span>
-                                </div>
-                                <div class="dropdown mb-3">
-                                    <button type="button" class="btn rounded border-light" data-toggle="dropdown" aria-expanded="false">
-                                        <svg width="6" height="26" viewBox="0 0 6 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 3C6 4.65685 4.65685 6 3 6C1.34315 6 0 4.65685 0 3C0 1.34315 1.34315 0 3 0C4.65685 0 6 1.34315 6 3Z" fill="#585858" />
-                                            <path d="M6 13C6 14.6569 4.65685 16 3 16C1.34315 16 0 14.6569 0 13C0 11.3431 1.34315 10 3 10C4.65685 10 6 11.3431 6 13Z" fill="#585858" />
-                                            <path d="M6 23C6 24.6569 4.65685 26 3 26C1.34315 26 0 24.6569 0 23C0 21.3431 1.34315 20 3 20C4.65685 20 6 21.3431 6 23Z" fill="#585858" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="/WorkoutActivity/Edit/@item.Id" class="dropdown-item btn btn-rounded btn-warning">
-                                            <span class="btn-icon-left text-warning">
-                                                <i class="fa fa-edit color-warning"></i>
-                                            </span>Edit
-                                        </a>
-                                        <a href="/WorkoutActivity/Delete/@item.Id" class="dropdown-item btn btn-rounded btn-danger">
-                                            <span class="btn-icon-left text-danger">
-                                                <i class="fa fa-trash color-danger"></i>
-                                            </span>Delete
-                                        </a>
-                                    </div>
-                                </div>
+                    <div class="d-flex px-3 pt-3 list-row flex-wrap align-items-center mb-2">
+                        <div class="list-icon mr-3 mb-3">
+                            <p class="fs-24 text-black mb-0 mt-2">@item.DateTime.Day</p>
+                            <span class="fs-14 text-black">@item.DateTime.ToString("ddd")</span>
+                        </div>
+                        <div class="info mb-3">
+                            <h4 class="fs-20 "> @item.WorkoutType</h4>
+                            <span class="text-primary font-w600">@item.DurationInMinutes Min</span>
+                            @if (item.DistanceInKm > 0)
+                            {
+                                <span class="pl-3 pr-3"> @item.DistanceInKm Km</span>
+                            }
+                        </div>
+                        <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
+                            <span class="activity-icon border border-info border-2 mr-3">
+                                <img src="~/Assets/icons/workouts/@(item.WorkoutType).svg" alt="SVG" />
+                            </span>
+                            <div>
+                                <span class="text-secondary ml-2">
+                                    <i class="fa fa-fire"></i>
+                                    @{
+                                        double totalCalories = item.DurationInMinutes * item.CaloriesBurnedPerMinute;
+                                    } @totalCalories
+                                </span>
                             </div>
+                        </div>
+                        <div class="dropdown mb-3">
+                            <button type="button" class="btn rounded border-light" data-toggle="dropdown" aria-expanded="false">
+                                <svg width="6" height="26" viewBox="0 0 6 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 3C6 4.65685 4.65685 6 3 6C1.34315 6 0 4.65685 0 3C0 1.34315 1.34315 0 3 0C4.65685 0 6 1.34315 6 3Z" fill="#585858" />
+                                    <path d="M6 13C6 14.6569 4.65685 16 3 16C1.34315 16 0 14.6569 0 13C0 11.3431 1.34315 10 3 10C4.65685 10 6 11.3431 6 13Z" fill="#585858" />
+                                    <path d="M6 23C6 24.6569 4.65685 26 3 26C1.34315 26 0 24.6569 0 23C0 21.3431 1.34315 20 3 20C4.65685 20 6 21.3431 6 23Z" fill="#585858" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="/WorkoutActivity/Edit/@item.Id" class="dropdown-item btn btn-rounded btn-warning">
+                                    <span class="btn-icon-left text-warning">
+                                        <i class="fa fa-edit color-warning"></i>
+                                    </span>Edit
+                                </a>
+                                <a href="/WorkoutActivity/Delete/@item.Id" class="dropdown-item btn btn-rounded btn-danger">
+                                    <span class="btn-icon-left text-danger">
+                                        <i class="fa fa-trash color-danger"></i>
+                                    </span>Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                         }
                     }
                 </div>
@@ -247,47 +251,64 @@
                     {
                         foreach (var item in todaysCheatMeals)
                         {
-                            <div class="d-flex px-3 pt-3 list-row flex-wrap align-items-center mb-2">
-                                <div class="list-icon mr-3 mb-3">
-                                    <p class="fs-24 text-black mb-0 mt-2">@item.RecordDate.Day</p>
-                                    <span class="fs-14 text-black">@item.RecordDate.ToString("ddd")</span>
-                                </div>
-                                <div class="info mb-3">
-                                    <h4 class="fs-20 "> @item.Meal</h4>
-                                    <span class="text-primary font-w600">@item.Qty Qty</span>
-                                    <span class="pl-3 pr-3"> @item.Calories Cal</span>
-                                </div>
-                                <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
-                                    <img class="rounded mr-3 mb-md-0 mb-3" src="~/Assets/cheatMeals/@(item.Meal).svg" alt="" width="24">
-                                    <span class="text-secondary ml-2">
-                                        <i class="fa fa-fire"></i>
-                                        @{
-                                            double totalCalories = item.Qty * item.Calories;
-                                        } @totalCalories
-                                    </span>
-                                </div>
-                                <div class="dropdown mb-3">
-                                    <button type="button" class="btn rounded border-light" data-toggle="dropdown" aria-expanded="false">
-                                        <svg width="6" height="26" viewBox="0 0 6 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 3C6 4.65685 4.65685 6 3 6C1.34315 6 0 4.65685 0 3C0 1.34315 1.34315 0 3 0C4.65685 0 6 1.34315 6 3Z" fill="#585858" />
-                                            <path d="M6 13C6 14.6569 4.65685 16 3 16C1.34315 16 0 14.6569 0 13C0 11.3431 1.34315 10 3 10C4.65685 10 6 11.3431 6 13Z" fill="#585858" />
-                                            <path d="M6 23C6 24.6569 4.65685 26 3 26C1.34315 26 0 24.6569 0 23C0 21.3431 1.34315 20 3 20C4.65685 20 6 21.3431 6 23Z" fill="#585858" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="/CheatMealLog/Edit/@item.Id" class="dropdown-item btn btn-rounded btn-warning">
-                                            <span class="btn-icon-left text-warning">
-                                                <i class="fa fa-edit color-warning"></i>
-                                            </span>Edit
-                                        </a>
-                                        <a href="/CheatMealLog/Delete/@item.Id" class="dropdown-item btn btn-rounded btn-danger">
-                                            <span class="btn-icon-left text-danger">
-                                                <i class="fa fa-trash color-danger"></i>
-                                            </span>Delete
-                                        </a>
-                                    </div>
-                                </div>
+                    <div class="d-flex px-3 pt-3 list-row flex-wrap align-items-center mb-2">
+                        <div class="list-icon mr-3 mb-3">
+                            <p class="fs-24 text-black mb-0 mt-2">@item.RecordDate.Day</p>
+                            <span class="fs-14 text-black">@item.RecordDate.ToString("ddd")</span>
+                        </div>
+                        <div class="info mb-3">
+                            <h4 class="fs-20 "> @item.Meal</h4>
+                            <span class="text-primary font-w600">@item.Qty Qty</span>
+                            <span class="pl-3 pr-3"> @item.Calories Cal</span>
+
+                            <span class="activity-icon border border-info border-2 mr-3">
+                                <img src="~/Assets/cheatMeals/@(item.Meal).svg" alt="SVG" width="24" height="24" />
+                            </span>
+                            <div>
+                                <span class="text-primary ml-2">
+                                    <i class="fa fa-fire"></i>
+                                    @{
+                                        double totalCalories = item.Qty * item.Calories;
+                                    } @totalCalories
+                                </span>
                             </div>
+                        </div>
+
+                        <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
+                            <span class="activity-icon border border-info border-2 mr-3">
+                                <img src="~/Assets/cheatMeals/@(item.Meal).svg" alt="SVG" width="24" height="24" />
+                            </span>
+                            <div>
+                                <span class="text-primary ml-2">
+                                    <i class="fa fa-fire"></i>
+                                    @{
+                                        double totalCalories = item.Qty * item.Calories;
+                                    } @totalCalories
+                                </span>
+                            </div>
+                        </div>
+                        <div class="dropdown mb-3">
+                            <button type="button" class="btn rounded border-light" data-toggle="dropdown" aria-expanded="false">
+                                <svg width="6" height="26" viewBox="0 0 6 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 3C6 4.65685 4.65685 6 3 6C1.34315 6 0 4.65685 0 3C0 1.34315 1.34315 0 3 0C4.65685 0 6 1.34315 6 3Z" fill="#585858" />
+                                    <path d="M6 13C6 14.6569 4.65685 16 3 16C1.34315 16 0 14.6569 0 13C0 11.3431 1.34315 10 3 10C4.65685 10 6 11.3431 6 13Z" fill="#585858" />
+                                    <path d="M6 23C6 24.6569 4.65685 26 3 26C1.34315 26 0 24.6569 0 23C0 21.3431 1.34315 20 3 20C4.65685 20 6 21.3431 6 23Z" fill="#585858" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="/CheatMealLog/Edit/@item.Id" class="dropdown-item btn btn-rounded btn-warning">
+                                    <span class="btn-icon-left text-warning">
+                                        <i class="fa fa-edit color-warning"></i>
+                                    </span>Edit
+                                </a>
+                                <a href="/CheatMealLog/Delete/@item.Id" class="dropdown-item btn btn-rounded btn-danger">
+                                    <span class="btn-icon-left text-danger">
+                                        <i class="fa fa-trash color-danger"></i>
+                                    </span>Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                         }
                     }
                 </div>
