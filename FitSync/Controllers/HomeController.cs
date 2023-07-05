@@ -9,6 +9,17 @@ namespace FitSync.Controllers
         public ActionResult Index()
         {
             User user = MemoryStore.GetUserById(1);
+
+            if (user == null)
+            {
+                // TODO untill authentication implmented
+                return RedirectToAction("Register", "User");
+            }
+            else
+            {
+                
+           
+
             DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
 
 
@@ -61,6 +72,7 @@ namespace FitSync.Controllers
             ViewBag.cheatMeals = cheatMeals;
             
             return View();
+            }
         }
 
         public ActionResult About()

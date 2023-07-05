@@ -260,18 +260,6 @@
                             <h4 class="fs-20 "> @item.Meal</h4>
                             <span class="text-primary font-w600">@item.Qty Qty</span>
                             <span class="pl-3 pr-3"> @item.Calories Cal</span>
-
-                            <span class="activity-icon border border-info border-2 mr-3">
-                                <img src="~/Assets/cheatMeals/@(item.Meal).svg" alt="SVG" width="24" height="24" />
-                            </span>
-                            <div>
-                                <span class="text-primary ml-2">
-                                    <i class="fa fa-fire"></i>
-                                    @{
-                                        double totalCalories = item.Qty * item.Calories;
-                                    } @totalCalories
-                                </span>
-                            </div>
                         </div>
 
                         <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
