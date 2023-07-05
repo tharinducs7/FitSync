@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "Future";
+}
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Reports</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Future Report</a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-xl-8 col-xxl-8">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="d-flex align-items-center">
+                                <span class="p-3 mr-3 rounded bg-info">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.8586 5.22599L5.87121 10.5543C5.50758 11.0846 5.64394 11.8068 6.17172 12.1679L11.1945 15.6098V18.9558C11.1945 19.5921 11.6995 20.125 12.3359 20.1376C12.9874 20.1477 13.5177 19.625 13.5177 18.976V15.0013C13.5177 14.6174 13.3283 14.2588 13.0126 14.0442L9.79041 11.8346L12.5025 8.95836L13.8914 12.1225C14.0758 12.5442 14.4949 12.817 14.9546 12.817H19.1844C19.8207 12.817 20.3536 12.3119 20.3662 11.6755C20.3763 11.024 19.8536 10.4937 19.2046 10.4937H15.7172C15.2576 9.44824 14.7677 8.41288 14.3409 7.35228C14.1237 6.81693 14.0025 6.5846 13.6036 6.21592C13.5227 6.14016 12.9596 5.62501 12.4571 5.16541C11.995 4.74619 11.2828 4.77397 10.8586 5.22599Z" fill="white" />
+                                        <path d="M15.6162 5.80681C17.0861 5.80681 18.2778 4.61517 18.2778 3.1452C18.2778 1.67523 17.0861 0.483582 15.6162 0.483582C14.1462 0.483582 12.9545 1.67523 12.9545 3.1452C12.9545 4.61517 14.1462 5.80681 15.6162 5.80681Z" fill="white" />
+                                        <path d="M4.89899 23.5164C7.60463 23.5164 9.79798 21.3231 9.79798 18.6174C9.79798 15.9118 7.60463 13.7184 4.89899 13.7184C2.19335 13.7184 0 15.9118 0 18.6174C0 21.3231 2.19335 23.5164 4.89899 23.5164Z" fill="white" />
+                                        <path d="M19.101 23.5164C21.8066 23.5164 24 21.3231 24 18.6174C24 15.9118 21.8066 13.7184 19.101 13.7184C16.3954 13.7184 14.202 15.9118 14.202 18.6174C14.202 21.3231 16.3954 23.5164 19.101 23.5164Z" fill="white" />
+                                    </svg>
+                                </span>
+                                <div class="mr-auto pr-3">
+                                    <h4 class="text-black fs-20">Weight Overview for 3 Months</h4>
+                                    <p class="fs-13 mb-0 text-black"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div id="WeightChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-xxl-4">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header flex-wrap border-0 pb-0">
+                            <div>
+                                <h4 class="text-black fs-20">Personal Details</h4>
+                                <p class="fs-13 mb-0"></p>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center bgl-info p-4">
+                                <svg class="mr-3" width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="51" height="51" rx="25.5" fill="#1EA7C5" />
+                                    <g clip-path="url()">
+                                        <path d="M23.8586 19.226L18.8712 24.5542C18.5076 25.0845 18.6439 25.8068 19.1717 26.1679L24.1945 29.6098L24.1945 32.9558C24.1945 33.5921 24.6995 34.125 25.3359 34.1376C25.9874 34.1477 26.5177 33.6249 26.5177 32.976L26.5177 29.0012C26.5177 28.6174 26.3283 28.2588 26.0126 28.0442L22.7904 25.8346L25.5025 22.9583L26.8914 26.1225C27.0758 26.5442 27.4949 26.8169 27.9546 26.8169L32.1844 26.8169C32.8207 26.8169 33.3536 26.3119 33.3662 25.6755C33.3763 25.024 32.8536 24.4937 32.2046 24.4937L28.7172 24.4937C28.2576 23.4482 27.7677 22.4129 27.3409 21.3522C27.1237 20.8169 27.0025 20.5846 26.6036 20.2159C26.5227 20.1401 25.9596 19.625 25.4571 19.1654C24.995 18.7462 24.2828 18.7739 23.8586 19.226Z" fill="white" />
+                                        <path d="M28.6162 19.8068C30.0861 19.8068 31.2778 18.6151 31.2778 17.1452C31.2778 15.6752 30.0861 14.4836 28.6162 14.4836C27.1462 14.4836 25.9545 15.6752 25.9545 17.1452C25.9545 18.6151 27.1462 19.8068 28.6162 19.8068Z" fill="white" />
+                                        <path d="M17.899 37.5164C20.6046 37.5164 22.798 35.323 22.798 32.6174C22.798 29.9117 20.6046 27.7184 17.899 27.7184C15.1934 27.7184 13 29.9117 13 32.6174C13 35.323 15.1934 37.5164 17.899 37.5164Z" fill="white" />
+                                        <path d="M32.101 37.5164C34.8066 37.5164 37 35.323 37 32.6174C37 29.9118 34.8066 27.7184 32.101 27.7184C29.3954 27.7184 27.202 29.9118 27.202 32.6174C27.202 35.323 29.3954 37.5164 32.101 37.5164Z" fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip8">
+                                            <rect width="24" height="24" fill="white" transform="translate(13 14)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    <h6 class="fs-16 text-black mb-0">Current Stats</h6>
+                                    <span class="fs-12">100km target/day</span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap p-4">
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Age</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.CalculateAge() yrs</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Weight</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.Weight Kg</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Height</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.Height cm</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">BMI</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.CalculateBMI()</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">BMR</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.CalculateBMR()</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">TDEE</p>
+                                    <span class="fs-20 font-w500 text-black"> @ViewBag.tdee </span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center bgl-success p-4">
+                                <svg class="mr-3" width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="51" height="51" rx="25.5" fill="#1EA7C5" />
+                                    <g clip-path="url()">
+                                        <path d="M23.8586 19.226L18.8712 24.5542C18.5076 25.0845 18.6439 25.8068 19.1717 26.1679L24.1945 29.6098L24.1945 32.9558C24.1945 33.5921 24.6995 34.125 25.3359 34.1376C25.9874 34.1477 26.5177 33.6249 26.5177 32.976L26.5177 29.0012C26.5177 28.6174 26.3283 28.2588 26.0126 28.0442L22.7904 25.8346L25.5025 22.9583L26.8914 26.1225C27.0758 26.5442 27.4949 26.8169 27.9546 26.8169L32.1844 26.8169C32.8207 26.8169 33.3536 26.3119 33.3662 25.6755C33.3763 25.024 32.8536 24.4937 32.2046 24.4937L28.7172 24.4937C28.2576 23.4482 27.7677 22.4129 27.3409 21.3522C27.1237 20.8169 27.0025 20.5846 26.6036 20.2159C26.5227 20.1401 25.9596 19.625 25.4571 19.1654C24.995 18.7462 24.2828 18.7739 23.8586 19.226Z" fill="white" />
+                                        <path d="M28.6162 19.8068C30.0861 19.8068 31.2778 18.6151 31.2778 17.1452C31.2778 15.6752 30.0861 14.4836 28.6162 14.4836C27.1462 14.4836 25.9545 15.6752 25.9545 17.1452C25.9545 18.6151 27.1462 19.8068 28.6162 19.8068Z" fill="white" />
+                                        <path d="M17.899 37.5164C20.6046 37.5164 22.798 35.323 22.798 32.6174C22.798 29.9117 20.6046 27.7184 17.899 27.7184C15.1934 27.7184 13 29.9117 13 32.6174C13 35.323 15.1934 37.5164 17.899 37.5164Z" fill="white" />
+                                        <path d="M32.101 37.5164C34.8066 37.5164 37 35.323 37 32.6174C37 29.9118 34.8066 27.7184 32.101 27.7184C29.3954 27.7184 27.202 29.9118 27.202 32.6174C27.202 35.323 29.3954 37.5164 32.101 37.5164Z" fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip8">
+                                            <rect width="24" height="24" fill="white" transform="translate(13 14)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    <h6 class="fs-16 text-black mb-0">Predicted Stats</h6>
+                                    <span class="fs-12">for @ViewBag.month</span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap p-4">
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Recommended Calorie Intake</p>
+                                    <span class="fs-20 font-w500 text-black"> @ViewBag.recomondedCalorieIntake Cal</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Predicted Weight Est</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.predictedWeight kg</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Predicted Weight Loss Est</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.weightLoss kg</span>
+                                </div>
+                                <div class="mr-5 mb-3">
+                                    <p class="fs-14 mb-2">Predicted BMI (based on weight) Est</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.User.Height cm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+    const chartData = @Html.Raw(Json.Encode(ViewBag.ChartData));
+
+        const WeightChartOptions = {
+            series: [
+                {
+                    name: 'Weight in KG',
+                    data: chartData.map(item => item.weight)
+                }
+            ],
+            chart: {
+                type: 'line',
+                height: 200
+            },
+            annotations: {
+                yaxis: [
+                    {
+                        y: 60,
+                        borderColor: '#00E396',
+                        label: {
+                            borderColor: '#00E396',
+                            style: {
+                                color: '#fff',
+                                background: '#00E396',
+                            },
+                            text: 'Target Weight',
+                        }
+                    },
+                ]
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: chartData.map(item => item.month),
+                labels: {
+                    rotate: -45
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Weight in KG'
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'center',
+                offsetY: -20
+            },
+            colors: ['#33FFDB']
+        };
+
+        const WeightChart = new ApexCharts(document.querySelector("#WeightChart"), WeightChartOptions);
+        WeightChart.render();
+    </script>
+}

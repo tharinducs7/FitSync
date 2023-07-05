@@ -42,24 +42,17 @@ namespace FitSync.Models
         {
             double bmr;
             int age = CalculateAge();
-
-            if (age >= 18)
+           
+            if (Gender == "Male")
             {
-                if (Gender == "Male")
-                {
-                    bmr = (66 + (6.23 * Weight) + (12.7 * Height) - (6.8 * age)) * ActivityFactor;
-                }
-                else
-                {
-                    bmr = (655 + (4.35 * Weight) + (4.7 * Height) - (4.7 * age)) * ActivityFactor;
-                }
+                bmr = 88.362 + (13.397 * Weight) + (4.799 * Height) - (5.677 * age);
             }
             else
             {
-                return bmr = 0;
+                bmr = 447.593 + (9.247 * Weight) + (3.098 * Height) - (4.330 * age);
             }
-
-            return Math.Round(bmr, 2);
+           
+            return bmr;
         }
         public double TargetWeight()
         {
@@ -73,26 +66,17 @@ namespace FitSync.Models
             int age = CalculateAge();
             double targetWeight = TargetWeight();
 
-            if (age >= 18)
-            {
-                if (Gender == "Male")
-                {
-                    targetBmr = (66 + (6.23 * targetWeight) + (12.7 * Height) - (6.8 * age)) * ActivityFactor;
-                }
-                else
-                {
-                    targetBmr = (655 + (4.35 * targetWeight) + (4.7 * Height) - (4.7 * age)) * ActivityFactor;
-                }
-            }
-            else
-            {
-                return targetBmr = 0;
-            }
+           if (Gender == "Male")
+           {
+              targetBmr = 88.362 + (13.397 * targetWeight) + (4.799 * Height) - (5.677 * age);
+           }
+           else
+           {
+              targetBmr = 447.593 + (9.247 * targetWeight) + (3.098 * Height) - (4.330 * age);
+           }
 
-            return Math.Round(targetBmr, 2);
+           return Math.Round(targetBmr, 2);
         }
-
-
     }
 
 }

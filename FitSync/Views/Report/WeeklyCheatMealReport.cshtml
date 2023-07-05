@@ -4,45 +4,6 @@
     ViewBag.Title = "WeeklyCheatMealReport";
 }
 
-<h2>Weekly Cheat Meal Report</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Meal</th>
-            <th>Note</th>
-            <th>Calories</th>
-            <th>Qty</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var dailyReport in Model)
-        {
-            <tr>
-                <td>@dailyReport.Date.ToShortDateString()</td>
-                <td>
-                    @if (dailyReport.CheatMeals.Any())
-                    {
-                        foreach (var cheatMeal in dailyReport.CheatMeals)
-                        {
-                            <div>@cheatMeal.Meal</div>
-                        }
-                    }
-                    else
-                    {
-                        <div>No cheat meals</div>
-                    }
-                </td>
-                <td>@dailyReport.CheatMeals.FirstOrDefault()?.Note</td>
-                <td>@dailyReport.CheatMeals.Sum(c => c.Calories)</td>
-                <td>@dailyReport.CheatMeals.Sum(c => c.Qty)</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
 <!-- row -->
 <div class="container-fluid">
     <div class="row">
@@ -52,10 +13,10 @@
                     <div class="row align-items-center">
                         <div class="col-xl-5 col-xxl-12 mr-auto">
                             <div class="d-sm-flex d-block align-items-center">
-                                <img src="images/illustration.png" alt="" class="mw-100 mr-3">
+                                @*<img src="~/Assets/image/" alt="" class="mw-100 mr-3">*@
                                 <div>
-                                    <h4 class="fs-20 text-black">Generate your workout report for now </h4>
-                                    <p class="fs-14 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                    <h4 class="fs-20 text-black">Generate your cheat meal report for now </h4>
+                                    <p class="fs-14 mb-0"></p>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +37,7 @@
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label-sm">Date</label>
                                         <div class="input-group input-group-sm">
-                                            <input type="selectedDate" name="selectedDate" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                            <input type="date" name="selectedDate" class="form-control-sm" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                                         </div>
                                         <small class="d-block"></small>
                                     </div>
@@ -97,12 +58,12 @@
         <div class="col-xxl-8 col-lg-8">
             <div class="card">
                 <div class="card-header bg-white">
-                    @*<div class="d-flex align-items-center mr-3">
+                    <div class="d-flex align-items-center mr-3">
                         <span class="p-sm-3 p-2 mr-sm-3 mr-2 rounded-circle">
-                            <img src="~/Assets/icons/workouts/@(ViewBag.WorkoutType).svg" alt="SVG" />
+                            @*<img src="~/Assets/icons/workouts/@(ViewBag.WorkoutType).svg" alt="SVG" />*@
                         </span>
-                        <h4 class="fs-20 text-black mb-0">Weekly Report - @ViewBag.From.ToShortDateString() - @ViewBag.To.ToShortDateString() - @ViewBag.WorkoutType workouts</h4>
-                    </div>*@
+                        <h4 class="fs-20 text-black mb-0">Weekly Report - @ViewBag.From.ToShortDateString() - @ViewBag.To.ToShortDateString() - </h4>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -180,39 +141,6 @@
                         </h4>
                         <p class="fs-13 mb-0">For @ViewBag.WorkoutType workouts</p>*@
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="d-flex align-items-center bgl-info p-4">
-                        @*<div>
-                            <h6 class="fs-16 text-black mb-0">@totalDistanceKm km </h6>
-                            <span class="fs-12">Total Distance Weekly</span>
-                        </div>*@
-                    </div>
-
-                    <div id="distanceChart"></div>
-
-                    <div class="d-flex align-items-center bgl-success p-4">
-                        <div>
-                            @*<h6 class="fs-16 text-black mb-0">
-                                @totalDurationInMinutes" Min
-                                <small> / @(ViewBag.User.DailyExerciseGoal * 7) Min</small>
-                            </h6>
-                            <span class="fs-12"> Total Duration Weekly </span>*@
-
-                        </div>
-                    </div>
-
-                    <div id="durationChart"></div>
-
-
-                    <div class="d-flex align-items-center bgl-warning p-4">
-                        @*<div>
-                            <h6 class="fs-16 text-black mb-0"> @totalCaloriesBurned Cal <small> /  @(ViewBag.User.DailyCalorieGoal * 7) Cal</small></h6>
-                            <span class="fs-12">Total Calories Burned Weekly</span>
-
-                        </div>*@
-                    </div>
-                    <div id="calorieChart"></div>
                 </div>
             </div>
         </div>

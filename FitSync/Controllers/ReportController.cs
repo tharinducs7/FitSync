@@ -9,41 +9,102 @@ namespace FitSync.Controllers
 {
     public class ReportController : Controller
     {
-            public ActionResult Index()
+        public ActionResult Index()
+        {
+            var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
+            var endDate = startDate.AddDays(6); // End on Saturday
+            User user = MemoryStore.GetUserById(1);
+
+            var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
+            var chartData = GenerateChartData(weeklyReport);
+
+            ViewBag.ChartData = chartData;
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.WorkoutType = "All";
+
+            return View();
+        }
+
+
+        public ActionResult FutureReport()
+        {
+            List<object> chartData = new List<object>();
+            var startDate = DateTime.Today; // Start from Sunday
+            var endDate = startDate.AddDays(90); // End on 3 Motnths
+            User user = MemoryStore.GetUserById(1);
+
+            double bmr = user.CalculateBMR();
+            double activityFactor = MemoryStore.CalculateActivityFactor();
+            double avgCaloriesBurnPerDay = MemoryStore.CalculateAverageCaloriesBurnedPerDay();
+
+            double tdee = bmr * activityFactor;
+            double calorieDeficitPerDay = tdee * 0.2;
+            double recomondedCalorieIntake = tdee - calorieDeficitPerDay;
+
+            double weightLossTotal = 0;
+
+            // Calculate Predicted Weight Loss per month
+            for (int i = 0; i < 3; i++)
             {
-                var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
-                var endDate = startDate.AddDays(6); // End on Saturday
-                User user = MemoryStore.GetUserById(1);
+                var month = startDate.AddMonths(i);
+                var monthEndDate = month.AddMonths(1).AddDays(-1);
+                double daysInMonth = (monthEndDate - month).TotalDays + 1;
 
-                var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
-                var chartData = GenerateChartData(weeklyReport);
+                double totalCalorieDeficit = calorieDeficitPerDay * daysInMonth;
+                double weightLossInPounds = totalCalorieDeficit / 3500;
+                double weightLossInKG = weightLossInPounds * 0.4536;
 
-                ViewBag.ChartData = chartData;
-                ViewBag.From = startDate;
-                ViewBag.To = endDate;
-                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
-                ViewBag.WorkoutType = "All";
-                return View();
+                weightLossTotal = weightLossTotal + weightLossInKG;
+
+                double predictedWeight = user.Weight - weightLossTotal;
+
+                chartData.Add(new
+                {
+                    month = $"{month:MM/yyyy}",
+                    weight = Math.Round(predictedWeight, 2),
+                    weightLoss = Math.Round(weightLossInKG, 2)
+                });
             }
 
-            public ActionResult WeeklyWorkoutReport()
-            {
+            var weightLossData = (dynamic)chartData[2];
 
-                var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
-                var endDate = startDate.AddDays(6); // End on Saturday
-                User user = MemoryStore.GetUserById(1);
-            
-                var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
-                var chartData = GenerateChartData(weeklyReport);
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+            ViewBag.bmr = bmr;
+            ViewBag.avgCaloriesBurnPerDay = Math.Round(avgCaloriesBurnPerDay, 2);
+            ViewBag.tdee = Math.Round(tdee, 2);
+            ViewBag.calorieDeficitPerDay = Math.Round(calorieDeficitPerDay, 2);
+            ViewBag.predictedWeight = weightLossData.weight;
+            ViewBag.weightLoss = weightLossData.weightLoss;
+            ViewBag.month = weightLossData.month;
+            ViewBag.recomondedCalorieIntake = Math.Round(recomondedCalorieIntake, 2);
+            ViewBag.User = user;
+            ViewBag.ChartData = chartData;
+
+            return View();
+        }
 
 
-                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
-                ViewBag.ChartData = chartData;
-                ViewBag.From = startDate;
-                ViewBag.To = endDate;
-                ViewBag.WorkoutType = "All";
-                ViewBag.User = user;
-                return View(weeklyReport);
+        public ActionResult WeeklyWorkoutReport()
+        {
+
+            var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
+            var endDate = startDate.AddDays(6); // End on Saturday
+            User user = MemoryStore.GetUserById(1);
+
+            var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
+            var chartData = GenerateChartData(weeklyReport);
+
+
+            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.ChartData = chartData;
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+            ViewBag.WorkoutType = "All";
+            ViewBag.User = user;
+            return View(weeklyReport);
         }
 
         [HttpPost]
@@ -52,7 +113,7 @@ namespace FitSync.Controllers
             var startDate = date.AddDays(-(int)date.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
             User user = MemoryStore.GetUserById(1);
-          
+
             var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, workoutType);
             var chartData = GenerateChartData(weeklyReport);
 
@@ -89,6 +150,9 @@ namespace FitSync.Controllers
                 weeklyReport.Add(dailyReport);
             }
 
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
+
             return View(weeklyReport);
         }
 
@@ -115,6 +179,9 @@ namespace FitSync.Controllers
 
                 weeklyReport.Add(dailyReport);
             }
+
+            ViewBag.From = startDate;
+            ViewBag.To = endDate;
 
             return View(weeklyReport);
         }
@@ -164,9 +231,5 @@ namespace FitSync.Controllers
 
             return chartData;
         }
-
-
-
-
     }
 }

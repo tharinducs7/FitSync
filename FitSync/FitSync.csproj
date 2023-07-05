@@ -492,6 +492,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Report\WeeklyCheatMealReport.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\FutureReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
