@@ -235,6 +235,7 @@
     <Content Include="Assets\images\menus\7.png" />
     <Content Include="Assets\images\menus\8.png" />
     <Content Include="Assets\images\menus\9.png" />
+    <Content Include="Assets\images\prediction.png" />
     <Content Include="Assets\images\product\1.jpg" />
     <Content Include="Assets\images\product\2.jpg" />
     <Content Include="Assets\images\product\3.jpg" />

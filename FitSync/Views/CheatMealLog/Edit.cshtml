@@ -7,8 +7,8 @@
 <div class="container-fluid">
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Components</a></li>
+            <li class="breadcrumb-item"><a href="/CheatMealLog/Index">Cheat Meal Logs</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit</a></li>
         </ol>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
                     <h4 class="card-title">Cheat Meal Logs</h4>
                     <div class="float-right">
                         <!-- Added float-right class here -->
-                        <a href="/CheatMealLog" class="btn btn-rounded btn-warning btn-xs">
+                        <a href="/CheatMealLog/Index" class="btn btn-rounded btn-warning btn-xs">
                             <span class="btn-icon-left text-info">
                                 <i class="fa fa-arrow-left color-info"></i>
                             </span>Back
@@ -39,7 +39,7 @@
                                     <select class="form-control form-control-sm" id="MealSelect" name="Meal" required>
                                         @foreach (var cheatMealType in ViewBag.CheatMealTypes)
                                         {
-                                            <option value="@cheatMealType.Meal" @(Model.Meal == cheatMealType.Meal ? "selected" : "") >@cheatMealType.Meal</option>
+                                            <option value="@cheatMealType.Meal" @(Model.Meal == cheatMealType.Meal ? "selected" : "")>@cheatMealType.Meal</option>
                                         }
                                     </select>
                                     <small class="d-block">@Html.ValidationMessageFor(model => model.Meal, "", new { @class = "text-danger" })</small>

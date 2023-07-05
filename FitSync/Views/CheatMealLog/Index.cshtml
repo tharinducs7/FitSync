@@ -5,8 +5,14 @@
 }
 
 <div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Cheat Meal Logs</a></li>
+        </ol>
+    </div>
     <div class="row">
-        <div class="col-xl-9 col-xxl-8">
+        <div class="col-xl-12 col-xxl-12">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
@@ -21,127 +27,66 @@
                                 </span>Add
                             </a>
                         </div>
-                        <div class="card-body loadmore-content pb-4 dz-scroll height750" id="DietMenusContent">
-                            @if (Model != null && Model.Any())
-                            {
-                                foreach (var item in Model)
-                                {
-                            <div class="media mb-3 pb-3 d-md-flex d-block menu-list">
-                                <img class="rounded mr-3 mb-md-0 mb-3" src="~/Assets/cheatMeals/@(item.Meal).svg" alt="" width="130">
-                                <div class="media-body col-lg-6 pl-0">
-                                    <h6 class="fs-16 font-w600"><a href="ecom-product-detail.html" class="text-black">@item.Meal</a></h6>
-                                    <p class="fs-14 mb-md-0 mb-3">@item.Note</p>
-                                </div>
-                                <ul class="m-md-auto mt-2 pr-4">
-                                    <li class="mb-2 text-nowrap"><i class="las la-clock scale5 mr-3"></i><span class="fs-14 text-black text-nowrap font-w500">@item.RecordDate.ToString("dd/MMM/yyyy")</span></li>
-                                    <li class="mb-2 text-nowrap"><i class="las la-prescription-bottle scale5 mr-3"></i><span class="text-nowrap fs-14 text-black font-w500">@item.Qty</span></li>
-                                    <li class="text-nowrap">
-                                        <i class="fa fa-star-o mr-3 scale5 text-warning" aria-hidden="true"></i><span class="text-nowrap fs-14 text-black font-w500">
-                                            @{
-                                                double totalCalories = item.Qty * item.Calories;
-                                            } @totalCalories
-                                        </span>
-                                    </li>
-                                </ul>
-                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-xs btn-warning m-1"><i class="fa fa-pencil"></i></a> 
-                                
-                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-xs btn-danger m-1"><i class="fa fa-trash"></i></a>
-
-                            </div>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-xxl-4">
-            <div class="row">
-                <div class="col-xl-12 col-md-6">
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <div class="mr-auto pr-3">
-                                <h4 class="text-black fs-20">Current Diet Menu</h4>
-                                <p class="fs-13 mb-0">Lorem ipsum dolor sit ame</p>
-                            </div>
-                        </div>
                         <div class="card-body">
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-12 col-md-6">
-                    <div class="card">
-                        <div class="card-header d-sm-flex d-block border-0 pb-4">
-                            <div class="mr-auto pr-3">
-                                <h4 class="text-black fs-20">Trending Ingridients</h4>
-                                <p class="fs-13 mb-0">Lorem ipsum dolor sit amet, consectetur</p>
-                            </div>
-                        </div>
-                        <div class="card-body loadmore-content dz-scroll pb-0 pt-0 height320" id="TrendingIngridientsContent">
-                            <div class="media border-bottom py-3">
-                                <a href="ecom-product-detail.html"><img src="images/menus/9.png" alt="" class="rounded mr-3" width="50"></a>
-                                <div class="pr-3 mr-auto media-body">
-                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Strawberry Fruit</a></h6>
-                                    <span class="fs-12">Vitamin A, B, C</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="d-block">
-                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
-                                        </svg>
-                                    </span>
-                                    <span class="d-block fs-16 text-black font-w600">#1</span>
-                                </div>
-                            </div>
-                            <div class="media border-bottom py-3">
-                                <a href="ecom-product-detail.html"><img src="images/menus/10.png" alt="" class="rounded mr-3" width="50"></a>
-                                <div class="pr-3 mr-auto media-body">
-                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Bananas Fruit</a></h6>
-                                    <span class="fs-12">Vitamin A, B, C</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="d-block">
-                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
-                                        </svg>
-                                    </span>
-                                    <span class="d-block fs-16 text-black font-w600">#2</span>
-                                </div>
-                            </div>
-                            <div class="media border-bottom py-3">
-                                <a href="ecom-product-detail.html"><img src="images/menus/11.png" alt="" class="rounded mr-3" width="50"></a>
-                                <div class="pr-3 mr-auto media-body">
-                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Orange Fruit</a></h6>
-                                    <span class="fs-12">Vitamin A, B, C</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="d-block">
-                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 9.00006L18 6.10352e-05H9L0 6.10352e-05L9 9.00006Z" fill="#C51E1E" />
-                                        </svg>
-                                    </span>
-                                    <span class="d-block fs-16 text-black font-w600">#3</span>
-                                </div>
-                            </div>
-                            <div class="media border-bottom py-3">
-                                <a href="ecom-product-detail.html"><img src="images/menus/12.png" alt="" class="rounded mr-3" width="50"></a>
-                                <div class="pr-3 mr-auto media-body">
-                                    <h6 class="fs-16 font-w600 mb-0"><a href="ecom-product-detail.html" class="text-black">Grapes Fruit</a></h6>
-                                    <span class="fs-12">Vitamin A, B, C</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="d-block">
-                                        <svg width="19" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 0L0 9H18L9 0Z" fill="#6EC51E" />
-                                        </svg>
-                                    </span>
-                                    <span class="d-block fs-16 text-black font-w600">#4</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer text-center border-0 pt-3 pb-4">
-                            <a class="text-primary dz-load-more" id="TrendingIngridients" rel="ajax/trending-ingridients.html" href="javascript:void(0);">View more</a>
+                            <table id="example" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Meal</th>
+                                        <th>Calories Per Meal</th>
+                                        <th>Qty</th>
+                                        <th>Total Calories</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.RecordDate.ToString("dd/MMM/yyyy")
+                                                </td>
+                                                <td>
+                                                    <img class="rounded mr-3 mb-md-0 mb-3" src="~/Assets/cheatMeals/@(item.Meal).svg" alt="" width="24">
+                                                    @item.Meal
+                                                </td>
+                                                <td>
+                                                    @item.Calories
+                                                </td>
+                                                <td>
+                                                    @item.Qty
+                                                </td>
+                                                <td>
+                                                    <span class="text-secondary ml-2">
+                                                        <i class="fa fa-fire"></i>
+                                                        @{
+                                                            double totalCalories = item.Qty * item.Calories;
+                                                        } @totalCalories
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="/CheatMealLog/Edit/@item.Id" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                        <a href="/CheatMealLog/Delete/@item.Id" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Workout</th>
+                                        <th>Duration</th>
+                                        <th>Distance</th>
+                                        <th>Calories</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -149,3 +94,10 @@
         </div>
     </div>
 </div>
+
+
+@section scripts {
+    <script>
+    new DataTable('#example');
+    </script>
+}

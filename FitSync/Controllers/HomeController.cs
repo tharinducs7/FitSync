@@ -10,7 +10,12 @@ namespace FitSync.Controllers
         {
             User user = MemoryStore.GetUserById(1);
             DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
-           
+
+
+            var workoutActivities = DashboardDataService.GetTodaysWorkoutActivities();
+            var cheatMeals = DashboardDataService.GetTodaysCheatMeals();
+            
+
             // Generate Dummy Values
             MemoryStore.GenerateJulyWorkoutActivities();
             MemoryStore.GenerateDummyCheatMealLogs();
@@ -51,8 +56,10 @@ namespace FitSync.Controllers
             ViewBag.DailyGoals = dailyGoal;
             ViewBag.BMR = bmr;
             ViewBag.TargetWeight = user.TargetWeight();
-            ViewBag.TargetBMR = user.TargetBMR();
-
+            ViewBag.Weight = user.Weight;
+            ViewBag.workoutActivities = workoutActivities;
+            ViewBag.cheatMeals = cheatMeals;
+            
             return View();
         }
 

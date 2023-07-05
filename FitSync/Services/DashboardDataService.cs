@@ -44,6 +44,27 @@ namespace FitSync.Services
             return dailyGoalReport;
         }
 
+        public static List<WorkoutActivity> GetTodaysWorkoutActivities()
+        {
+            var workoutActivities = MemoryStore.GetWorkoutActivities();
+            var todaysActivities = workoutActivities.Where(w => w.DateTime.Date == DateTime.Today).ToList();
+
+            return todaysActivities;
+        }
+
+        public static List<CheatMealLog> GetTodaysCheatMeals()
+        {
+            var todaysDate = DateTime.Today;
+            var cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            var todaysCheatMeals = cheatMealLogs
+                .Where(c => c.RecordDate.Date == todaysDate.Date)
+                .ToList();
+
+            return todaysCheatMeals;
+        }
+
+
+
 
 
     }

@@ -70,6 +70,37 @@ namespace FitSync.Controllers
 
             var weightLossData = (dynamic)chartData[2];
 
+            double heightInMeters = user.Height / 100; // Convert height from cm to meters
+            double predictedBMI = weightLossData.weight / (heightInMeters * heightInMeters);
+
+            string imagePath;
+            string description;
+
+            switch (predictedBMI)
+            {
+                case var value when value <= 18.5:
+                    imagePath = "/Assets/bmi/1.png";
+                    description = "You will be underweight.";
+                    break;
+                case var value when value <= 24.9:
+                    imagePath = "/Assets/bmi/2.png";
+                    description = "You will have a normal weight.";
+                    break;
+                case var value when value <= 29.9:
+                    imagePath = "/Assets/bmi/3.png";
+                    description = "You will be overweight.";
+                    break;
+                case var value when value <= 34.9:
+                    imagePath = "/Assets/bmi/4.png";
+                    description = "You will have obesity class I.";
+                    break;
+                default:
+                    imagePath = "/Assets/bmi/5.png";
+                    description = "You will have obesity class II.";
+                    break;
+            }
+
+
             ViewBag.From = startDate;
             ViewBag.To = endDate;
             ViewBag.bmr = bmr;
@@ -82,6 +113,9 @@ namespace FitSync.Controllers
             ViewBag.recomondedCalorieIntake = Math.Round(recomondedCalorieIntake, 2);
             ViewBag.User = user;
             ViewBag.ChartData = chartData;
+            ViewBag.predictedBMI = Math.Round(predictedBMI, 2);
+            ViewBag.BMIImage = imagePath;
+            ViewBag.BMIdescription = description;
 
             return View();
         }

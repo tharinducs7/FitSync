@@ -6,6 +6,7 @@
     <title>@ViewBag.Title -FitSync</title>
     @Styles.Render("~/Assets/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Assets/vendor/datatables/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -56,21 +57,21 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-                                
+
                             </div>
                         </div>
 
                         <ul class="navbar-nav header-right">
                             @*<li class="nav-item">
-                                <div class="input-group search-area d-lg-inline-flex d-none mr-5">
-                                    <input type="text" class="form-control" placeholder="Search here">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#A4A4A4"></path></svg>
-                                        </span>
+                                    <div class="input-group search-area d-lg-inline-flex d-none mr-5">
+                                        <input type="text" class="form-control" placeholder="Search here">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#A4A4A4"></path></svg>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>*@
+                                </li>*@
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <img src="~/Assets/images/profile/17.jpg" width="20" alt="" />
@@ -120,33 +121,17 @@
                     </li>
                     <li>
                         <a class="ai-icon" href="/Report/Index" aria-expanded="false">
-                            <i class="fa-sharp fa-solid fa-pizza-slice"></i>
+                            <i class="fa-solid fa-file"></i>
                             <span class="nav-text"> Reports </span>
                         </a>
                     </li>
                     <li>
-                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="fa-solid fa-file"></i>
-                            <span class="nav-text">FitSync Reports</span>
+                        <a class="ai-icon" href="/Report/FutureReport" aria-expanded="false">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <span class="nav-text"> 3 Month Prediction </span>
                         </a>
-                        <ul>
-                            <li><a href="/Report/WeeklyWorkoutReport">Weekly Workout Report</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="/Report/WeeklyCheatMealReport">Weekly CheatMeal Report</a></li>
-                        </ul>
                     </li>
                 </ul>
-                @*<div class="drum-box">
-                    <img src="~/Assets/images/card/drump.png" alt="">
-                    <p class="fs-18 font-w500 mb-4">Start Plan Your Workout</p>
-                    <a class="" href="javascript:;">
-                        Check schedule
-                        <svg class="ml-3" width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 12L6 6L0 0" fill="#BCD7FF" />
-                        </svg>
-                    </a>
-                </div>*@
                 <div class="copyright">
                     <p><strong>FiSync</strong> ©All Rights Reserved</p>
                     <p>by Tharindu Senadheera</p>
@@ -183,6 +168,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+   
     @RenderSection("scripts", required: false)
 </body>
 </html>
