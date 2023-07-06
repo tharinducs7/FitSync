@@ -88,6 +88,7 @@
         <div class="col-xl-4 col-xxl-4">
             <div class="row">
                 <div class="col-xl-12 col-md-12">
+
                     <div class="card">
                         <div class="card-header flex-wrap border-0 pb-0">
                             <div>
@@ -96,6 +97,30 @@
                             </div>
                         </div>
                         <div class="card-body p-0">
+
+                            <div class="d-flex align-items-center bg-white p-4">
+                                <div>
+                                    <h6 class="fs-16 text-black mb-0">Generate Prediction</h6>
+                                    <span class="fs-12">For your desired date</span>
+                                    <form method="post" action="@Url.Action("FutureReport")">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-form-label-sm"><b> Date </b></label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="date" name="selectedDate" class="form-control-sm" value="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"  min="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <div class="input-group input-group-sm">
+                                                    <button type="submit" class="btn btn-info btn-md mb-2">Generate Prediction Report<i class="las la-angle-right ml-3 scale5"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
                             <div class="d-flex align-items-center bgl-info p-4">
                                 <svg class="mr-3" width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="51" height="51" rx="25.5" fill="#1EA7C5" />
@@ -164,17 +189,17 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-wrap p-4">
-                                <div class="mr-5 mb-3">
-                                    <p class="fs-14 mb-2">Recommended Calorie Intake</p>
-                                    <span class="fs-20 font-w500 text-black"> @ViewBag.recomondedCalorieIntake Cal</span>
-                                </div>
+                                @*<div class="mr-5 mb-3">
+                <p class="fs-14 mb-2">Recommended Calorie Intake</p>
+                <span class="fs-20 font-w500 text-black"> @ViewBag.recomondedCalorieIntake Cal</span>
+            </div>*@
                                 <div class="mr-5 mb-3">
                                     <p class="fs-14 mb-2">Predicted Weight Est</p>
                                     <span class="fs-20 font-w500 text-black">@ViewBag.predictedWeight kg</span>
                                 </div>
                                 <div class="mr-5 mb-3">
-                                    <p class="fs-14 mb-2">Predicted Weight Loss Est</p>
-                                    <span class="fs-20 font-w500 text-black">@ViewBag.weightLoss kg</span>
+                                    <p class="fs-14 mb-2">Predicted Weight @ViewBag.Status Est</p>
+                                    <span class="fs-20 font-w500 text-black">@ViewBag.weightChange kg</span>
                                 </div>
                                 <div class="mr-5 mb-3">
                                     <p class="fs-14 mb-2">Predicted BMI (based on weight) Est</p>

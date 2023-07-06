@@ -29,50 +29,100 @@ namespace FitSync.Controllers
         }
 
 
-        public ActionResult FutureReport()
+        public ActionResult FutureReport(DateTime? selectedDate = null)
         {
             List<object> chartData = new List<object>();
             var startDate = DateTime.Today; // Start from Sunday
-            var endDate = startDate.AddDays(90); // End on 3 Motnths
-            User user = MemoryStore.GetUserById(1);
-
-            double bmr = user.CalculateBMR();
-            double activityFactor = CalculationService.CalculateActivityFactor();
-            double avgCaloriesBurnPerDay = CalculationService.CalculateAverageCaloriesBurnedPerDay();
-
-            double tdee = bmr * activityFactor;
-            double calorieDeficitPerDay = tdee * 0.2;
-            double recomondedCalorieIntake = tdee - calorieDeficitPerDay;
-
-            double weightLossTotal = 0;
-
-            // Calculate Predicted Weight Loss per month
-            for (int i = 0; i < 3; i++)
+            DateTime endDate;
+            if (selectedDate.HasValue && selectedDate.Value > startDate)
             {
-                var month = startDate.AddMonths(i);
-                var monthEndDate = month.AddMonths(1).AddDays(-1);
-                double daysInMonth = (monthEndDate - month).TotalDays + 1;
-
-                double totalCalorieDeficit = calorieDeficitPerDay * daysInMonth;
-                double weightLossInPounds = totalCalorieDeficit / 3500;
-                double weightLossInKG = weightLossInPounds * 0.4536;
-
-                weightLossTotal = weightLossTotal + weightLossInKG;
-
-                double predictedWeight = user.Weight - weightLossTotal;
-
-                chartData.Add(new
-                {
-                    month = $"{month:MM/yyyy}",
-                    weight = Math.Round(predictedWeight, 2),
-                    weightLoss = Math.Round(weightLossInKG, 2)
-                });
+                endDate = (DateTime)selectedDate;
+            } else
+            {
+                endDate = startDate.AddDays(90);
             }
 
-            var weightLossData = (dynamic)chartData[2];
+            var monthCount = (endDate.Date.Year - startDate.Year) * 12 + (endDate.Date.Month - startDate.Month) + 1;
+
+            User user = MemoryStore.GetUserById(1);
+            double bmi = user.CalculateBMI();
+            double bmr = user.CalculateBMR();
+
+            double activityFactor = CalculationService.CalculateActivityFactor();
+            double avgCaloriesBurnPerDay = CalculationService.CalculateAverageCaloriesBurnedPerDay();
+            double avgCheatMealCalIntakePerDay = CalculationService.CalculateAverageCheatMealCaloriesPerDay();
+
+            double tdee = bmr * activityFactor;
+            double calorieDeficitPerDay = tdee * 0.4;
+            double calorieSurplusPerDay = tdee * 0.2;
+
+            double weightLossTotal = 0;
+            double weightGainTotal = 0;
+            string status;
+
+            if (bmi >= 25)
+            {
+                // Calculate Predicted Weight Loss per month
+                status = "loss";
+                for (int i = 0; i < monthCount; i++)
+                {
+                    var month = startDate.AddMonths(i);
+                    var monthEndDate = month.AddMonths(1).AddDays(-1);
+                    double daysInMonth = (monthEndDate - month).TotalDays + 1;
+
+                    double totalCalorieDeficit = calorieDeficitPerDay * daysInMonth;
+                    double weightLossInPounds = totalCalorieDeficit / 3500;
+                    double weightLossInKG = weightLossInPounds * 0.4536;
+
+                    weightLossTotal += weightLossInKG;
+
+                    double predictedWeight = user.Weight - weightLossTotal;
+
+                    chartData.Add(new
+                    {
+                        month = $"{month:MM/yyyy}",
+                        weight = Math.Round(predictedWeight, 2),
+                        weightChange = Math.Round(weightLossInKG, 2)
+                    });
+                }
+            }
+            else
+            {
+                status = "gain";
+                // Calculate Predicted Weight Gain per month
+                for (int i = 0; i < monthCount; i++)
+                {
+                    var month = startDate.AddMonths(i);
+                    var monthEndDate = month.AddMonths(1).AddDays(-1);
+                    double daysInMonth = (monthEndDate - month).TotalDays + 1;
+
+                    double totalCalorieSurplus = calorieSurplusPerDay * daysInMonth;
+                    double weightGainInPounds = totalCalorieSurplus / 3500;
+                    double weightGainInKG = weightGainInPounds * 0.4536;
+
+                    weightGainTotal += weightGainInKG;
+
+                    double predictedWeight = user.Weight + weightGainTotal;
+
+                    chartData.Add(new
+                    {
+                        month = $"{month:MM/yyyy}",
+                        weight = Math.Round(predictedWeight, 2),
+                        weightChange = Math.Round(weightGainInKG, 2)
+                    });
+                }
+            }
+
+            dynamic weightChangeData = null;
+
+            if (chartData != null)
+            {
+                weightChangeData = (dynamic)chartData[chartData.Count-1];
+            }
+          
 
             double heightInMeters = user.Height / 100; // Convert height from cm to meters
-            double predictedBMI = weightLossData.weight / (heightInMeters * heightInMeters);
+            double predictedBMI = weightChangeData.weight / (heightInMeters * heightInMeters);
 
             string imagePath;
             string description;
@@ -106,12 +156,13 @@ namespace FitSync.Controllers
             ViewBag.To = endDate;
             ViewBag.bmr = bmr;
             ViewBag.avgCaloriesBurnPerDay = Math.Round(avgCaloriesBurnPerDay, 2);
+            ViewBag.avgCheatMealCalIntakePerDay = Math.Round(avgCheatMealCalIntakePerDay, 2);
             ViewBag.tdee = Math.Round(tdee, 2);
             ViewBag.calorieDeficitPerDay = Math.Round(calorieDeficitPerDay, 2);
-            ViewBag.predictedWeight = weightLossData.weight;
-            ViewBag.weightLoss = weightLossData.weightLoss;
-            ViewBag.month = weightLossData.month;
-            ViewBag.recomondedCalorieIntake = Math.Round(recomondedCalorieIntake, 2);
+            ViewBag.predictedWeight = weightChangeData.weight;
+            ViewBag.weightChange = weightChangeData.weightChange;
+            ViewBag.month = weightChangeData.month;
+            ViewBag.Status = status;
             ViewBag.User = user;
             ViewBag.ChartData = chartData;
             ViewBag.predictedBMI = Math.Round(predictedBMI, 2);

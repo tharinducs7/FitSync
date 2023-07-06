@@ -18,8 +18,6 @@ namespace FitSync.Controllers
             else
             {
                 
-           
-
             DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
 
 
