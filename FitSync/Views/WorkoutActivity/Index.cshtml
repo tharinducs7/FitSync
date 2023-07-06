@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{ bool done = Request.QueryString["done"] == "True"; }
 <!-- row -->
 <div class="container-fluid">
     <div class="page-titles">
@@ -84,7 +85,7 @@
                                                             <a href="/WorkoutActivity/Edit/@item.Id" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                             <a href="/WorkoutActivity/Delete/@item.Id" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                                         </div>
-                                                        
+
                                                     </td>
                                                 </tr>
                                             }
@@ -103,14 +104,29 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@section scripts {
-    <script>
-    new DataTable('#example');
-    </script>
+    @section scripts {
+        <script>
+            new DataTable('#example');
+        </script>
+
+        @if (done)
+        {
+            <script>
+                $(document).ready(function () {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: "Operation completed successfully",
+                        icon: 'success',
+                        confirmButtonText: 'OKay'
+                    });
+                });
+            </script>
+         }
+
     }

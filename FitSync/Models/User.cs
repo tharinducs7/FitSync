@@ -18,7 +18,6 @@ namespace FitSync.Models
         public string Gender { get; set; }
         public double DailyCalorieGoal { get; set; }
         public double DailyExerciseGoal { get; set; }
-        public double ActivityFactor { get; set; }
         public double CalculateBMI()
         {
             double heightInMeters = Height / 100; // Convert height from cm to meters

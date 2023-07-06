@@ -80,8 +80,7 @@ namespace FitSync.Controllers
 
                 // Add the workout activity to memory storage
                 MemoryStore.AddWorkoutActivity(workoutActivity);
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
@@ -124,7 +123,7 @@ namespace FitSync.Controllers
                 workoutActivity.DurationInMinutes = updatedWorkoutActivity.DurationInMinutes;
                 workoutActivity.DistanceInKm = updatedWorkoutActivity.DistanceInKm;
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
@@ -163,7 +162,7 @@ namespace FitSync.Controllers
                 // Remove the workout activity from memory storage
                 MemoryStore.GetWorkoutActivities().Remove(workoutActivity);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {

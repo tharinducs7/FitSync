@@ -47,7 +47,7 @@ namespace FitSync.Controllers
 
                 MemoryStore.AddCheatMeal(cheatMeal);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
@@ -77,7 +77,7 @@ namespace FitSync.Controllers
                 cheatMeal.Qty = updatedCheatMeal.Qty;
                 cheatMeal.RecordDate = updatedCheatMeal.RecordDate;
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
@@ -108,7 +108,7 @@ namespace FitSync.Controllers
                 // Remove the workout activity from memory storage
                 MemoryStore.GetCheatMealLogs().Remove(cheatMeal);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
