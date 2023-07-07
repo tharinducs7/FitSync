@@ -170,29 +170,36 @@ namespace FitSync.Controllers
             }
 
             string activityLevel;
-
+            string suggestions;
             switch (activityFactor)
             {
                 case var value when value <= 1.2:
                     activityLevel = "Sedentary (little or no exercise)";
+                    suggestions = "To improve your activity level, try incorporating more physical activity into your daily routine. Here are some suggestions:\n\n- Take short walks during breaks and after meals.\n- Stand up and stretch regularly throughout the day.\n- Set aside dedicated time for exercise, such as going for a walk or jog, cycling, or swimming.\n- Consider joining a gym or fitness class to increase your exercise frequency.\n- Find activities you enjoy, such as dancing, hiking, or playing a sport, and engage in them regularly.\n- Use stairs instead of elevators whenever possible.\n- Consider tracking your steps or using a fitness tracker to monitor your daily activity levels and set goals for improvement.\n- Stay motivated by finding an exercise buddy or joining a community or group that shares your fitness goals.";
                     break;
                 case var value when value <= 1.375:
                     activityLevel = "Lightly active (1-3 days of exercise per week)";
+                    suggestions = "To further enhance your activity level, consider the following suggestions:\n\n- Increase the frequency of your exercise sessions to 4-5 days per week.\n- Engage in activities like brisk walking, jogging, cycling, or swimming on a regular basis.\n- Incorporate strength training exercises using weights, resistance bands, or bodyweight exercises.\n- Explore recreational activities such as dancing, yoga, or Pilates.\n- Set specific goals to gradually increase your exercise duration and intensity.\n- Monitor your progress and adjust your routine accordingly.";
                     break;
                 case var value when value <= 1.55:
                     activityLevel = "Moderately active (3-5 days of exercise per week)";
+                    suggestions = "To maintain and further improve your activity level, consider the following suggestions:\n\n- Continue with your regular exercise routine of 3-5 days per week.\n- Include a mix of cardiovascular exercises, strength training, and flexibility exercises.\n- Explore new activities or sports to keep your workouts engaging and challenging.\n- Increase the intensity or duration of your workouts gradually.\n- Incorporate interval training or circuit training to boost calorie burn and cardiovascular fitness.\n- Consider seeking guidance from a fitness professional to create a personalized exercise plan.\n- Stay consistent and make physical activity a regular part of your lifestyle.";
                     break;
                 case var value when value <= 1.725:
                     activityLevel = "Very active (6-7 days of exercise per week)";
+                    suggestions = "To maintain your high activity level and continue seeing progress, consider the following suggestions:\n\n- Maintain your exercise routine of 6-7 days per week.\n- Focus on a combination of cardiovascular exercises, strength training, and flexibility exercises.\n- Challenge yourself with high-intensity interval training (HIIT) or advanced training techniques.\n- Consider participating in competitive sports or endurance events.\n- Ensure proper rest and recovery to prevent overtraining and minimize the risk of injury.\n- Monitor your performance and make adjustments to your training plan as needed.\n- Consult with a fitness professional to optimize your workouts and set new goals.";
                     break;
                 case var value when value <= 1.9:
                     activityLevel = "Extra active (very intense exercise or physical job)";
+                    suggestions = "As someone with an extra active lifestyle, here are some suggestions to support your intense physical activity:\n\n- Continue with your demanding exercise routine and physical job.\n- Focus on maintaining strength, endurance, and flexibility through targeted exercises.\n- Consider working with a strength and conditioning coach to optimize your training.\n- Prioritize proper nutrition to fuel your workouts and aid in recovery.\n- Ensure sufficient rest and sleep to support your body's recovery processes.\n- Listen to your body and adjust your training intensity and volume as needed.\n- Stay hydrated and pay attention to proper form and technique to prevent injuries.";
                     break;
                 default:
                     activityLevel = "Sedentary (little or no exercise)";
+                    suggestions = "To improve your activity level, try incorporating more physical activity into your daily routine. Here are some suggestions:\n\n- Take short walks during breaks and after meals.\n- Stand up and stretch regularly throughout the day.\n- Set aside dedicated time for exercise, such as going for a walk or jog, cycling, or swimming.\n- Consider joining a gym or fitness class to increase your exercise frequency.\n- Find activities you enjoy, such as dancing, hiking, or playing a sport, and engage in them regularly.\n- Use stairs instead of elevators whenever possible.\n- Consider tracking your steps or using a fitness tracker to monitor your daily activity levels and set goals for improvement.\n- Stay motivated by finding an exercise buddy or joining a community or group that shares your fitness goals.";
                     break;
             }
-            
+
+
             ViewBag.From = startDate;
             ViewBag.To = endDate;
             ViewBag.bmr = bmr;
@@ -214,7 +221,8 @@ namespace FitSync.Controllers
             ViewBag.activityFactor = activityFactor;
             ViewBag.Description = bmiDescription;
             ViewBag.color = color;
-
+            ViewBag.suggestions = suggestions;
+           
             return View();
         }
 

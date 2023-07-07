@@ -48,11 +48,6 @@ namespace FitSync.Controllers
         {
             try
             {
-                DateTime today = DateTime.Today;
-                string formattedDate = today.ToString("yyyy-MM-dd");
-
-                DateTime dateTime = DateTime.Parse(formattedDate);
-
                 WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(workoutActivity.WorkoutType);
                 User user = MemoryStore.GetUserById(1);
                 // Assign a new unique ID to the workout activity
@@ -77,7 +72,7 @@ namespace FitSync.Controllers
                 workoutActivity.UserId = 1;
                 workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 workoutActivity.WorkoutType = workoutType.WorkoutName;
-
+               
                 // Add the workout activity to memory storage
                 MemoryStore.AddWorkoutActivity(workoutActivity);
                 return RedirectToAction("Index", new { done = true });

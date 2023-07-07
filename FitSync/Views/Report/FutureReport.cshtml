@@ -62,16 +62,17 @@
                                 if (ViewBag.predictedBMI != null)
                                 {
                                     <img src="@ViewBag.BMIImage" alt="BMI Image" class="img-fluid rounded mx-auto d-block">
-                                    <p class="fs-14 m-2 text-center">@ViewBag.Description</p>
+                                    <p class="fs-14 m-2 text-center">@ViewBag.bmiDescription</p>
 
                                     <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
-                                        @ViewBag.bmiDescription
+                                        @ViewBag.Description
                                     </p>
                                     <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
                                         Determine Your BMR : @ViewBag.bmr
                                     </p>
                                     <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
                                         Your Activity Level : @ViewBag.activityLevel <br />
+                                       <small> <b> Suggestions </b> @ViewBag.suggestions </small>
                                         <small>Based on your daily routine and exercise habits, we have estimated how many calories you burn through physical activity.</small>
                                     </p>
                                     <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
@@ -216,7 +217,7 @@
                                         </div>
                                         <div class="mr-5 mb-3">
                                             <p class="fs-14 mb-2">Predicted Weight @ViewBag.Status</p>
-                                            <span class="fs-20 font-w500 text-black">@(ViewBag.User.Weight - ViewBag.predictedWeight) kg</span>
+                                            <span class="fs-20 font-w500 text-black">@(Math.Abs(ViewBag.User.Weight - ViewBag.predictedWeight)) kg</span>
                                         </div>
                                         <div class="mr-5 mb-3">
                                             <p class="fs-14 mb-2">Predicted BMI (based on weight)</p>

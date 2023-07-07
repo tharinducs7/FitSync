@@ -47,7 +47,7 @@
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Date</label>
                                     <div class="input-group input-group-sm">
-                                        @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
+                                        @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control", name="selectedDate", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
                                     </div>
                                     <small class="d-block">@Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })</small>
                                 </div>
