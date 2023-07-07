@@ -62,11 +62,27 @@
                                 if (ViewBag.predictedBMI != null)
                                 {
                                     <img src="@ViewBag.BMIImage" alt="BMI Image" class="img-fluid rounded mx-auto d-block">
-                                    <p class="fs-14 m-2 text-center">@ViewBag.BMIdescription</p>
+                                    <p class="fs-14 m-2 text-center">@ViewBag.Description</p>
+
+                                    <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
+                                        @ViewBag.bmiDescription
+                                    </p>
+                                    <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
+                                        Determine Your BMR : @ViewBag.bmr
+                                    </p>
+                                    <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
+                                        Your Activity Level : @ViewBag.activityLevel <br />
+                                        <small>Based on your daily routine and exercise habits, we have estimated how many calories you burn through physical activity.</small>
+                                    </p>
+                                    <p class="fs-14 m-2 text-center text-black bgl-@(ViewBag.color)">
+                                        Your TDEE Is : @(ViewBag.bmr * ViewBag.activityFactor) <br />
+                                        <small>BMR * Activity Factor</small>
+                                    </p>
 
                                     <p class="fs-14 m-2 text-center text-black bgl-warning">
-                                        We recoomoned to reach a normal BMI by targeting a weight of<b> @ViewBag.User.TargetWeight() kg </b> ,
-                                        and you should aim for a daily calorie intake of approximately  <b> @ViewBag.recomondedCalorieIntake </b> calories.
+                                        <small> Once you have calculated your TDEE, you can adjust your calorie intake to achieve your desired weight loss or gain. </small>
+                                        <small> A good rule of thumb is to take your TDEE and subtract 15-20% from it. This new number will be your “weight loss calorie intake.”</small>
+                                        <small> shows a good target for lean muscle gain is about 110% of your TDEE (10% above your TDEE).  </small>
                                     </p>
 
                                     <p class="fs-14 m-2 text-center text-black bgl-danger">
@@ -74,12 +90,13 @@
                                         so it's advisable to consult with a healthcare professional
                                         or registered dietitian for personalized guidance and recommendations.
                                     </p>
+
                                 }
                                 else
                                 {
-                                   <p class="fs-14 m-2 text-center">Predicted BMI value is not available. </p>
+                                    <p class="fs-14 m-2 text-center">Predicted BMI value is not available. </p>
                                 }
-                         }
+                            }
                         </div>
                     </div>
                 </div>
@@ -107,7 +124,7 @@
                                             <div class="form-group col-md-12">
                                                 <label class="col-form-label-sm"><b> Date </b></label>
                                                 <div class="input-group input-group-sm">
-                                                    <input type="date" name="selectedDate" class="form-control-sm" value="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"  min="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" />
+                                                    <input type="date" name="selectedDate" class="form-control-sm" value="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"  min="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"  max="@DateTime.Today.AddMonths(6).ToString("yyyy-MM-dd")"/>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-12">
@@ -193,19 +210,19 @@
                 <p class="fs-14 mb-2">Recommended Calorie Intake</p>
                 <span class="fs-20 font-w500 text-black"> @ViewBag.recomondedCalorieIntake Cal</span>
             </div>*@
-                                <div class="mr-5 mb-3">
-                                    <p class="fs-14 mb-2">Predicted Weight Est</p>
-                                    <span class="fs-20 font-w500 text-black">@ViewBag.predictedWeight kg</span>
-                                </div>
-                                <div class="mr-5 mb-3">
-                                    <p class="fs-14 mb-2">Predicted Weight @ViewBag.Status Est</p>
-                                    <span class="fs-20 font-w500 text-black">@ViewBag.weightChange kg</span>
-                                </div>
-                                <div class="mr-5 mb-3">
-                                    <p class="fs-14 mb-2">Predicted BMI (based on weight) Est</p>
-                                    <span class="fs-20 font-w500 text-black">@ViewBag.predictedBMI</span>
-                                </div>
-                            </div>
+                                        <div class="mr-5 mb-3">
+                                            <p class="fs-14 mb-2">Predicted Weight Est</p>
+                                            <span class="fs-20 font-w500 text-black">@ViewBag.predictedWeight kg</span>
+                                        </div>
+                                        <div class="mr-5 mb-3">
+                                            <p class="fs-14 mb-2">Predicted Weight @ViewBag.Status</p>
+                                            <span class="fs-20 font-w500 text-black">@(ViewBag.User.Weight - ViewBag.predictedWeight) kg</span>
+                                        </div>
+                                        <div class="mr-5 mb-3">
+                                            <p class="fs-14 mb-2">Predicted BMI (based on weight)</p>
+                                            <span class="fs-20 font-w500 text-black">@ViewBag.predictedBMI</span>
+                                        </div>
+</div>
                         </div>
                     </div>
                 </div>

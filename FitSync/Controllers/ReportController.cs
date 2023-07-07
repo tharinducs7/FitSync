@@ -53,8 +53,8 @@ namespace FitSync.Controllers
             double avgCheatMealCalIntakePerDay = CalculationService.CalculateAverageCheatMealCaloriesPerDay();
 
             double tdee = bmr * activityFactor;
-            double calorieDeficitPerDay = tdee * 0.4;
-            double calorieSurplusPerDay = tdee * 0.2;
+            double calorieDeficitPerDay = tdee * 0.2;
+            double calorieSurplusPerDay = tdee * 0.1;
 
             double weightLossTotal = 0;
             double weightGainTotal = 0;
@@ -119,39 +119,80 @@ namespace FitSync.Controllers
             {
                 weightChangeData = (dynamic)chartData[chartData.Count-1];
             }
-          
 
             double heightInMeters = user.Height / 100; // Convert height from cm to meters
             double predictedBMI = weightChangeData.weight / (heightInMeters * heightInMeters);
 
             string imagePath;
             string description;
-
+            string bmiDescription;
+            string color;
             switch (predictedBMI)
             {
                 case var value when value <= 18.5:
                     imagePath = "/Assets/bmi/1.png";
                     description = "You will be underweight.";
+                    bmiDescription = $"We recommend reaching a normal BMI by targeting a weight of <b> {user.TargetWeight()} kg</b>," +
+                       $"and you should aim for a daily calorie {(status == "loss" ? "deficit" : "surplus")} of" +
+                       $"approximately <b>{(status == "loss" ? Math.Round(calorieDeficitPerDay, 2) : Math.Round(calorieSurplusPerDay, 2))}</b> calories.";
+                    color = "info";
                     break;
                 case var value when value <= 24.9:
                     imagePath = "/Assets/bmi/2.png";
                     description = "You will have a normal weight.";
+                    bmiDescription = $"Nice, You have normal weight that everyone dreamed of. Keep doing what you are already doing.";
+                    color = "success";
                     break;
                 case var value when value <= 29.9:
                     imagePath = "/Assets/bmi/3.png";
                     description = "You will be overweight.";
+                    bmiDescription = $"We recommend reaching a normal BMI by targeting a weight of <b> {user.TargetWeight()} kg</b>," +
+                       $"and you should aim for a daily calorie {(status == "loss" ? "deficit" : "surplus")} of" +
+                       $"approximately <b>{(status == "loss" ? Math.Round(calorieDeficitPerDay, 2) : Math.Round(calorieSurplusPerDay, 2))}</b> calories.";
+                    color = "warning";
                     break;
                 case var value when value <= 34.9:
                     imagePath = "/Assets/bmi/4.png";
                     description = "You will have obesity class I.";
+                    bmiDescription = $"We recommend reaching a normal BMI by targeting a weight of <b> {user.TargetWeight()} kg</b>," +
+                       $"and you should aim for a daily calorie {(status == "loss" ? "deficit" : "surplus")} of" +
+                       $"approximately <b>{(status == "loss" ? Math.Round(calorieDeficitPerDay, 2) : Math.Round(calorieSurplusPerDay, 2))}</b> calories.";
+                    color = "danger";
                     break;
                 default:
                     imagePath = "/Assets/bmi/5.png";
                     description = "You will have obesity class II.";
+                    bmiDescription = $"We recommend reaching a normal BMI by targeting a weight of <b> {user.TargetWeight()} kg</b>," +
+                       $"and you should aim for a daily calorie {(status == "loss" ? "deficit" : "surplus")} of" +
+                       $"approximately <b>{(status == "loss" ? Math.Round(calorieDeficitPerDay, 2) : Math.Round(calorieSurplusPerDay, 2))}</b> calories.";
+                    color = "danger";
                     break;
             }
 
+            string activityLevel;
 
+            switch (activityFactor)
+            {
+                case var value when value <= 1.2:
+                    activityLevel = "Sedentary (little or no exercise)";
+                    break;
+                case var value when value <= 1.375:
+                    activityLevel = "Lightly active (1-3 days of exercise per week)";
+                    break;
+                case var value when value <= 1.55:
+                    activityLevel = "Moderately active (3-5 days of exercise per week)";
+                    break;
+                case var value when value <= 1.725:
+                    activityLevel = "Very active (6-7 days of exercise per week)";
+                    break;
+                case var value when value <= 1.9:
+                    activityLevel = "Extra active (very intense exercise or physical job)";
+                    break;
+                default:
+                    activityLevel = "Sedentary (little or no exercise)";
+                    break;
+            }
+            
             ViewBag.From = startDate;
             ViewBag.To = endDate;
             ViewBag.bmr = bmr;
@@ -159,6 +200,7 @@ namespace FitSync.Controllers
             ViewBag.avgCheatMealCalIntakePerDay = Math.Round(avgCheatMealCalIntakePerDay, 2);
             ViewBag.tdee = Math.Round(tdee, 2);
             ViewBag.calorieDeficitPerDay = Math.Round(calorieDeficitPerDay, 2);
+            ViewBag.calorieSurplusPerDay = Math.Round(calorieSurplusPerDay, 2);
             ViewBag.predictedWeight = weightChangeData.weight;
             ViewBag.weightChange = weightChangeData.weightChange;
             ViewBag.month = weightChangeData.month;
@@ -168,6 +210,10 @@ namespace FitSync.Controllers
             ViewBag.predictedBMI = Math.Round(predictedBMI, 2);
             ViewBag.BMIImage = imagePath;
             ViewBag.BMIdescription = description;
+            ViewBag.activityLevel = activityLevel;
+            ViewBag.activityFactor = activityFactor;
+            ViewBag.Description = bmiDescription;
+            ViewBag.color = color;
 
             return View();
         }
