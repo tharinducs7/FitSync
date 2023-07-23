@@ -51,7 +51,7 @@ namespace FitSync
         }
 
         // Get all cheatMealLogsByUserId
-        public static IEnumerable<CheatMealLog> GetCheatMealsByUserId(int id)
+        public static IEnumerable<CheatMealLog> GetCheatMealsByUserId(String id)
         {
             return cheatMealLogs.Where(meal => meal.UserId == id).ToList();
         }
@@ -165,7 +165,7 @@ namespace FitSync
                 AddCheatMeal(new CheatMealLog
                 {
                     Id = i,
-                    UserId = 1,
+                    UserId = "1",
                     Meal = meal,
                     Note = "dummy",
                     Calories = calories,

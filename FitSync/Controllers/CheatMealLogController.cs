@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FitSync.Models;
@@ -11,13 +12,13 @@ namespace FitSync.Controllers
 {
     public class CheatMealLogController : Controller
     {
-        Uri baseAddress = new Uri("http://localhost:50761/api");
-        HttpClient client;
+        Uri baseAddress = new Uri("https://localhost:44304/api");
+        private readonly HttpClient _client;
 
         public CheatMealLogController()
         {
-            client = new HttpClient();
-            client.BaseAddress = baseAddress;
+            _client = new HttpClient();
+            _client.BaseAddress = baseAddress;
         }
 
         // GET: CheatMealLog
@@ -25,7 +26,7 @@ namespace FitSync.Controllers
         {
             List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
 
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/cheatmeallog").Result;
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/cheatmeallog").Result;
             if( response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
@@ -60,12 +61,15 @@ namespace FitSync.Controllers
                 // TODO: Add insert logic here
                 CheatMealType mealType = MemoryStore.GetCheatMealTypeByName(cheatMeal.Meal);
 
-                cheatMeal.Id = GetNextId();
-                cheatMeal.UserId = 1;
+                cheatMeal.UserId = "1";
                 cheatMeal.Calories = mealType.Calories;
 
-                MemoryStore.AddCheatMeal(cheatMeal);
+                string data = JsonConvert.SerializeObject(cheatMeal);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/cheatmeallog", content).Result;
+
+          
                 return RedirectToAction("Index", new { done = true });
             }
             catch
