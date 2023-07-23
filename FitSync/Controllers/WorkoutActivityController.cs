@@ -98,14 +98,21 @@ namespace FitSync.Controllers
                 WeightCategory weightCategory = workoutType.WeightCategories.FirstOrDefault(wc => wc.WeightRangeKey == weightRange);
                 double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
-                workoutActivity.Id = GetNextId();
                 workoutActivity.UserId ="1";
                 workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 workoutActivity.WorkoutType = workoutType.WorkoutName;
-               
-                // Add the workout activity to memory storage
-                MemoryStore.AddWorkoutActivity(workoutActivity);
-                return RedirectToAction("Index", new { done = true });
+
+                // Add the workout activity to database storage
+                string data = JsonConvert.SerializeObject(workoutActivity);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/workoutactivity", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
+                return View();
             }
             catch
             {
@@ -192,15 +199,25 @@ namespace FitSync.Controllers
         // GET: WorkoutActivity/Delete/5
         public ActionResult Delete(int id)
         {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
-
-            if (workoutActivity == null)
+            try
             {
-                return HttpNotFound();
-            }
+                WorkoutActivity workoutActivity = new WorkoutActivity();
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity/" + id).Result;
 
-            return View(workoutActivity);
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    workoutActivity = JsonConvert.DeserializeObject<WorkoutActivity>(data);
+                }
+
+                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+                return View(workoutActivity);
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
         }
 
         // POST: WorkoutActivity/Delete/5
@@ -209,18 +226,15 @@ namespace FitSync.Controllers
         {
             try
             {
-                // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
+                HttpResponseMessage response = _client.DeleteAsync(_client.BaseAddress + "/workoutactivity/" + id).Result;
 
-                if (workoutActivity == null)
+                if (response.IsSuccessStatusCode)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index", new { done = true });
                 }
 
-                // Remove the workout activity from memory storage
-                MemoryStore.GetWorkoutActivities().Remove(workoutActivity);
+                return View();
 
-                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
