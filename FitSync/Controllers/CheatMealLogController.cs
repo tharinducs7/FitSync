@@ -69,8 +69,12 @@ namespace FitSync.Controllers
 
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/cheatmeallog", content).Result;
 
-          
-                return RedirectToAction("Index", new { done = true });
+                if(response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
+
+                return View();
             }
             catch
             {
@@ -81,9 +85,27 @@ namespace FitSync.Controllers
         // GET: CheatMealLog/Edit/5
         public ActionResult Edit(int id)
         {
-            CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
-            ViewBag.CheatMealTypes = MemoryStore.GetAllCheatMealTypes();
-            return View(cheatMeal);
+
+            try
+            {
+                CheatMealLog cheatMeal = new CheatMealLog();
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/cheatmeallog/" + id).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    cheatMeal = JsonConvert.DeserializeObject<CheatMealLog>(data);
+                }
+
+                ViewBag.CheatMealTypes = MemoryStore.GetAllCheatMealTypes();
+                return View(cheatMeal);
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
+           
         }
 
         // POST: CheatMealLog/Edit/5
@@ -93,14 +115,21 @@ namespace FitSync.Controllers
             try
             {
                 CheatMealType mealType = MemoryStore.GetCheatMealTypeByName(updatedCheatMeal.Meal);
-                CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
 
-                cheatMeal.Meal = mealType.Meal;
-                cheatMeal.Calories = mealType.Calories;
-                cheatMeal.Qty = updatedCheatMeal.Qty;
-                cheatMeal.RecordDate = updatedCheatMeal.RecordDate;
+                updatedCheatMeal.Meal = mealType.Meal;
+                updatedCheatMeal.Calories = mealType.Calories;
 
-                return RedirectToAction("Index", new { done = true });
+                string data = JsonConvert.SerializeObject(updatedCheatMeal);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/cheatmeallog/" + id, content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
+
+                return View();
             }
             catch
             {
@@ -111,8 +140,25 @@ namespace FitSync.Controllers
         // GET: CheatMealLog/Delete/5
         public ActionResult Delete(int id)
         {
-            CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
-            return View(cheatMeal);
+            try
+            {
+                CheatMealLog cheatMeal = new CheatMealLog();
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/cheatmeallog/" + id).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    cheatMeal = JsonConvert.DeserializeObject<CheatMealLog>(data);
+                }
+
+                ViewBag.CheatMealTypes = MemoryStore.GetAllCheatMealTypes();
+                return View(cheatMeal);
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
         }
 
         // POST: CheatMealLog/Delete/5
@@ -121,17 +167,17 @@ namespace FitSync.Controllers
         {
             try
             {
+                HttpResponseMessage response = _client.DeleteAsync(_client.BaseAddress + "/cheatmeallog/" + id).Result;
                 CheatMealLog cheatMeal = MemoryStore.GetCheatMealLogById(id);
 
-                if (cheatMeal == null)
+
+                if (response.IsSuccessStatusCode)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index", new { done = true });
                 }
 
-                // Remove the workout activity from memory storage
-                MemoryStore.GetCheatMealLogs().Remove(cheatMeal);
+                return View();
 
-                return RedirectToAction("Index", new { done = true });
             }
             catch
             {
