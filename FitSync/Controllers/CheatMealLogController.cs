@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using FitSync.Models;
@@ -10,10 +11,28 @@ namespace FitSync.Controllers
 {
     public class CheatMealLogController : Controller
     {
+        Uri baseAddress = new Uri("http://localhost:50761/api");
+        HttpClient client;
+
+        public CheatMealLogController()
+        {
+            client = new HttpClient();
+            client.BaseAddress = baseAddress;
+        }
+
         // GET: CheatMealLog
         public ActionResult Index()
         {
-            List<CheatMealLog> cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
+
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/cheatmeallog").Result;
+            if( response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                cheatMealLogs = JsonConvert.DeserializeObject<List<CheatMealLog>>(data);
+            }
+
+         //   List<CheatMealLog> cheatMealLogs = MemoryStore.GetCheatMealLogs();
             return View(cheatMealLogs);
         }
 
