@@ -4,16 +4,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace FitSync.Controllers
 {
     public class WorkoutActivityController : Controller
     {
+        Uri baseAddress = new Uri("https://localhost:44303/api");
+        private readonly HttpClient _client;
+
+        public WorkoutActivityController()
+        {
+            _client = new HttpClient();
+            _client.BaseAddress = baseAddress;
+        }
+
         // GET: WorkoutActivity
         public ActionResult Index()
         {
             // Retrieve all workout activities from memory storage
-            List<WorkoutActivity> workoutActivities = MemoryStore.GetWorkoutActivities();
+            List<WorkoutActivity> workoutActivities = new List<WorkoutActivity>();
+
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                workoutActivities = JsonConvert.DeserializeObject<List<WorkoutActivity>>(data);
+            }
 
             return View(workoutActivities);
         }
@@ -21,15 +39,27 @@ namespace FitSync.Controllers
         // GET: WorkoutActivity/Details/5
         public ActionResult Details(int id)
         {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
-
-            if (workoutActivity == null)
+        
+            try
             {
-                return HttpNotFound();
+                WorkoutActivity workoutActivity = new WorkoutActivity();
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity/" + id).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    workoutActivity = JsonConvert.DeserializeObject<WorkoutActivity>(data);
+                }
+
+               
+                return View(workoutActivity);
+            }
+            catch (Exception)
+            {
+
+                return View();
             }
 
-            return View(workoutActivity);
         }
 
         // GET: WorkoutActivity/Create
@@ -69,7 +99,7 @@ namespace FitSync.Controllers
                 double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
                 workoutActivity.Id = GetNextId();
-                workoutActivity.UserId = 1;
+                workoutActivity.UserId ="1";
                 workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 workoutActivity.WorkoutType = workoutType.WorkoutName;
                
@@ -86,17 +116,27 @@ namespace FitSync.Controllers
         // GET: WorkoutActivity/Edit/5
         public ActionResult Edit(int id)
         {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
-
-            if (workoutActivity == null)
+           
+            try
             {
-                return HttpNotFound();
+                WorkoutActivity workoutActivity = new WorkoutActivity();
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity/" + id).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    workoutActivity = JsonConvert.DeserializeObject<WorkoutActivity>(data);
+                }
+
+                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+                return View(workoutActivity);
+            }
+            catch (Exception)
+            {
+
+                return View();
             }
 
-            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
-
-            return View(workoutActivity);
         }
 
         // POST: WorkoutActivity/Edit/5
@@ -105,20 +145,43 @@ namespace FitSync.Controllers
         {
             try
             {
-                // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivityById(id);
+                WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(updatedWorkoutActivity.WorkoutType);
+                User user = MemoryStore.GetUserById(1);
+                // Assign a new unique ID to the workout activity
 
-                if (workoutActivity == null)
+                string weightRange = "under_70_kg";
+
+                if (user != null && user.Weight < 70)
                 {
-                    return HttpNotFound();
+                    weightRange = "under_70_kg";
+                }
+                else if (user.Weight > 70 || user.Weight < 90)
+                {
+                    weightRange = "70_90_kg";
+                }
+                else
+                {
+                    weightRange = "over_90_kg";
                 }
 
-                // Update the properties of the workout activity with the values from the updatedWorkoutActivity
-                workoutActivity.WorkoutType = updatedWorkoutActivity.WorkoutType;
-                workoutActivity.DurationInMinutes = updatedWorkoutActivity.DurationInMinutes;
-                workoutActivity.DistanceInKm = updatedWorkoutActivity.DistanceInKm;
+                WeightCategory weightCategory = workoutType.WeightCategories.FirstOrDefault(wc => wc.WeightRangeKey == weightRange);
+                double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
-                return RedirectToAction("Index", new { done = true });
+                updatedWorkoutActivity.UserId = "1";
+                updatedWorkoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
+                updatedWorkoutActivity.WorkoutType = workoutType.WorkoutName;
+
+                string data = JsonConvert.SerializeObject(updatedWorkoutActivity);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/workoutactivity/" + id, content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
+
+                return View();
             }
             catch
             {

@@ -12,6 +12,7 @@ namespace FitSync.Controllers
 {
     public class CheatMealLogController : Controller
     {
+        // TODO:: add these on config files
         Uri baseAddress = new Uri("https://localhost:44304/api");
         private readonly HttpClient _client;
 
@@ -33,7 +34,6 @@ namespace FitSync.Controllers
                 cheatMealLogs = JsonConvert.DeserializeObject<List<CheatMealLog>>(data);
             }
 
-         //   List<CheatMealLog> cheatMealLogs = MemoryStore.GetCheatMealLogs();
             return View(cheatMealLogs);
         }
 
@@ -183,18 +183,6 @@ namespace FitSync.Controllers
             {
                 return View();
             }
-        }
-
-        private int GetNextId()
-        {
-            List<CheatMealLog> cheatMealLogs = MemoryStore.GetCheatMealLogs();
-
-            if (cheatMealLogs.Count == 0)
-            {
-                return 1;
-            }
-
-            return cheatMealLogs.Max(w => w.Id) + 1;
         }
     }
 }

@@ -133,7 +133,7 @@ namespace FitSync
                 AddWorkoutActivity(new WorkoutActivity
                 {
                     Id = i,
-                    UserId = 1,
+                    UserId = "1",
                     WorkoutType = workoutType,
                     DurationInMinutes = duration,
                     CaloriesBurnedPerMinute = calories,
