@@ -1,4 +1,4 @@
-﻿@model FitSync.Models.User
+﻿@model FitSync.Models.Register
 
 @{
     Layout = null;
@@ -121,6 +121,23 @@
                                             </div>
                                         </div>
                                         <small class="d-block">@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })</small>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label-sm">Password</label>
+                                        <div class="input-group input-group-sm">
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "form-control", placeholder = "Password" } })
+                                        </div>
+                                        <small class="d-block">   @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })</small>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label-sm">Confirm Password</label>
+                                        <div class="input-group input-group-sm">
+                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @class = "form-control", placeholder = "Confirm Password" } })
+                                        </div>
+                                        <small class="d-block">   @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" }) </small>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary btn-block">Sign me up</button>

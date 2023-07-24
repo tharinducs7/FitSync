@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\CheatMealLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Models\CheatMealLog.cs" />
     <Compile Include="Models\CheatMealType.cs" />
     <Compile Include="Models\DailyGoalReport.cs" />
+    <Compile Include="Models\Register.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WeeklyCheatMealReportData.cs" />
     <Compile Include="Models\WeeklyWorkoutReportData.cs" />
@@ -484,7 +486,7 @@
     <Content Include="Views\WorkoutActivity\Create.cshtml" />
     <Content Include="Views\WorkoutActivity\Edit.cshtml" />
     <Content Include="Views\WorkoutActivity\Delete.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Authentication\Register.cshtml" />
     <Content Include="Views\CheatMealLog\Create.cshtml" />
     <Content Include="Views\CheatMealLog\Index.cshtml" />
     <None Include="Utils\cheatMealTypes.json" />

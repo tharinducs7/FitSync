@@ -22,44 +22,6 @@ namespace FitSync.Controllers
             return View(user);
         }
 
-        // GET: User/Create
-        public ActionResult Register()
-        {
-            User user = MemoryStore.GetUserById(1);
-
-            if (user != null)
-            {
-                // Redirect to a different page (e.g., Dashboard) if user  is already present
-                // TODO untill authentication implmented
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
-
-        }
-
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Register(User user)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-                // Hard code the user ID untill DB connection implemented 
-                user.Id = 1;
-                // Add the user to memory storage
-                MemoryStore.AddUser(user);
-
-                return RedirectToAction("Index", "Home");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
