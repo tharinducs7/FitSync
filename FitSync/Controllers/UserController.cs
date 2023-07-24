@@ -18,14 +18,14 @@ namespace FitSync.Controllers
         // GET: User/Details/5
         public ActionResult Details(int id)
         {
-            User user = MemoryStore.GetUserById(id);
+            User user = MemoryStore.GetUserProfile();
             return View(user);
         }
 
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
-            User user = MemoryStore.GetUserById(id);
+            User user = MemoryStore.GetUserProfile();
             return View(user);
         }
 

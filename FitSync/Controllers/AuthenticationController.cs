@@ -1,4 +1,5 @@
-﻿using FitSync.Models;
+﻿using FitSync.Attributes;
+using FitSync.Models;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -29,6 +30,7 @@ namespace FitSync.Controllers
 
         // POST:
         [HttpPost]
+
         public ActionResult Register(Register register)
         {
             try
@@ -63,6 +65,7 @@ namespace FitSync.Controllers
                 return View();
             }
         }
+
 
         public ActionResult Login()
         {

@@ -1,4 +1,5 @@
-﻿using FitSync.Models;
+﻿using FitSync.DataAccessLayer;
+using FitSync.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,14 @@ namespace FitSync.Services
 {
     public class DashboardDataService
     {
-        public static DailyGoalReport GetDailyExersiesGoal(int id)
+        public static DailyGoalReport GetDailyExersiesGoal()
         {
-            User user = MemoryStore.GetUserById(id);
+            User user = MemoryStore.GetUserProfile();
+            WorkoutActivityDAL _workoutActivityDAL = new WorkoutActivityDAL();
 
             var today = DateTime.Today;
-            var workoutActivities = MemoryStore.GetWorkoutActivities();
+
+            List<WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
 
             var todayReport = new WeeklyWorkoutReportData
             {
@@ -46,7 +49,8 @@ namespace FitSync.Services
 
         public static List<WorkoutActivity> GetTodaysWorkoutActivities()
         {
-            var workoutActivities = MemoryStore.GetWorkoutActivities();
+            WorkoutActivityDAL _workoutActivityDAL = new WorkoutActivityDAL();
+            List<WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
             var todaysActivities = workoutActivities.Where(w => w.DateTime.Date == DateTime.Today).ToList();
 
             return todaysActivities;
@@ -54,8 +58,10 @@ namespace FitSync.Services
 
         public static List<CheatMealLog> GetTodaysCheatMeals()
         {
+            CheatMealLogDAL _cheatMealLogDAL = new CheatMealLogDAL();
+
             var todaysDate = DateTime.Today;
-            var cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            var cheatMealLogs = _cheatMealLogDAL.GetAllCheatMealLogs();
             var todaysCheatMeals = cheatMealLogs
                 .Where(c => c.RecordDate.Date == todaysDate.Date)
                 .ToList();

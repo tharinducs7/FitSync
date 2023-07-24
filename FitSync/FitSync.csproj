@@ -173,12 +173,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\DashboardAttribute.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\CheatMealLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WorkoutActivityController.cs" />
+    <Compile Include="DataAccessLayer\CheatMealLogDAL.cs" />
+    <Compile Include="DataAccessLayer\WorkoutActivityDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,7 +193,6 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\WeeklyCheatMealReportData.cs" />
     <Compile Include="Models\WeeklyWorkoutReportData.cs" />
     <Compile Include="Models\WorkoutActivity.cs" />

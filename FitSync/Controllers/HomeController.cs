@@ -13,15 +13,10 @@ namespace FitSync.Controllers
 
             User user = MemoryStore.GetUserProfile();
 
-            DailyGoalReport dailyGoal = new DailyGoalReport(); //DashboardDataService.GetDailyExersiesGoal(1);
+            DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal();
 
             var workoutActivities = DashboardDataService.GetTodaysWorkoutActivities();
             var cheatMeals = DashboardDataService.GetTodaysCheatMeals();
-            
-
-            // Generate Dummy Values
-            MemoryStore.GenerateJulyWorkoutActivities();
-            MemoryStore.GenerateDummyCheatMealLogs();
 
             double bmi = user.CalculateBMI();
             double bmr = user.CalculateBMR();
@@ -63,20 +58,6 @@ namespace FitSync.Controllers
             ViewBag.workoutActivities = workoutActivities;
             ViewBag.cheatMeals = cheatMeals;
             
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

@@ -1,4 +1,6 @@
-﻿using FitSync.Models;
+﻿using FitSync.Attributes;
+using FitSync.DataAccessLayer;
+using FitSync.Models;
 using FitSync.Services;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,21 @@ namespace FitSync.Controllers
 {
     public class ReportController : Controller
     {
+        private readonly WorkoutActivityDAL _workoutActivityDAL;
+        private readonly CheatMealLogDAL _cheatMealLogDAL;
+
+        readonly User user = MemoryStore.GetUserProfile();
+        public ReportController()
+        {
+            _workoutActivityDAL = new WorkoutActivityDAL();
+            _cheatMealLogDAL = new CheatMealLogDAL();
+        }
+
+        [CustomAuthorize]
         public ActionResult Index()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
-            User user = MemoryStore.GetUserById(1);
 
             var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
             var chartData = GenerateChartData(weeklyReport);
@@ -28,7 +40,7 @@ namespace FitSync.Controllers
             return View();
         }
 
-
+        [CustomAuthorize]
         public ActionResult FutureReport(DateTime? selectedDate = null)
         {
             List<object> chartData = new List<object>();
@@ -44,7 +56,6 @@ namespace FitSync.Controllers
 
             var monthCount = (endDate.Date.Year - startDate.Year) * 12 + (endDate.Date.Month - startDate.Month) + 1;
 
-            User user = MemoryStore.GetUserById(1);
             double bmi = user.CalculateBMI();
             double bmr = user.CalculateBMR();
 
@@ -226,13 +237,12 @@ namespace FitSync.Controllers
             return View();
         }
 
-
+        [CustomAuthorize]
         public ActionResult WeeklyWorkoutReport()
         {
 
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
-            User user = MemoryStore.GetUserById(1);
 
             var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, "All");
             var chartData = GenerateChartData(weeklyReport);
@@ -252,7 +262,6 @@ namespace FitSync.Controllers
         {
             var startDate = date.AddDays(-(int)date.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
-            User user = MemoryStore.GetUserById(1);
 
             var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, workoutType);
             var chartData = GenerateChartData(weeklyReport);
@@ -266,13 +275,13 @@ namespace FitSync.Controllers
             return View(weeklyReport);
         }
 
-
+        [CustomAuthorize]
         public ActionResult WeeklyCheatMealReport()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
 
-            var cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            List<CheatMealLog> cheatMealLogs = _cheatMealLogDAL.GetAllCheatMealLogs();
 
             var weeklyReport = new List<WeeklyCheatMealReportData>();
 
@@ -302,7 +311,7 @@ namespace FitSync.Controllers
             var startDate = selectedDate.AddDays(-(int)selectedDate.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
 
-            var cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            List<CheatMealLog> cheatMealLogs = _cheatMealLogDAL.GetAllCheatMealLogs();
 
             var weeklyReport = new List<WeeklyCheatMealReportData>();
 
@@ -326,10 +335,12 @@ namespace FitSync.Controllers
             return View(weeklyReport);
         }
 
-
+        [CustomAuthorize]
         public List<WeeklyWorkoutReportData> GenerateWeeklyWorkoutReport(DateTime startDate, DateTime endDate, string workoutType)
         {
-            var workoutActivities = MemoryStore.GetWorkoutActivities();
+            List<WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
+
+         //   var workoutActivities = MemoryStore.GetWorkoutActivities();
             var weeklyReport = new List<WeeklyWorkoutReportData>();
 
             // Generate weekly report
@@ -349,6 +360,7 @@ namespace FitSync.Controllers
             return weeklyReport;
         }
 
+        [CustomAuthorize]
         public List<object> GenerateChartData(List<WeeklyWorkoutReportData> weeklyReport)
         {
             var chartData = new List<object>();

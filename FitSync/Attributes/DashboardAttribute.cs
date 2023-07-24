@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FitSync.Attributes
 {
-    public class CustomAuthorizeAttribute : AuthorizeAttribute
+    public class DashboardAttribute : AuthorizeAttribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -26,15 +26,11 @@ namespace FitSync.Attributes
                     if (expirationClaim != null && long.TryParse(expirationClaim.Value, out long expirationTime))
                     {
                         var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                        if (expirationTime <= now)
+                        if (expirationTime >= now)
                         {
-                            // Token is expired, invalidate the user by redirecting to the login page
-                            httpContext.Response.Redirect("~/Authentication/Login");
-                            return false; 
-                        } else if (HttpContext.Current.Session["UserProfile"] as User == null)
-                        {
-                            httpContext.Response.Redirect("~/Authentication/Login");
-                            return false;
+                            // Token is not expired
+                            httpContext.Response.Redirect("~/Home/Index");
+                            return true;
                         }
                     }
 
@@ -48,7 +44,7 @@ namespace FitSync.Attributes
 
             // Token not present or invalid, redirect to the login page
             httpContext.Response.Redirect("~/Authentication/Login");
-            return false; 
+            return false;
         }
     }
 }

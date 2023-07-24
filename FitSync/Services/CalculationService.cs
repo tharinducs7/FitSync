@@ -1,4 +1,5 @@
-﻿using FitSync.Models;
+﻿using FitSync.DataAccessLayer;
+using FitSync.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace FitSync.Services
     {
         public static double CalculateAverageCaloriesBurnedPerDay()
         {
-            List<WorkoutActivity> activities = MemoryStore.GetWorkoutActivities();
+            WorkoutActivityDAL _workoutActivityDAL = new WorkoutActivityDAL();
+            List<WorkoutActivity> activities = _workoutActivityDAL.GetAllWorkoutActivities();
 
             if (activities == null || activities.Count == 0)
                 return 0.0;
@@ -51,7 +53,9 @@ namespace FitSync.Services
 
         public static double CalculateAverageCheatMealCaloriesPerDay()
         {
-            List<CheatMealLog> cheatMealLogs = MemoryStore.GetCheatMealLogs();
+            CheatMealLogDAL _cheatMealLogDAL = new CheatMealLogDAL();
+
+            List<CheatMealLog> cheatMealLogs = _cheatMealLogDAL.GetAllCheatMealLogs();
 
             if (cheatMealLogs == null || cheatMealLogs.Count == 0)
                 return 0.0;
