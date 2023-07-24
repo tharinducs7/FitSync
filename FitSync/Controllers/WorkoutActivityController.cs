@@ -13,11 +13,13 @@ namespace FitSync.Controllers
     {
         Uri baseAddress = new Uri("https://localhost:44303/api");
         private readonly HttpClient _client;
+        readonly User user = MemoryStore.GetUserProfile();
 
         public WorkoutActivityController()
         {
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
+            _client.DefaultRequestHeaders.Add("UserId", user.UserId);
         }
 
         // GET: WorkoutActivity
@@ -26,7 +28,7 @@ namespace FitSync.Controllers
             // Retrieve all workout activities from memory storage
             List<WorkoutActivity> workoutActivities = new List<WorkoutActivity>();
 
-            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity").Result;
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/workoutactivity/user").Result;
             if (response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
@@ -51,7 +53,6 @@ namespace FitSync.Controllers
                     workoutActivity = JsonConvert.DeserializeObject<WorkoutActivity>(data);
                 }
 
-               
                 return View(workoutActivity);
             }
             catch (Exception)
@@ -79,8 +80,6 @@ namespace FitSync.Controllers
             try
             {
                 WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(workoutActivity.WorkoutType);
-                User user = MemoryStore.GetUserById(1);
-                // Assign a new unique ID to the workout activity
 
                 string weightRange = "under_70_kg";
 
@@ -98,7 +97,7 @@ namespace FitSync.Controllers
                 WeightCategory weightCategory = workoutType.WeightCategories.FirstOrDefault(wc => wc.WeightRangeKey == weightRange);
                 double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
-                workoutActivity.UserId ="1";
+                workoutActivity.UserId = user.UserId;
                 workoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 workoutActivity.WorkoutType = workoutType.WorkoutName;
 
@@ -153,7 +152,7 @@ namespace FitSync.Controllers
             try
             {
                 WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(updatedWorkoutActivity.WorkoutType);
-                User user = MemoryStore.GetUserById(1);
+                User user = MemoryStore.GetUserProfile();
                 // Assign a new unique ID to the workout activity
 
                 string weightRange = "under_70_kg";
@@ -174,7 +173,6 @@ namespace FitSync.Controllers
                 WeightCategory weightCategory = workoutType.WeightCategories.FirstOrDefault(wc => wc.WeightRangeKey == weightRange);
                 double maxCaloriesBurned = weightCategory.CaloriesBurnedPerMinute.Max;
 
-                updatedWorkoutActivity.UserId = "1";
                 updatedWorkoutActivity.CaloriesBurnedPerMinute = maxCaloriesBurned;
                 updatedWorkoutActivity.WorkoutType = workoutType.WorkoutName;
 
@@ -240,19 +238,6 @@ namespace FitSync.Controllers
             {
                 return View();
             }
-        }
-
-        // Helper method to generate the next ID for a new workout activity
-        private int GetNextId()
-        {
-            List<WorkoutActivity> workoutActivities = MemoryStore.GetWorkoutActivities();
-
-            if (workoutActivities.Count == 0)
-            {
-                return 1;
-            }
-
-            return workoutActivities.Max(w => w.Id) + 1;
         }
     }
 }

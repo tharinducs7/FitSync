@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitSync.Models;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -27,7 +28,12 @@ namespace FitSync.Attributes
                         var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                         if (expirationTime <= now)
                         {
-                            // Token is expired, invalidate the user
+                            // Token is expired, invalidate the user by redirecting to the login page
+                            httpContext.Response.Redirect("~/Login/Authentication");
+                            return false; 
+                        } else if (HttpContext.Current.Session["UserProfile"] as User == null)
+                        {
+                            httpContext.Response.Redirect("~/Login/Authentication");
                             return false;
                         }
                     }
@@ -40,8 +46,9 @@ namespace FitSync.Attributes
                 }
             }
 
-            // Token not present or invalid, return false
-            return false;
+            // Token not present or invalid, redirect to the login page
+            httpContext.Response.Redirect("~/Login/Authentication");
+            return false; 
         }
     }
 }

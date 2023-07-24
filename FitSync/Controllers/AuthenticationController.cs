@@ -1,8 +1,6 @@
 ﻿using FitSync.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
@@ -109,6 +107,22 @@ namespace FitSync.Controllers
             }
 
         }
+
+        public ActionResult Logout()
+        {
+            // Clear the user session variables
+            Session["UserProfile"] = null;
+            Session["JwtToken"] = null;
+
+            // Remove the JWT token cookie
+            HttpCookie jwtCookie = new HttpCookie("jwtCookie");
+            jwtCookie.HttpOnly = true;
+            jwtCookie.Expires = DateTime.Now.AddDays(-1); // Set the cookie to expire immediately
+            Response.Cookies.Add(jwtCookie);
+
+            return RedirectToAction("Login");
+        }
+
 
     }
 }

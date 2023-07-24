@@ -10,19 +10,10 @@ namespace FitSync.Controllers
         [CustomAuthorize]
         public ActionResult Index()
         {
-            //User user = MemoryStore.GetUserById(1);
-            User user = Session["UserProfile"] as User;
 
-            if (user == null)
-            {
-                // TODO redirect
-                return RedirectToAction("Register", "User");
-            }
-            else
-            {
+            User user = MemoryStore.GetUserProfile();
 
             DailyGoalReport dailyGoal = new DailyGoalReport(); //DashboardDataService.GetDailyExersiesGoal(1);
-
 
             var workoutActivities = DashboardDataService.GetTodaysWorkoutActivities();
             var cheatMeals = DashboardDataService.GetTodaysCheatMeals();
@@ -73,7 +64,6 @@ namespace FitSync.Controllers
             ViewBag.cheatMeals = cheatMeals;
             
             return View();
-            }
         }
 
         public ActionResult About()

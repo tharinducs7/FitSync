@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace FitSync
 {
@@ -14,6 +15,12 @@ namespace FitSync
         private static List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
         private static List<CheatMealType> cheatMealTypes = LoadCheatMealTypes();
         private static List<WorkoutType> workoutTypes = LoadWorkoutTypes();
+
+        public static User GetUserProfile()
+        {
+            User userProfile = HttpContext.Current.Session["UserProfile"] as User;
+            return userProfile;
+        }
         // Get all workout activities
         public static List<WorkoutActivity> GetWorkoutActivities()
         {
