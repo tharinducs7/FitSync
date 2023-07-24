@@ -13,10 +13,6 @@ namespace FitSync.Models
 
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; }
-
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Telephone { get; set; }
@@ -28,6 +24,9 @@ namespace FitSync.Models
         public string Gender { get; set; }
         public double DailyCalorieGoal { get; set; }
         public double DailyExerciseGoal { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }

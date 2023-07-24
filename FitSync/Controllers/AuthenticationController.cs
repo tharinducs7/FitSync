@@ -29,13 +29,13 @@ namespace FitSync.Controllers
      
         }
 
-        // POST: User/Create
+        // POST:
         [HttpPost]
         public ActionResult Register(Register register)
         {
             try
             {
-
+                AuthenticatedResult user = new AuthenticatedResult();
                 register.UserName = register.Name.Replace(" ", "");
 
                 string data = JsonConvert.SerializeObject(register);
@@ -45,6 +45,16 @@ namespace FitSync.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    string regUser = response.Content.ReadAsStringAsync().Result;
+                    user = JsonConvert.DeserializeObject<AuthenticatedResult>(regUser);
+
+
+                    HttpCookie jwtCookie = new HttpCookie("jwtCookie", user.Token);
+                    jwtCookie.HttpOnly = true;
+                    Response.Cookies.Add(jwtCookie);
+
+                    Session["UserProfile"] = user.UserProfile;
+                    Session["JwtToken"] = user.Token;
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -54,6 +64,50 @@ namespace FitSync.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Login()
+        {
+
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Login(Login login)
+        {
+
+            try
+            {
+                AuthenticatedResult user = new AuthenticatedResult();
+               
+                string data = JsonConvert.SerializeObject(login);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Authentication/Signin", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string loggedUser = response.Content.ReadAsStringAsync().Result;
+                    user = JsonConvert.DeserializeObject<AuthenticatedResult>(loggedUser);
+
+
+                    HttpCookie jwtCookie = new HttpCookie("jwtCookie", user.Token);
+                    jwtCookie.HttpOnly = true;
+                    Response.Cookies.Add(jwtCookie);
+
+                    Session["UserProfile"] = user.UserProfile;
+                    Session["JwtToken"] = user.Token;
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using FitSync.Models;
+﻿using FitSync.Attributes;
+using FitSync.Models;
 using FitSync.Services;
 using System.Web.Mvc;
 
@@ -6,19 +7,21 @@ namespace FitSync.Controllers
 {
     public class HomeController : Controller
     {
+        [CustomAuthorize]
         public ActionResult Index()
         {
-            User user = MemoryStore.GetUserById(1);
+            //User user = MemoryStore.GetUserById(1);
+            User user = Session["UserProfile"] as User;
 
             if (user == null)
             {
-                // TODO untill authentication implmented
+                // TODO redirect
                 return RedirectToAction("Register", "User");
             }
             else
             {
-                
-            DailyGoalReport dailyGoal = DashboardDataService.GetDailyExersiesGoal(1);
+
+            DailyGoalReport dailyGoal = new DailyGoalReport(); //DashboardDataService.GetDailyExersiesGoal(1);
 
 
             var workoutActivities = DashboardDataService.GetTodaysWorkoutActivities();
