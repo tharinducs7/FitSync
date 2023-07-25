@@ -17,7 +17,7 @@ namespace FitSync.DataAccessLayer
         public WorkoutActivityDAL()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://fitsync-workout-service.azurewebsites.net/api");
+            _client.BaseAddress = new Uri("https://fitsync.azure-api.net/s2/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
 
             HttpContext httpContext = HttpContext.Current;

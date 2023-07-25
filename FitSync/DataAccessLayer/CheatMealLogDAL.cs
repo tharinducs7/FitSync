@@ -25,7 +25,7 @@ namespace FitSync.DataAccessLayer
             }
 
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://fitsync-cheatmeal-log-service.azurewebsites.net/api");
+            _client.BaseAddress = new Uri("https://fitsync.azure-api.net/s1/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
 
   

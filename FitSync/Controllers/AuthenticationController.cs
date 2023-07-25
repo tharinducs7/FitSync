@@ -2,6 +2,7 @@
 using FitSync.Models;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -12,13 +13,16 @@ namespace FitSync.Controllers
 {
     public class AuthenticationController : Controller
     {
-        Uri baseAddress = new Uri("https://fitsync-auth-service.azurewebsites.net/api");
+        Uri baseAddress = new Uri("https://fitsync.azure-api.net/auth/api");
         private readonly HttpClient _client;
         readonly User user = MemoryStore.GetUserProfile();
         public AuthenticationController()
         {
+            string subscriptionKey = ConfigurationManager.AppSettings["OcpApimSubscriptionKey"];
+
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
+            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
         }
 
         // GET: User/Create

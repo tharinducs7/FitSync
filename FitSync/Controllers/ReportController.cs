@@ -22,7 +22,7 @@ namespace FitSync.Controllers
             _cheatMealLogDAL = new CheatMealLogDAL();
         }
 
-        [CustomAuthorize]
+    //    [CustomAuthorize]
         public ActionResult Index()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
@@ -40,7 +40,7 @@ namespace FitSync.Controllers
             return View();
         }
 
-        [CustomAuthorize]
+      //  [CustomAuthorize]
         public ActionResult FutureReport(DateTime? selectedDate = null)
         {
             List<object> chartData = new List<object>();
