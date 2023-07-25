@@ -2,6 +2,7 @@
 using FitSync.Models;
 using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
@@ -11,7 +12,7 @@ namespace FitSync.Controllers
 {
     public class AuthenticationController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:44377/api");
+        Uri baseAddress = new Uri("https://fitsync-auth-service.azurewebsites.net/api");
         private readonly HttpClient _client;
         readonly User user = MemoryStore.GetUserProfile();
         public AuthenticationController()
@@ -113,6 +114,12 @@ namespace FitSync.Controllers
                     Session["UserProfile"] = user.UserProfile;
                     Session["JwtToken"] = user.Token;
                     return RedirectToAction("Index", "Home");
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized) // Check for unauthorized status code
+                {
+                    // Unsuccessful login, set the error message
+                    TempData["ErrorMessage"] = "Invalid credentials. Please check your email and password.";
+                    return View();
                 }
 
                 return View();
