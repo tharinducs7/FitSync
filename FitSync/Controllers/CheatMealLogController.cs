@@ -17,8 +17,8 @@ namespace FitSync.Controllers
             _cheatMealLogDAL = new CheatMealLogDAL();
         }
 
-        [CustomAuthorize]
         // GET: CheatMealLog
+        [CustomAuthorize]
         public ActionResult Index()
         {
             List<CheatMealLog> cheatMealLogs = _cheatMealLogDAL.GetAllCheatMealLogs();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 
 namespace FitSync.DataAccessLayer
 {
@@ -12,15 +13,25 @@ namespace FitSync.DataAccessLayer
     {
         private readonly HttpClient _client;
         readonly User user = MemoryStore.GetUserProfile();
+
         public WorkoutActivityDAL()
         {
             _client = new HttpClient();
             _client.BaseAddress = new Uri("https://localhost:44303/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
+
+            HttpContext httpContext = HttpContext.Current;
+
+            if (httpContext != null)
+            {
+                string jwtToken = HttpContext.Current.Session["JwtToken"] as String;
+                _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwtToken);
+            }
         }
 
         public List<WorkoutActivity> GetAllWorkoutActivities()
         {
+          
             List<WorkoutActivity> workoutActivities = new List<WorkoutActivity>();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + $"/workoutactivity/user").Result;
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 
 namespace FitSync.DataAccessLayer
 {
@@ -14,9 +15,25 @@ namespace FitSync.DataAccessLayer
 
         public CheatMealLogDAL()
         {
+            HttpContext httpContext = HttpContext.Current;
+
+
+            if (user == null)
+            {
+               httpContext.Response.Redirect("~/Authentication/Login");
+               return;
+            }
+
             _client = new HttpClient();
             _client.BaseAddress = new Uri("https://localhost:44304/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
+
+  
+            if (httpContext != null)
+            {
+                string jwtToken = HttpContext.Current.Session["JwtToken"] as String;
+                _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwtToken);
+            }
         }
 
         public List<CheatMealLog> GetAllCheatMealLogs()

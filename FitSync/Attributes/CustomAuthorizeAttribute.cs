@@ -31,7 +31,8 @@ namespace FitSync.Attributes
                             // Token is expired, invalidate the user by redirecting to the login page
                             httpContext.Response.Redirect("~/Authentication/Login");
                             return false; 
-                        } else if (HttpContext.Current.Session["UserProfile"] as User == null)
+                        }
+                        else if (HttpContext.Current.Session["UserProfile"] as User == null)
                         {
                             httpContext.Response.Redirect("~/Authentication/Login");
                             return false;

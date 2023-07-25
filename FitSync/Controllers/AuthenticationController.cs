@@ -13,7 +13,7 @@ namespace FitSync.Controllers
     {
         Uri baseAddress = new Uri("https://localhost:44377/api");
         private readonly HttpClient _client;
-
+        readonly User user = MemoryStore.GetUserProfile();
         public AuthenticationController()
         {
             _client = new HttpClient();
@@ -23,9 +23,17 @@ namespace FitSync.Controllers
         // GET: User/Create
         public ActionResult Register()
         {
-           
-             return View();
-     
+
+            if (user != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+
+
         }
 
         // POST:
@@ -66,11 +74,16 @@ namespace FitSync.Controllers
             }
         }
 
-
         public ActionResult Login()
         {
 
-            return View();
+            if(user != null)
+            {
+                return RedirectToAction("Index", "Home");
+            } else
+            {
+                return View();
+            }
 
         }
 

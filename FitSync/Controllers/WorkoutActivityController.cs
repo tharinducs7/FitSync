@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using FitSync.Attributes;
 using FitSync.DataAccessLayer;
@@ -11,7 +12,7 @@ namespace FitSync.Controllers
     public class WorkoutActivityController : Controller
     {
         private readonly WorkoutActivityDAL _workoutActivityDAL;
-     
+
         public WorkoutActivityController()
         {
             _workoutActivityDAL = new WorkoutActivityDAL();
@@ -22,8 +23,8 @@ namespace FitSync.Controllers
         public ActionResult Index()
         {
             // Retrieve all workout activities from database using DAL
-            List<WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
-
+            List <WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
+          
             return View(workoutActivities);
         }
 

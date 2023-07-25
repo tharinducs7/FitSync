@@ -15,12 +15,16 @@ namespace FitSync
         private static List<CheatMealLog> cheatMealLogs = new List<CheatMealLog>();
         private static List<CheatMealType> cheatMealTypes = LoadCheatMealTypes();
         private static List<WorkoutType> workoutTypes = LoadWorkoutTypes();
-
+        private static HttpContext httpContext = HttpContext.Current;
         public static User GetUserProfile()
         {
             User userProfile = HttpContext.Current.Session["UserProfile"] as User;
             return userProfile;
         }
+
+
+
+
         // Get all workout activities
         public static List<WorkoutActivity> GetWorkoutActivities()
         {
