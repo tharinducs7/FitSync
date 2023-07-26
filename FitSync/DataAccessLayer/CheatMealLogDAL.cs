@@ -1,11 +1,16 @@
-﻿using FitSync.Models;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using FitSync.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace FitSync.DataAccessLayer
 {
@@ -114,5 +119,31 @@ namespace FitSync.DataAccessLayer
                 return false;
             }
         }
+
+        public async Task<List<CheatMealType>> LoadCheatMealTypesAsync()
+        {
+            string _storageConnectionString = ConfigurationManager.AppSettings["StorageAccConString"];
+            string _containerName = "cheatmealxml";
+            string jsonContent = "";
+            
+            List<CheatMealType> cheatMealTypes = new List<CheatMealType>();
+
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_storageConnectionString);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
+            BlobClient blobClient = containerClient.GetBlobClient("cheatMealTypes.json");
+
+            // Download the JSON file content
+            BlobDownloadInfo download = await blobClient.DownloadAsync();
+
+            // Read the content as a string
+            using (StreamReader reader = new StreamReader(download.Content, Encoding.UTF8))
+            {
+                jsonContent = await reader.ReadToEndAsync();
+                cheatMealTypes = JsonConvert.DeserializeObject<List<CheatMealType>>(jsonContent);
+            }
+
+            return cheatMealTypes;
+        }
+
     }
 }

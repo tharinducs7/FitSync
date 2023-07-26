@@ -53,7 +53,7 @@ namespace FitSync.Controllers
         // POST: WorkoutActivity/Create
         [CustomAuthorize]
         [HttpPost]
-        public ActionResult Create(WorkoutActivity workoutActivity)
+        public async Task<ActionResult> Create(WorkoutActivity workoutActivity)
         {
             try
             {
@@ -61,17 +61,19 @@ namespace FitSync.Controllers
                 workoutActivity.UserId = userId;
 
                 // Use the DAL to create a new workout activity
-                bool success = _workoutActivityDAL.CreateWorkoutActivity(workoutActivity);
+                bool success = await _workoutActivityDAL.CreateWorkoutActivity(workoutActivity);
 
                 if (success)
                 {
                     return RedirectToAction("Index", new { done = true });
                 }
 
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
             catch
             {
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
         }
@@ -95,22 +97,23 @@ namespace FitSync.Controllers
         // POST: WorkoutActivity/Edit/5
         [HttpPost]
         [CustomAuthorize]
-        public ActionResult Edit(int id, WorkoutActivity updatedWorkoutActivity)
+        public async Task<ActionResult> Edit(int id, WorkoutActivity updatedWorkoutActivity)
         {
             try
             {
                 // Update the workout activity using DAL
-                bool success = _workoutActivityDAL.UpdateWorkoutActivity(id, updatedWorkoutActivity);
+                bool success = await _workoutActivityDAL.UpdateWorkoutActivity(id, updatedWorkoutActivity);
 
                 if (success)
                 {
                     return RedirectToAction("Index", new { done = true });
                 }
-
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
             catch
             {
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
         }

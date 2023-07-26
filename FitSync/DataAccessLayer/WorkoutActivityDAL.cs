@@ -66,11 +66,12 @@ namespace FitSync.DataAccessLayer
             return workoutActivity;
         }
 
-        public bool CreateWorkoutActivity(WorkoutActivity workoutActivity)
+        public async Task<bool> CreateWorkoutActivity(WorkoutActivity workoutActivity)
         {
             try
             {
-                WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(workoutActivity.WorkoutType);
+                List<WorkoutType> workoutTypes = await LoadWorkoutTypesAsync();
+                WorkoutType workoutType = workoutTypes.FirstOrDefault(workout => workout.WorkoutName.Equals(workoutActivity.WorkoutType, StringComparison.OrdinalIgnoreCase));
 
                 string weightRange = "under_70_kg";
 
@@ -107,11 +108,12 @@ namespace FitSync.DataAccessLayer
             }
         }
 
-        public bool UpdateWorkoutActivity(int id, WorkoutActivity updatedWorkoutActivity)
+        public async Task<bool> UpdateWorkoutActivity(int id, WorkoutActivity updatedWorkoutActivity)
         {
             try
             {
-                WorkoutType workoutType = MemoryStore.GetWorkoutTypeByName(updatedWorkoutActivity.WorkoutType);
+                List<WorkoutType> workoutTypes = await LoadWorkoutTypesAsync();
+                WorkoutType workoutType = workoutTypes.FirstOrDefault(workout => workout.WorkoutName.Equals(updatedWorkoutActivity.WorkoutType, StringComparison.OrdinalIgnoreCase));
 
                 string weightRange = "under_70_kg";
 
@@ -163,7 +165,7 @@ namespace FitSync.DataAccessLayer
 
         public async Task<List<WorkoutType>> LoadWorkoutTypesAsync()
         {
-            string _storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagefitsync;AccountKey=g2n8tqinxjGZJuqNK3q7Mt53w2xzY5QX19Z6fG0MbLOd2ihdYW/v8Gi9RfzdT7hPyuSzSu461bkq+AStq2FrDQ==;EndpointSuffix=core.windows.net";
+            string _storageConnectionString = ConfigurationManager.AppSettings["StorageAccConString"];
             string _containerName = "workoutjson";
             string jsonContent = "";
 
