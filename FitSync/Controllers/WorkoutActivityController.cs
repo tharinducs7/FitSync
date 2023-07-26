@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using FitSync.Attributes;
 using FitSync.DataAccessLayer;
 using FitSync.Models;
+using Newtonsoft.Json;
 
 namespace FitSync.Controllers
 {
@@ -38,10 +43,10 @@ namespace FitSync.Controllers
 
         [CustomAuthorize]
         // GET: WorkoutActivity/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             // Pass the workoutTypes to the create view
-            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
             return View();
         }
 
@@ -73,12 +78,12 @@ namespace FitSync.Controllers
 
         // GET: WorkoutActivity/Edit/5
         [CustomAuthorize]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             try
             {
                 WorkoutActivity workoutActivity = _workoutActivityDAL.GetWorkoutActivityById(id);
-                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View(workoutActivity);
             }
             catch (Exception)
@@ -112,12 +117,12 @@ namespace FitSync.Controllers
 
         // GET: WorkoutActivity/Delete/5
         [CustomAuthorize]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 WorkoutActivity workoutActivity = _workoutActivityDAL.GetWorkoutActivityById(id);
-                ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View(workoutActivity);
             }
             catch (Exception)

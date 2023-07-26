@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Text;
 using System.Web;
@@ -28,7 +29,9 @@ namespace FitSync.DataAccessLayer
             _client.BaseAddress = new Uri("https://fitsync.azure-api.net/s1/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
 
-  
+            string subscriptionKey = ConfigurationManager.AppSettings["OcpApimSubscriptionKey"];
+            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+
             if (httpContext != null)
             {
                 string jwtToken = HttpContext.Current.Session["JwtToken"] as String;

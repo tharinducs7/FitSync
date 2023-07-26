@@ -16,6 +16,7 @@ namespace FitSync.Controllers
         Uri baseAddress = new Uri("https://fitsync.azure-api.net/auth/api");
         private readonly HttpClient _client;
         readonly User user = MemoryStore.GetUserProfile();
+
         public AuthenticationController()
         {
             string subscriptionKey = ConfigurationManager.AppSettings["OcpApimSubscriptionKey"];
@@ -37,8 +38,6 @@ namespace FitSync.Controllers
             {
                 return View();
             }
-
-
         }
 
         // POST:

@@ -5,6 +5,7 @@ using FitSync.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,7 +24,7 @@ namespace FitSync.Controllers
         }
 
     //    [CustomAuthorize]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
@@ -34,7 +35,7 @@ namespace FitSync.Controllers
             ViewBag.ChartData = chartData;
             ViewBag.From = startDate;
             ViewBag.To = endDate;
-            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
             ViewBag.WorkoutType = "All";
 
             return View();
@@ -238,7 +239,7 @@ namespace FitSync.Controllers
         }
 
         [CustomAuthorize]
-        public ActionResult WeeklyWorkoutReport()
+        public async Task<ActionResult> WeeklyWorkoutReport()
         {
 
             var startDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek); // Start from Sunday
@@ -248,7 +249,7 @@ namespace FitSync.Controllers
             var chartData = GenerateChartData(weeklyReport);
 
 
-            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
             ViewBag.ChartData = chartData;
             ViewBag.From = startDate;
             ViewBag.To = endDate;
@@ -258,7 +259,7 @@ namespace FitSync.Controllers
         }
 
         [HttpPost]
-        public ActionResult WeeklyWorkoutReport(DateTime date, string workoutType)
+        public async Task<ActionResult> WeeklyWorkoutReport(DateTime date, string workoutType)
         {
             var startDate = date.AddDays(-(int)date.DayOfWeek); // Start from Sunday
             var endDate = startDate.AddDays(6); // End on Saturday
@@ -266,7 +267,7 @@ namespace FitSync.Controllers
             var weeklyReport = GenerateWeeklyWorkoutReport(startDate, endDate, workoutType);
             var chartData = GenerateChartData(weeklyReport);
 
-            ViewBag.WorkoutTypes = MemoryStore.GetAllWorkoutTypes();
+            ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
             ViewBag.ChartData = chartData;
             ViewBag.From = startDate;
             ViewBag.To = endDate;

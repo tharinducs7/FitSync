@@ -1,10 +1,15 @@
-﻿using FitSync.Models;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using FitSync.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace FitSync.DataAccessLayer
@@ -19,6 +24,9 @@ namespace FitSync.DataAccessLayer
             _client = new HttpClient();
             _client.BaseAddress = new Uri("https://fitsync.azure-api.net/s2/api");
             _client.DefaultRequestHeaders.Add("UserId", user.UserId);
+
+            string subscriptionKey = ConfigurationManager.AppSettings["OcpApimSubscriptionKey"];
+            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             HttpContext httpContext = HttpContext.Current;
 
@@ -152,5 +160,31 @@ namespace FitSync.DataAccessLayer
                 return false;
             }
         }
+
+        public async Task<List<WorkoutType>> LoadWorkoutTypesAsync()
+        {
+            string _storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagefitsync;AccountKey=g2n8tqinxjGZJuqNK3q7Mt53w2xzY5QX19Z6fG0MbLOd2ihdYW/v8Gi9RfzdT7hPyuSzSu461bkq+AStq2FrDQ==;EndpointSuffix=core.windows.net";
+            string _containerName = "workoutjson";
+            string jsonContent = "";
+
+            List<WorkoutType> workoutTypes = new List<WorkoutType>();
+
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_storageConnectionString);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
+            BlobClient blobClient = containerClient.GetBlobClient("workoutTypes.json");
+
+            // Download the JSON file content
+            BlobDownloadInfo download = await blobClient.DownloadAsync();
+
+            // Read the content as a string
+            using (StreamReader reader = new StreamReader(download.Content, Encoding.UTF8))
+            {
+                jsonContent = await reader.ReadToEndAsync();
+                workoutTypes = JsonConvert.DeserializeObject<List<WorkoutType>>(jsonContent);
+            }
+
+            return workoutTypes;
+        }
+
     }
 }
