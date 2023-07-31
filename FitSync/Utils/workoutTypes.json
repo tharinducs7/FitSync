@@ -90,36 +90,6 @@
     ]
   },
   {
-    "WorkoutKey": "jumping_jacks",
-    "WorkoutName": "Jumping Jacks",
-    "WeightCategories": [
-      {
-        "WeightRangeKey": "under_70_kg",
-        "WeightRange": "Under 70 kg",
-        "CaloriesBurnedPerMinute": {
-          "Min": 8.1,
-          "Max": 10.7
-        }
-      },
-      {
-        "WeightRangeKey": "70_90_kg",
-        "WeightRange": "70-90 kg",
-        "CaloriesBurnedPerMinute": {
-          "Min": 9.4,
-          "Max": 12.5
-        }
-      },
-      {
-        "WeightRangeKey": "over_90_kg",
-        "WeightRange": "Over 90 kg",
-        "CaloriesBurnedPerMinute": {
-          "Min": 10.7,
-          "Max": 14.2
-        }
-      }
-    ]
-  },
-  {
     "WorkoutKey": "weightlifting",
     "WorkoutName": "Weightlifting",
     "WeightCategories": [

@@ -1,0 +1,42 @@
+[
+  {
+    "Meal": "Cheeseburger",
+    "Quantity": "1 burger",
+    "Calories": 600
+  },
+  {
+    "Meal": "Pizza",
+    "Quantity": "1 slice",
+    "Calories": 400
+  },
+  {
+    "Meal": "Ice Cream Sundae",
+    "Quantity": "1 cup",
+    "Calories": 800
+  },
+  {
+    "Meal": "Fried Chicken",
+    "Quantity": "1 piece",
+    "Calories": 500
+  },
+  {
+    "Meal": "Cookie",
+    "Quantity": "1 cookie",
+    "Calories": 200
+  },
+  {
+    "Meal": "French Fries",
+    "Quantity": "1 serving",
+    "Calories": 350
+  },
+  {
+    "Meal": "Milkshake",
+    "Quantity": "1 glass",
+    "Calories": 500
+  },
+  {
+    "Meal": "Donut",
+    "Quantity": "1 donut",
+    "Calories": 250
+  }
+]

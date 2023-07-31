@@ -1,0 +1,77 @@
+﻿@model FitSync.Models.CheatMealLog
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/CheatMealLog/Index">Cheat Meal Log</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Delete Cheat Meal Log</a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card bg-light plan-list">
+                <div class="card-header">
+                    <h5 class="card-title">Delete Activity</h5>
+                    <div class="float-right">
+                        <!-- Added float-right class here -->
+                        <a href="/CheatMealLog/Index" class="btn btn-rounded btn-warning btn-xs">
+                            <span class="btn-icon-left text-info">
+                                <i class="fa fa-arrow-left color-info"></i>
+                            </span>Back
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body mb-0">
+
+                    <div class="d-flex px-3 pt-3 list-row flex-wrap align-items-center mb-2 bg-white">
+                        <div class="list-icon mr-3 mb-3">
+                            <p class="fs-24 text-black mb-0 mt-2">@Model.RecordDate.Day</p>
+                            <span class="fs-14 text-black"> @Model.RecordDate.ToString("ddd")</span>
+                        </div>
+                        <div class="info mb-3">
+                            <h4 class="fs-20 "> @Model.Meal</h4>
+                            <span class="text-primary font-w600">@Model.Qty Qty</span>
+                            <span class="pl-3 pr-3"> @Model.Calories Cal</span>
+                        </div>
+
+                        <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
+                            <span class="activity-icon border border-info border-2 mr-3">
+                                <img src="~/Assets/cheatMeals/@(Model.Meal).svg" alt="SVG" width="24" height="24" />
+                            </span>
+                            <div>
+                                <span class="text-primary ml-2">
+                                    <i class="fa fa-fire"></i>
+                                    @{
+                                        double totalCalories = Model.Qty * Model.Calories;
+                                    } @totalCalories
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12 align-items-right">
+                            <div class="float-right">
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit" class="btn btn-rounded btn-danger" onclick="return confirm('Are you sure you want to delete this workout activity?');">
+                                        <span class="btn-icon-left text-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </span>Delete
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

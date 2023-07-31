@@ -1,0 +1,92 @@
+﻿@model FitSync.Models.CheatMealLog
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container-fluid">
+    <div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/CheatMealLog/Index">Cheat Meal Logs</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create</a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Cheat Meal Logs</h4>
+                    <div class="float-right">
+                        <!-- Added float-right class here -->
+                        <a href="/CheatMealLog" class="btn btn-rounded btn-warning btn-xs">
+                            <span class="btn-icon-left text-info">
+                                <i class="fa fa-arrow-left color-info"></i>
+                            </span>Back
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label-sm">Workout Type</label>
+                                    <select class="form-control form-control-sm" id="MealSelect" name="Meal" required>
+                                        @foreach (var cheatMealType in ViewBag.CheatMealTypes)
+                                        {
+                                            <option value="@cheatMealType.Meal">@cheatMealType.Meal</option>
+                                        }
+                                    </select>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.Meal, "", new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label-sm">Date</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        @Html.EditorFor(model => model.RecordDate, new { htmlAttributes = new { @class = "form-control", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
+                                    </div>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.RecordDate, "", new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label-sm">Qty</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                                    </div>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label-sm">Note</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12 align-items-right">
+                                    <div class="float-right">
+                                        <!-- Added float-right class here -->
+                                        <button type="submit" class="btn btn-rounded btn-primary">
+                                            <span class="btn-icon-left text-primary">
+                                                <i class="fa fa-save"></i>
+                                            </span>Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

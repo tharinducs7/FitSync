@@ -8,8 +8,8 @@
 <div class="container-fluid">
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Components</a></li>
+            <li class="breadcrumb-item"><a href="/WorkoutActivity/Index">Workout Activity</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Delete Workout</a></li>
         </ol>
     </div>
     <div class="row">
@@ -19,7 +19,7 @@
                     <h5 class="card-title">Delete Activity</h5>
                     <div class="float-right">
                         <!-- Added float-right class here -->
-                        <a href="/WorkoutActivity" class="btn btn-rounded btn-warning btn-xs">
+                        <a href="/WorkoutActivity/Index" class="btn btn-rounded btn-warning btn-xs">
                             <span class="btn-icon-left text-info">
                                 <i class="fa fa-arrow-left color-info"></i>
                             </span>Back
@@ -37,7 +37,6 @@
                             <h4 class="fs-20 "><a href="workout-statistic.html" class="text-black"> Cycling </a></h4>
                             <span class="text-primary font-w600">FINISHED</span><span class="pl-3 pr-3">34Km</span>
                             <span> @Model.DurationInMinutes </span>
-                            @*<small>@item.DateTime.ToString("dd/MMM/yyyy")</small>*@
                         </div>
                         <div class="d-flex mb-3 mr-auto pl-3 pr-3 align-items-center">
                             <img src="~/Assets/icons/workouts/@(Model.WorkoutType).svg" alt="SVG" />

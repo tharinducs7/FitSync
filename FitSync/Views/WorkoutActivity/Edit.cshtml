@@ -8,8 +8,8 @@
 <div class="container-fluid">
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Components</a></li>
+            <li class="breadcrumb-item"><a href="/WorkoutActivity/Index">Workout Activity</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Workout</a></li>
         </ol>
     </div>
     <div class="row">
@@ -19,7 +19,7 @@
                     <h4 class="card-title">Workout Activity</h4>
                     <div class="float-right">
                         <!-- Added float-right class here -->
-                        <a href="/WorkoutActivity" class="btn btn-rounded btn-warning btn-xs">
+                        <a href="/WorkoutActivity/Index" class="btn btn-rounded btn-warning btn-xs">
                             <span class="btn-icon-left text-info">
                                 <i class="fa fa-arrow-left color-info"></i>
                             </span>Back
@@ -37,18 +37,34 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Workout Type</label>
-                                    <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType">
-                                        <option value="cycling" @(Model.WorkoutType == "cycling" ? "selected" : "")>Cycling</option>
-                                        <option value="yoga" @(Model.WorkoutType == "yoga" ? "selected" : "")>Yoga</option>
-                                        <!-- Add more options for different workout types -->
+                                    <select class="form-control form-control-sm" id="workoutTypeSelect" name="WorkoutType" required>
+                                        @foreach (var workoutType in ViewBag.WorkoutTypes)
+                                        {
+                                            <option value="@workoutType.WorkoutKey" @(Model.WorkoutType == @workoutType.WorkoutName ? "selected" : "")>@workoutType.WorkoutName</option>
+                                        }
                                     </select>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.WorkoutType, "", new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label-sm">Date</label>
+                                    <div class="input-group input-group-sm">
+                                        @Html.EditorFor(model => model.DateTime, new { htmlAttributes = new { @class = "form-control", type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
+                                    </div>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.DateTime, "", new { @class = "text-danger" })</small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label-sm">Duration In Minutes</label>
-                                    <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group input-group-sm">
                                         @Html.EditorFor(model => model.DurationInMinutes, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                     <small class="d-block">@Html.ValidationMessageFor(model => model.DurationInMinutes, "", new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="form-group col-md-6" id="distanceContainer" style="display: none;">
+                                    <label class="col-form-label-sm">Distance in KM</label>
+                                    <div class="input-group input-group-sm">
+                                        @Html.EditorFor(model => model.DistanceInKm, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <small class="d-block">@Html.ValidationMessageFor(model => model.DistanceInKm, "", new { @class = "text-danger" })</small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,6 +89,34 @@
 </div>
 
 @section Scripts {
-    
+
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    $(document).ready(function () {
+        // Get the initial selected value
+        var selectedWorkoutType = $("#workoutTypeSelect").val();
+        // Check if the initial selected value requires showing the distance field
+        checkWorkoutType(selectedWorkoutType);
+
+        // Event handler for the change event of the dropdown
+        $("#workoutTypeSelect").change(function () {
+            var selectedValue = $(this).val();
+            // Call the function to show/hide the distance field based on the selected value
+            checkWorkoutType(selectedValue);
+        });
+
+        // Function to show/hide the distance field based on the selected value
+        function checkWorkoutType(selectedValue) {
+            // Reset the distance field and hide the container
+            $("#distanceContainer").hide();
+
+            // Check if the selected value requires showing the distance field
+            if (selectedValue === "running" || selectedValue === "cycling" || selectedValue === "walking" || selectedValue === "swimming") {
+                // Show the distance container
+                $("#distanceContainer").show();
+            }
+        }
+    });
+    </script>
 }

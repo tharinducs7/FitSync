@@ -1,171 +1,160 @@
-﻿using FitSync.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using FitSync.Attributes;
+using FitSync.DataAccessLayer;
+using FitSync.Models;
 using Newtonsoft.Json;
 
 namespace FitSync.Controllers
 {
     public class WorkoutActivityController : Controller
     {
+        private readonly WorkoutActivityDAL _workoutActivityDAL;
+
+        public WorkoutActivityController()
+        {
+            _workoutActivityDAL = new WorkoutActivityDAL();
+        }
+
+        [CustomAuthorize]
         // GET: WorkoutActivity
         public ActionResult Index()
         {
-            // Retrieve all workout activities from memory storage
-            List<WorkoutActivity> workoutActivities = MemoryStore.GetWorkoutActivities();
-
+            // Retrieve all workout activities from database using DAL
+            List <WorkoutActivity> workoutActivities = _workoutActivityDAL.GetAllWorkoutActivities();
+          
             return View(workoutActivities);
         }
 
+        [CustomAuthorize]
         // GET: WorkoutActivity/Details/5
         public ActionResult Details(int id)
         {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
-
-            if (workoutActivity == null)
-            {
-                return HttpNotFound();
-            }
-
+            WorkoutActivity workoutActivity = _workoutActivityDAL.GetWorkoutActivityById(id);
             return View(workoutActivity);
         }
 
+        [CustomAuthorize]
         // GET: WorkoutActivity/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            // Read the workoutTypes.json file
-            string jsonFilePath = HttpContext.Server.MapPath("~/Utils/workoutTypes.json");
-            string jsonData = System.IO.File.ReadAllText(jsonFilePath);
-
-            // Deserialize the JSON data into a list of WorkoutType objects
-            List<WorkoutType> workoutTypes = JsonConvert.DeserializeObject<List<WorkoutType>>(jsonData);
-
             // Pass the workoutTypes to the create view
-            ViewBag.WorkoutTypes = workoutTypes;
-
+            ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
             return View();
         }
 
         // POST: WorkoutActivity/Create
+        [CustomAuthorize]
         [HttpPost]
-        public ActionResult Create(WorkoutActivity workoutActivity)
+        public async Task<ActionResult> Create(WorkoutActivity workoutActivity)
         {
             try
             {
-                DateTime today = DateTime.Today;
-                string formattedDate = today.ToString("yyyy-MM-dd");
+                string userId = MemoryStore.GetUserProfile()?.UserId;
+                workoutActivity.UserId = userId;
 
-                DateTime dateTime = DateTime.Parse(formattedDate);
-                // Assign a new unique ID to the workout activity
-                workoutActivity.Id = GetNextId();
-                workoutActivity.UserWeight = 60;
-                workoutActivity.UserId = 1;
-                workoutActivity.CaloriesBurnedPerMinute = 2;
-                workoutActivity.DateTime = dateTime;
+                // Use the DAL to create a new workout activity
+                bool success = await _workoutActivityDAL.CreateWorkoutActivity(workoutActivity);
 
-                // Add the workout activity to memory storage
-                MemoryStore.AddWorkoutActivity(workoutActivity);
+                if (success)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
 
-                return RedirectToAction("Index");
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
+                return View();
             }
             catch
             {
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
         }
 
         // GET: WorkoutActivity/Edit/5
-        public ActionResult Edit(int id)
+        [CustomAuthorize]
+        public async Task<ActionResult> Edit(int id)
         {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
-
-            if (workoutActivity == null)
+            try
             {
-                return HttpNotFound();
+                WorkoutActivity workoutActivity = _workoutActivityDAL.GetWorkoutActivityById(id);
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
+                return View(workoutActivity);
             }
-
-            return View(workoutActivity);
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
         // POST: WorkoutActivity/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, WorkoutActivity updatedWorkoutActivity)
+        [CustomAuthorize]
+        public async Task<ActionResult> Edit(int id, WorkoutActivity updatedWorkoutActivity)
         {
             try
             {
-                // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
+                // Update the workout activity using DAL
+                bool success = await _workoutActivityDAL.UpdateWorkoutActivity(id, updatedWorkoutActivity);
 
-                if (workoutActivity == null)
+                if (success)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index", new { done = true });
                 }
-
-                // Update the properties of the workout activity with the values from the updatedWorkoutActivity
-                workoutActivity.WorkoutType = updatedWorkoutActivity.WorkoutType;
-                workoutActivity.DurationInMinutes = updatedWorkoutActivity.DurationInMinutes;
-
-                return RedirectToAction("Index");
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
+                return View();
             }
             catch
             {
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
                 return View();
             }
         }
 
         // GET: WorkoutActivity/Delete/5
-        public ActionResult Delete(int id)
-        {
-            // Retrieve a specific workout activity from memory storage based on the provided ID
-            WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
-
-            if (workoutActivity == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(workoutActivity);
-        }
-
-        // POST: WorkoutActivity/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [CustomAuthorize]
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                // Retrieve the existing workout activity from memory storage based on the provided ID
-                WorkoutActivity workoutActivity = MemoryStore.GetWorkoutActivities().FirstOrDefault(w => w.Id == id);
-
-                if (workoutActivity == null)
-                {
-                    return HttpNotFound();
-                }
-
-                // Remove the workout activity from memory storage
-                MemoryStore.GetWorkoutActivities().Remove(workoutActivity);
-
-                return RedirectToAction("Index");
+                WorkoutActivity workoutActivity = _workoutActivityDAL.GetWorkoutActivityById(id);
+                ViewBag.WorkoutTypes = await _workoutActivityDAL.LoadWorkoutTypesAsync();
+                return View(workoutActivity);
             }
-            catch
+            catch (Exception)
             {
                 return View();
             }
         }
 
-        // Helper method to generate the next ID for a new workout activity
-        private int GetNextId()
+        // POST: WorkoutActivity/Delete/5
+        [HttpPost]
+        [CustomAuthorize]
+        public ActionResult Delete(int id, FormCollection collection)
         {
-            List<WorkoutActivity> workoutActivities = MemoryStore.GetWorkoutActivities();
-
-            if (workoutActivities.Count == 0)
+            try
             {
-                return 1;
-            }
+                // Delete the workout activity using DAL
+                bool success = _workoutActivityDAL.DeleteWorkoutActivity(id);
 
-            return workoutActivities.Max(w => w.Id) + 1;
+                if (success)
+                {
+                    return RedirectToAction("Index", new { done = true });
+                }
+
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
